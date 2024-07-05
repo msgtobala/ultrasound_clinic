@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "400364342771",
+    "project_id": "ultrasonic-clinic",
+    "storage_bucket": "ultrasonic-clinic.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:400364342771:android:95ebbfdcd2dfdea5135686",
+        "android_client_info": {
+          "package_name": "com.ultrasonic.clinic"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAd1AIJkDOZYK_XaOKfTCLhMMaaOoeOgMs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
