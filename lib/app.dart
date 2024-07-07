@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'package:responsive_sizer/responsive_sizer.dart';
+
 import 'package:ultrasound_clinic/core/services/http/http_base.dart';
+import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/routes/routes.dart';
 import 'package:ultrasound_clinic/themes/themes.dart';
 
@@ -10,11 +13,15 @@ class UltraSoundClinicApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     HttpBase().setBaseUrl('https://jsonplaceholder.typicode.com');
-    return MaterialApp(
-      title: 'UltraSound Clinic',
-      theme: Themes.buildLightTheme(),
-      initialRoute: Routes.initialRoute,
-      routes: Routes.buildRoutes,
+    return ResponsiveSizer(
+      builder: (context, orientation, screenType) {
+        return MaterialApp(
+          title: Strings.appName,
+          theme: Themes.buildLightTheme(context),
+          initialRoute: Routes.initialRoute,
+          routes: Routes.buildRoutes,
+        );
+      },
     );
   }
 }
