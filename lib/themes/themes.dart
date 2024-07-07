@@ -1,28 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:ultrasound_clinic/themes/colors.dart';
+import 'package:ultrasound_clinic/themes/fonts.dart';
 
 class Themes {
   Themes._();
-
-  static final ThemeData baseTheme = ThemeData.light();
 
   static AppBarTheme _buildAppBarTheme() {
     return const AppBarTheme(elevation: 0);
   }
 
-  static TextTheme _buildLightTextTheme() {
-    return baseTheme.textTheme;
-  }
-
-  static ThemeData buildLightTheme() {
+  static ThemeData buildLightTheme(BuildContext context) {
     return ThemeData(
       useMaterial3: true,
-      fontFamily: 'Roboto',
+      fontFamily: ThemeFonts.poppins,
       appBarTheme: _buildAppBarTheme(),
-      textTheme: _buildLightTextTheme(),
-      // scaffoldBackgroundColor: AppColors.catskillWhite,
-      // primaryColor: AppColors.carbonBlack,
-      // colorScheme:
-      //     ColorScheme.fromSwatch().copyWith(secondary: AppColors.carbonGrey),
+      textTheme: ThemeFonts.buildLightTextTheme(context),
+      scaffoldBackgroundColor: ThemeColors.white,
+      primaryColor: ThemeColors.primary,
     );
   }
 }

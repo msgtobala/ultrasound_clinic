@@ -344,6 +344,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.1"
+  pigment:
+    dependency: "direct main"
+    description:
+      name: pigment
+      sha256: b8c56059e21ecb9379a304c78a4f20e399d41e54384a7f64de21103b4b5c38dd
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.4"
   platform:
     dependency: transitive
     description:
@@ -360,6 +368,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.8"
+  responsive_sizer:
+    dependency: "direct main"
+    description:
+      name: responsive_sizer
+      sha256: "6aefee6065c0883681bc7559147a24d8fa1846d296a216abcda25ff349340712"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.3.1"
   rxdart:
     dependency: transitive
     description:

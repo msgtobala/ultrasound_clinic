@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ultrasound_clinic/screens/home.dart';
 
-import 'package:ultrasound_clinic/screens/login.dart';
+import 'package:ultrasound_clinic/screens/login_screen.dart';
 
 class Routes {
   const Routes._();
