@@ -13,4 +13,27 @@ class Strings {
   static const String enterYourPassword = 'Enter your password';
   static const String forgetYourPassword = 'Forget your password?';
   static const String login = 'Login';
+  static const String alreadyHaveAnAccount = 'Already have an account ?  ';
+  static const String loginNow = 'Login now';
+  static const String orRegisterWithSocialAccount =
+      'Or register with your social account';
+  static const String fullName = 'Full name';
+  static const String email = 'Email';
+  static const String mobileNumber = 'Mobile number';
+  static const String selectYourRole = 'Please select your role';
+  static const String patient = 'Patient';
+  static const String clinic = 'Clinic';
+  static const String password = 'Password';
+  static const String confirmPassword = 'Confirm password';
+  static const String iAgreeWithThe = 'I agree with the ';
+  static const String termsAndConditions = 'terms & conditions';
+  static const String register = 'Register';
+  static const String verify = 'Verify';
+  static const String didNotRecieveCode = 'Didn\'t receive code? ';
+  static const String resend = 'Resend';
+  static const String signupSucessful = 'Sign Up Sucessful!';
+  static const String redirectingText =
+      'You will be redirected to then landing page in 5 second automatically';
+  static const String submit = 'Submit';
+  static const String code = 'Code';
 }
