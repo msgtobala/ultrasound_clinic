@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'package:ultrasound_clinic/screens/login_screen.dart';
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
+import 'package:ultrasound_clinic/screens/setting_screen.dart';
 
 class InitScreen extends StatefulWidget {
   const InitScreen({super.key});
@@ -43,7 +44,8 @@ class _InitScreenState extends State<InitScreen> {
               ),
             );
           } else {
-            return const LoginScreen();
+            // return const LoginScreen();
+            return const ClinicManagementScreen();
           }
         }
       },
