@@ -1,22 +1,30 @@
 import 'package:flutter/material.dart';
 
-import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:ultrasound_clinic/themes/fonts.dart';
 
 class FormInput extends StatelessWidget {
-  const FormInput({super.key, required this.text});
+  const FormInput({
+    super.key,
+    required this.text,
+    this.obscureText = false,
+    this.onSaved,
+  });
 
   final String text;
+  final bool? obscureText;
+  final void Function(String?)? onSaved;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      obscureText: obscureText ?? false,
+      onSaved: onSaved,
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(50.0),
         ),
         label: Padding(
-          padding: EdgeInsets.all(8.0.px),
+          padding: const EdgeInsets.all(8.0),
           child: Text(text),
         ),
         labelStyle: Theme.of(context).textTheme.displayMediumGray,

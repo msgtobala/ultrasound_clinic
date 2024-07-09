@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+
 import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/screens/clinic_code_screen.dart';
 import 'package:ultrasound_clinic/themes/colors.dart';
@@ -44,7 +44,7 @@ class _OtpFormInputState extends State<OtpFormInput> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10.px, horizontal: 20.px),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: Column(
         children: [
           Row(
@@ -54,11 +54,11 @@ class _OtpFormInputState extends State<OtpFormInput> {
               (index) {
                 return Container(
                   margin: const EdgeInsets.all(4),
-                  width: 55.px,
-                  height: 55.px,
+                  width: 55,
+                  height: 55,
                   decoration: BoxDecoration(
                     border: Border.all(color: ThemeColors.black),
-                    borderRadius: BorderRadius.circular(10.px),
+                    borderRadius: BorderRadius.circular(10),
                   ),
                   child: TextField(
                     controller: _controllers[index],
@@ -88,9 +88,7 @@ class _OtpFormInputState extends State<OtpFormInput> {
               },
             ),
           ),
-          SizedBox(
-            height: 30.px,
-          ),
+          const SizedBox(height: 30),
           CustomElevatedButton(
             text: Strings.verify,
             onPressed: () {

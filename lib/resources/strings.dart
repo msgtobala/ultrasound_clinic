@@ -3,8 +3,10 @@ class Strings {
 
   static const String appName = 'UltraSound Clinic';
   static const String signIn = 'Sign in';
+  static const String signUp = 'Sign Up';
   static const String enterSignInDetails =
       'Enter your user name and password to login!';
+  static const String enterSignUpDetails = 'Enter your details to register';
   static const String haveAnAccount = 'Don\'t have an account ?';
   static const String registerNow = 'Register now';
   static const String orLoginWithSocialAccount =
@@ -29,9 +31,9 @@ class Strings {
   static const String termsAndConditions = 'terms & conditions';
   static const String register = 'Register';
   static const String verify = 'Verify';
-  static const String didNotRecieveCode = 'Didn\'t receive code? ';
+  static const String didNotReceiveCode = 'Didn\'t receive code? ';
   static const String resend = 'Resend';
-  static const String signupSucessful = 'Sign Up Sucessful!';
+  static const String signupSuccessful = 'Sign Up Successful!';
   static const String redirectingText =
       'You will be redirected to then landing page in 5 second automatically';
   static const String submit = 'Submit';

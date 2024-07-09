@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-
-import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:provider/provider.dart';
 
 import 'package:ultrasound_clinic/core/services/http/http_base.dart';
+import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/routes/routes.dart';
 import 'package:ultrasound_clinic/themes/themes.dart';
@@ -13,62 +13,22 @@ class UltraSoundClinicApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     HttpBase().setBaseUrl('https://jsonplaceholder.typicode.com');
-    return ResponsiveSizer(
-      builder: (context, orientation, screenType) {
-        return MaterialApp(
-          title: Strings.appName,
-          theme: Themes.buildLightTheme(context),
-          initialRoute: Routes.initialRoute,
-          routes: Routes.buildRoutes,
-        );
-      },
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+    return ChangeNotifierProvider(
+      create: (_) => AuthProvider(),
+      child: MaterialApp(
+        title: Strings.appName,
+        theme: Themes.buildLightTheme(context),
+        initialRoute: Routes.initialRoute,
+        routes: Routes.buildRoutes,
+        onUnknownRoute: Routes.unknownRoute,
       ),
     );
+    // return StreamProvider<User?>.value(
+    //   value: FirebaseAuthService().user,
+    //   initialData: null,
+    //   child: const MaterialApp(
+    //     home: AuthWrapper(),
+    //   ),
+    // );
   }
 }

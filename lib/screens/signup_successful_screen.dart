@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'package:responsive_sizer/responsive_sizer.dart';
-
+import 'package:ultrasound_clinic/resources/images.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
 
-class SignupSucessfullScreen extends StatelessWidget {
-  const SignupSucessfullScreen({super.key});
+class SignupSuccessFulScreen extends StatelessWidget {
+  const SignupSuccessFulScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +15,10 @@ class SignupSucessfullScreen extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   width: double.infinity,
-                  height: 320.px,
-                  child: const Stack(
+                  height: 320,
+                  child: Stack(
                     children: [
                       // Image.asset('placeholder'),
                       Column(
@@ -31,17 +30,13 @@ class SignupSucessfullScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                //Todo : badge
-                SizedBox(
-                  height: 20.px,
-                ),
+                Image.asset(Images.successBadge),
+                const SizedBox(height: 20),
                 Text(
-                  Strings.signupSucessful,
+                  Strings.signupSuccessful,
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
-                SizedBox(
-                  height: 10.px,
-                ),
+                const SizedBox(height: 10),
                 Text(
                   Strings.redirectingText,
                   textAlign: TextAlign.center,

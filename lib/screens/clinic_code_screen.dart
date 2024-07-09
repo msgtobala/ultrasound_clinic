@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:ultrasound_clinic/containers/clinic_code/clinic_code_container.dart';
 
 import 'package:ultrasound_clinic/resources/strings.dart';
@@ -10,15 +9,15 @@ class ClinicCodeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: SingleChildScrollView(
         child: Center(
           child: Column(
             children: [
               SizedBox(
                 width: double.infinity,
-                height: 320.px,
-                child: const Stack(
+                height: 320,
+                child: Stack(
                   children: [
                     // Image.asset('placeholder'),
                     Column(
@@ -30,7 +29,7 @@ class ClinicCodeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const ClinicCodeContainer()
+              ClinicCodeContainer(),
             ],
           ),
         ),

@@ -1,17 +1,21 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
-import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter/gestures.dart';
 
 import 'package:ultrasound_clinic/resources/strings.dart';
-import 'package:ultrasound_clinic/screens/otp_verification_screen.dart';
 import 'package:ultrasound_clinic/themes/colors.dart';
 import 'package:ultrasound_clinic/themes/fonts.dart';
 import 'package:ultrasound_clinic/widgets/common/custom_button.dart';
 import 'package:ultrasound_clinic/widgets/common/form_input.dart';
 
 class SignupFormWidget extends StatefulWidget {
-  const SignupFormWidget({super.key});
+  final void Function({
+    required BuildContext context,
+    required String userName,
+    required String email,
+    required String password,
+    required String role,
+  }) onSignup;
+  const SignupFormWidget({super.key, required this.onSignup});
 
   @override
   State<SignupFormWidget> createState() => _SignupFormWidgetState();
@@ -19,23 +23,57 @@ class SignupFormWidget extends StatefulWidget {
 
 class _SignupFormWidgetState extends State<SignupFormWidget> {
   final _formKey = GlobalKey<FormState>();
-  String? _role;
   bool _isTermsAccepted = false;
+  String _userName = '';
+  String _userEmail = '';
+  String _userPassword = '';
+  String? _role;
+
+  void _handleRoleChange(String? value) {
+    setState(() {
+      _role = value;
+    });
+  }
+
+  void _handleCheckBox(bool? value) {
+    setState(() {
+      _isTermsAccepted = value!;
+    });
+  }
+
+  void _handleSignup() {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState?.save();
+      widget.onSignup(
+        context: context,
+        userName: _userName,
+        email: _userEmail,
+        password: _userPassword,
+        role: _role!,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10.px, horizontal: 20.px),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: Form(
         key: _formKey,
         child: Column(
           children: [
-            const FormInput(text: Strings.fullName),
-            SizedBox(height: 20.px),
-            const FormInput(text: Strings.email),
-            SizedBox(height: 20.px),
+            FormInput(
+              text: Strings.fullName,
+              onSaved: (value) => {_userName = value!},
+            ),
+            const SizedBox(height: 20),
+            FormInput(
+              text: Strings.email,
+              onSaved: (value) => {_userEmail = value!},
+            ),
+            const SizedBox(height: 20),
             const FormInput(text: Strings.mobileNumber),
-            SizedBox(height: 20.px),
+            const SizedBox(height: 20),
             Row(
               children: [
                 Container(
@@ -47,7 +85,7 @@ class _SignupFormWidgetState extends State<SignupFormWidget> {
                 ),
               ],
             ),
-            SizedBox(height: 16.px),
+            const SizedBox(height: 16),
             Row(
               children: [
                 Expanded(
@@ -61,12 +99,7 @@ class _SignupFormWidgetState extends State<SignupFormWidget> {
                     groupValue: _role,
                     contentPadding: EdgeInsets.zero,
                     activeColor: ThemeColors.black,
-                    onChanged: (value) {
-                      print(value);
-                      setState(() {
-                        _role = value;
-                      });
-                    },
+                    onChanged: _handleRoleChange,
                   ),
                 ),
                 Expanded(
@@ -80,35 +113,27 @@ class _SignupFormWidgetState extends State<SignupFormWidget> {
                     groupValue: _role,
                     activeColor: ThemeColors.black,
                     contentPadding: EdgeInsets.zero,
-                    onChanged: (value) {
-                      print(value);
-                      setState(() {
-                        _role = value;
-                      });
-                    },
+                    onChanged: _handleRoleChange,
                   ),
                 ),
               ],
             ),
-            const FormInput(text: Strings.password),
-            SizedBox(
-              height: 20.px,
+            FormInput(
+              text: Strings.password,
+              onSaved: (value) => {_userPassword = value!},
             ),
-            const FormInput(text: Strings.confirmPassword),
-            SizedBox(
-              height: 20.px,
+            const SizedBox(height: 20),
+            const FormInput(
+              text: Strings.confirmPassword,
+              obscureText: true,
             ),
+            const SizedBox(height: 20),
             Row(
               children: [
                 Checkbox(
                   value: _isTermsAccepted,
                   activeColor: ThemeColors.black,
-                  onChanged: (value) {
-                    print(value);
-                    setState(() {
-                      _isTermsAccepted = value!;
-                    });
-                  },
+                  onChanged: _handleCheckBox,
                 ),
                 Flexible(
                   child: RichText(
@@ -122,10 +147,7 @@ class _SignupFormWidgetState extends State<SignupFormWidget> {
                         TextSpan(
                           text: Strings.termsAndConditions,
                           style: Theme.of(context).textTheme.bodyMediumPrimary,
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              print("Test");
-                            },
+                          recognizer: TapGestureRecognizer()..onTap = () {},
                         )
                       ],
                     ),
@@ -133,17 +155,12 @@ class _SignupFormWidgetState extends State<SignupFormWidget> {
                 )
               ],
             ),
-            SizedBox(
-              height: 20.px,
-            ),
+            const SizedBox(height: 20),
             SizedBox(
               width: double.infinity,
               child: CustomElevatedButton(
                 text: Strings.register,
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (ctx) => const OtpVerificationScreen()));
-                },
+                onPressed: _handleSignup,
               ),
             ),
           ],

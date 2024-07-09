@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:responsive_sizer/responsive_sizer.dart';
-
 import 'package:ultrasound_clinic/themes/colors.dart';
 import 'package:ultrasound_clinic/themes/fonts.dart';
 
@@ -20,11 +18,11 @@ class CustomDivider extends StatelessWidget {
             indent: 20,
             endIndent: 0,
             thickness: 1.5,
-            height: 10.h,
+            height: 10,
           ),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.px),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Text(
             text,
             style: Theme.of(context).textTheme.bodySmallGray,
@@ -36,7 +34,7 @@ class CustomDivider extends StatelessWidget {
             indent: 0,
             endIndent: 18,
             thickness: 1.5,
-            height: 10.h,
+            height: 10,
           ),
         ),
       ],
