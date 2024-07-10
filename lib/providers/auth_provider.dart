@@ -69,7 +69,7 @@ class AuthProvider with ChangeNotifier {
       email: email,
       password: password,
     );
-    // print(userCredential);
+    // log.i(userCredential);
     // _checkUser();
   }
 

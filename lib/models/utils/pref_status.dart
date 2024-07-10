@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 ///
 ///  ```dart
 ///  PrefStatus res = PrefStatus({status: true, value: 'test'});
-///  print(res.status);
+///  log.i(res.status);
 ///  ```
 ///
 class PrefStatus {

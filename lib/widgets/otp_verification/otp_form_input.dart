@@ -24,7 +24,7 @@ class _OtpFormInputState extends State<OtpFormInput> {
       controller.addListener(() {
         if (controller.text.isEmpty) {
           // Handle the case when the text field is cleared
-          print('Text field cleared');
+          // print('Text field cleared');
         }
       });
     }

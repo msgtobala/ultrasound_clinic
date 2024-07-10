@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
+
 import 'package:ultrasound_clinic/resources/images.dart';
 import 'package:ultrasound_clinic/screens/home.dart';
 import 'package:ultrasound_clinic/screens/login_screen.dart';
@@ -24,16 +25,24 @@ class _InitScreenState extends State<InitScreen> {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
       authProvider.addListener(() {
         if (!authProvider.isLoading) {
+          if (authProvider.user == null) {
+            // Show landing screen
+            return;
+          }
           if (authProvider.user != null && authProvider.user!.emailVerified) {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => const HomeScreen()),
+              MaterialPageRoute(
+                builder: (context) => const HomeScreen(),
+              ),
             );
+            return;
           } else {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => const LoginScreen()),
             );
+            return;
           }
         }
       });
@@ -97,7 +106,7 @@ class _InitScreenState extends State<InitScreen> {
 //           );
 //         } else {
 //           if (authProvider.user != null && authProvider.user!.emailVerified) {
-//             print(authProvider.user!.uid);
+//             log.i(authProvider.user!.uid);
 //             return const Scaffold(
 //               body: Center(
 //                 child: Text('Home'),
