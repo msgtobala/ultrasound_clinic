@@ -98,6 +98,8 @@ extension ThemeExtension on TextTheme {
       bodyMedium!.copyWith(color: ThemeColors.white);
   TextStyle get bodyMediumBoldWhite => bodyMedium!
       .copyWith(fontWeight: FontWeight.w700, color: ThemeColors.white);
+  TextStyle get bodyMediumDanger =>
+      bodyMedium!.copyWith(color: ThemeColors.errorColor);
   TextStyle get bodySmallGray =>
       bodySmall!.copyWith(color: ThemeColors.gray200);
   TextStyle get bodySmallBlack => bodySmall!.copyWith(color: ThemeColors.black);

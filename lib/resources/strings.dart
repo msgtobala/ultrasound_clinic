@@ -2,6 +2,7 @@ class Strings {
   Strings._();
 
   static const String appName = 'UltraSound Clinic';
+  static const String landingQuote = 'Your Health, Your record, Your Control';
   static const String signIn = 'Sign in';
   static const String signUp = 'Sign Up';
   static const String enterSignInDetails =
@@ -38,4 +39,10 @@ class Strings {
       'You will be redirected to then landing page in 5 second automatically';
   static const String submit = 'Submit';
   static const String code = 'Code';
+  static const String manageDoctor = 'Manage doctor';
+  static const String manageStaff = 'Manage staff';
+  static const String usg = 'USG';
+  static const String changePassword = 'Change password';
+  static const String termsAndConditionsPascal = 'Terms and Conditions';
+  static const String logout = 'Logout';
 }

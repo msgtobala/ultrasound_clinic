@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:ultrasound_clinic/screens/init_screen.dart';
+import 'package:ultrasound_clinic/screens/landing_screen.dart';
 import 'package:ultrasound_clinic/screens/login_screen.dart';
+import 'package:ultrasound_clinic/screens/profile_screen.dart';
 import 'package:ultrasound_clinic/screens/signup_screen.dart';
 import 'package:ultrasound_clinic/screens/otp_verification_screen.dart';
 import 'package:ultrasound_clinic/screens/clinic_code_screen.dart';
@@ -21,9 +23,12 @@ class Routes {
   // clinic code
   static const String clinicCode = '/clinicCode';
 
+  //profile
+  static const String profile = '/profile';
+
   static Map<String, WidgetBuilder> get buildRoutes {
     return {
-      initScreen: (context) => const InitScreen(),
+      initScreen: (context) => const LandingScreen(),
       login: (context) => const LoginScreen(),
       signUp: (context) => const SignUpScreen(),
       verifyOTP: (context) => const OtpVerificationScreen(),
@@ -33,7 +38,7 @@ class Routes {
   }
 
   static String get initialRoute {
-    return Routes.initScreen;
+    return Routes.verifyOTP;
   }
 
   static Route<dynamic> unknownRoute(RouteSettings settings) {

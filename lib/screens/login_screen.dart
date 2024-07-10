@@ -13,7 +13,8 @@ class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   void _navigateToSignUpScreen(BuildContext context) {
-    Navigator.of(context).pushReplacementNamed(Routes.signUp);
+    // Navigator.of(context).pushReplacementNamed(Routes.signUp);
+    Navigator.of(context).pushReplacementNamed(Routes.verifyOTP);
   }
 
   @override
