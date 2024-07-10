@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:ultrasound_clinic/resources/strings.dart';
-import 'package:ultrasound_clinic/widgets/common/custom_button.dart';
+import 'package:ultrasound_clinic/widgets/common/custom_elevated_button.dart';
 import 'package:ultrasound_clinic/widgets/common/form_input.dart';
 
 class ClinicCodeForm extends StatefulWidget {

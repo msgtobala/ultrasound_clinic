@@ -38,11 +38,12 @@ class AuthProvider with ChangeNotifier {
     String userName,
     String email,
     String password,
+    String phone,
     String role,
   ) async {
     try {
       final credential = await FirebaseAuthService()
-          .signUpWithEmailAndPassword(userName, email, password, role);
+          .signUpWithEmailAndPassword(userName, email, password, phone, role);
       return AuthModel.success(
         userName: userName,
         email: email,
@@ -52,6 +53,7 @@ class AuthProvider with ChangeNotifier {
         userId: credential.user!.uid,
         phoneNumber: '',
         imageUrl: credential.user!.photoURL ?? '',
+        role: role,
       );
     } catch (e) {
       log.e(e);
@@ -74,6 +76,7 @@ class AuthProvider with ChangeNotifier {
   Future<void> signOut() async {
     _isLoading = true;
     notifyListeners();
+    // clear storage data also
     await FirebaseAuth.instance.signOut();
     _checkUser();
   }

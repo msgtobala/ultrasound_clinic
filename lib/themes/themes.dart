@@ -17,6 +17,10 @@ class Themes {
       textTheme: ThemeFonts.buildLightTextTheme(context),
       scaffoldBackgroundColor: ThemeColors.white,
       primaryColor: ThemeColors.primary,
+      colorScheme: ColorScheme.light(
+        primary: ThemeColors.primary,
+        secondary: ThemeColors.primary,
+      ),
     );
   }
 }

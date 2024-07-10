@@ -34,8 +34,16 @@ class Strings {
   static const String didNotReceiveCode = 'Didn\'t receive code? ';
   static const String resend = 'Resend';
   static const String signupSuccessful = 'Sign Up Successful!';
-  static const String redirectingText =
-      'You will be redirected to then landing page in 5 second automatically';
+  static const String redirectingTextStart =
+      'You will be redirected to then landing page in ';
+  static const String redirectingTextEnd = ' second automatically';
+  static const String redirectingOTPTextStart =
+      'You will be redirected to then landing page in ';
+  static const String redirectingOTPTextEnd = ' second automatically';
   static const String submit = 'Submit';
   static const String code = 'Code';
+  static const String otpVerification = 'OTP verification';
+  static const verifyOTPDescription =
+      'Enter the OTP we have just sent you on your phone number';
+  static const enterClinicCode = 'Enter clinic code';
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/screens/clinic_code_screen.dart';
 import 'package:ultrasound_clinic/themes/colors.dart';
-import 'package:ultrasound_clinic/widgets/common/custom_button.dart';
+import 'package:ultrasound_clinic/widgets/common/custom_elevated_button.dart';
 
 class OtpFormInput extends StatefulWidget {
   const OtpFormInput({super.key});

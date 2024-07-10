@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 
+import 'package:ultrasound_clinic/config/auth/user_role.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/themes/colors.dart';
 import 'package:ultrasound_clinic/themes/fonts.dart';
-import 'package:ultrasound_clinic/widgets/common/custom_button.dart';
+import 'package:ultrasound_clinic/widgets/common/custom_elevated_button.dart';
 import 'package:ultrasound_clinic/widgets/common/form_input.dart';
 
 class SignupFormWidget extends StatefulWidget {
@@ -12,10 +13,13 @@ class SignupFormWidget extends StatefulWidget {
     required BuildContext context,
     required String userName,
     required String email,
+    required String phone,
     required String password,
     required String role,
   }) onSignup;
-  const SignupFormWidget({super.key, required this.onSignup});
+  final bool? isLoading;
+
+  const SignupFormWidget({super.key, required this.onSignup, this.isLoading});
 
   @override
   State<SignupFormWidget> createState() => _SignupFormWidgetState();
@@ -27,6 +31,7 @@ class _SignupFormWidgetState extends State<SignupFormWidget> {
   String _userName = '';
   String _userEmail = '';
   String _userPassword = '';
+  String _phone = '';
   String? _role;
 
   void _handleRoleChange(String? value) {
@@ -48,6 +53,7 @@ class _SignupFormWidgetState extends State<SignupFormWidget> {
         context: context,
         userName: _userName,
         email: _userEmail,
+        phone: _phone,
         password: _userPassword,
         role: _role!,
       );
@@ -64,15 +70,21 @@ class _SignupFormWidgetState extends State<SignupFormWidget> {
           children: [
             FormInput(
               text: Strings.fullName,
+              keyboardType: TextInputType.name,
               onSaved: (value) => {_userName = value!},
             ),
             const SizedBox(height: 20),
             FormInput(
               text: Strings.email,
+              keyboardType: TextInputType.emailAddress,
               onSaved: (value) => {_userEmail = value!},
             ),
             const SizedBox(height: 20),
-            const FormInput(text: Strings.mobileNumber),
+            FormInput(
+              text: Strings.mobileNumber,
+              keyboardType: TextInputType.phone,
+              onSaved: (value) => {_phone = value!},
+            ),
             const SizedBox(height: 20),
             Row(
               children: [
@@ -85,46 +97,35 @@ class _SignupFormWidgetState extends State<SignupFormWidget> {
                 ),
               ],
             ),
-            const SizedBox(height: 16),
             Row(
-              children: [
-                Expanded(
+              children: userRoles.map((role) {
+                return Expanded(
                   child: RadioListTile(
                     title: Text(
-                      Strings.patient,
+                      role.roleName,
                       style:
                           Theme.of(context).textTheme.headlineSmallRegularGrey,
                     ),
-                    value: Strings.patient,
+                    value: role.roleConstant,
                     groupValue: _role,
                     contentPadding: EdgeInsets.zero,
+                    dense: false,
+                    visualDensity: const VisualDensity(horizontal: -4),
                     activeColor: ThemeColors.black,
                     onChanged: _handleRoleChange,
                   ),
-                ),
-                Expanded(
-                  child: RadioListTile(
-                    title: Text(
-                      Strings.clinic,
-                      style:
-                          Theme.of(context).textTheme.headlineSmallRegularGrey,
-                    ), //todo
-                    value: Strings.clinic,
-                    groupValue: _role,
-                    activeColor: ThemeColors.black,
-                    contentPadding: EdgeInsets.zero,
-                    onChanged: _handleRoleChange,
-                  ),
-                ),
-              ],
+                );
+              }).toList(),
             ),
             FormInput(
               text: Strings.password,
+              keyboardType: TextInputType.text,
               onSaved: (value) => {_userPassword = value!},
             ),
             const SizedBox(height: 20),
             const FormInput(
               text: Strings.confirmPassword,
+              keyboardType: TextInputType.text,
               obscureText: true,
             ),
             const SizedBox(height: 20),
@@ -161,6 +162,7 @@ class _SignupFormWidgetState extends State<SignupFormWidget> {
               child: CustomElevatedButton(
                 text: Strings.register,
                 onPressed: _handleSignup,
+                isLoading: widget.isLoading,
               ),
             ),
           ],

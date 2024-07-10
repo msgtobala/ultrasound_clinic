@@ -7,16 +7,19 @@ class FormInput extends StatelessWidget {
     super.key,
     required this.text,
     this.obscureText = false,
+    this.keyboardType,
     this.onSaved,
   });
 
   final String text;
   final bool? obscureText;
+  final TextInputType? keyboardType;
   final void Function(String?)? onSaved;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: keyboardType,
       obscureText: obscureText ?? false,
       onSaved: onSaved,
       decoration: InputDecoration(

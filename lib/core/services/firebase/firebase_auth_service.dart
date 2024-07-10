@@ -50,18 +50,21 @@ class FirebaseAuthService {
     String userName,
     String email,
     String password,
+    String phone,
     String role,
   ) async {
     try {
       // TODO(Balaji): what if user signs up with phone no?
       UserCredential userCredential = await _firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
-      await userCredential.user!
-          .sendEmailVerification(); // Send email verification
+      // await userCredential.user!
+      //     .sendEmailVerification(); // Send email verification
       // After successful signup, store additional user information in Firestore
       await _firestore.collection('users').doc(userCredential.user!.uid).set({
         'email': email,
         'role': role,
+        'phone': phone,
+        'clinics': ['XVL560'],
       });
       return userCredential;
     } catch (e) {

@@ -20,6 +20,7 @@ class AuthModel {
   final String imageUrl;
   final String phoneNumber;
   final AuthCredential? credential;
+  final String role;
 
   const AuthModel({
     required this.userId,
@@ -32,6 +33,7 @@ class AuthModel {
     required this.imageUrl,
     required this.phoneNumber,
     required this.credential,
+    required this.role,
   });
 
   /// Use [AuthModel.success()] named constructor when Authentication is success
@@ -50,6 +52,7 @@ class AuthModel {
     required String imageUrl,
     required String phoneNumber,
     required AuthCredential? credential,
+    required String role,
   }) : this(
           userId: userId,
           email: email,
@@ -61,6 +64,7 @@ class AuthModel {
           imageUrl: imageUrl,
           phoneNumber: phoneNumber,
           credential: credential,
+          role: role,
         );
 
   /// Use [AuthModel.error()] named constructor when Authentication is success
@@ -84,6 +88,7 @@ class AuthModel {
           imageUrl: '',
           phoneNumber: '',
           credential: null,
+          role: '',
         );
 
   /// Use [AuthModel.reset()] named constructor when Authentication is success
@@ -105,5 +110,6 @@ class AuthModel {
           imageUrl: '',
           phoneNumber: '',
           credential: null,
+          role: '',
         );
 }
