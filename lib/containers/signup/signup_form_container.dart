@@ -40,7 +40,7 @@ class _SignFormContainerState extends State<SignFormContainer> {
       final loggedInStatuses = await SharedPreferencesUtils().getMapPrefs(
         constants.loggedInStatusFlag,
       );
-      // 1. If not, then create a new object and add the flag as false for the user
+      // 2. If exist, the add the user flag to false in existing object
       if (loggedInStatuses.status) {
         final dynamic newLoggedStatus = {
           ...loggedInStatuses.value,
@@ -50,7 +50,7 @@ class _SignFormContainerState extends State<SignFormContainer> {
           constants.loggedInStatusFlag,
           newLoggedStatus,
         );
-        // 2. If exist, the add the user flag to false in existing object
+        // 2. If not, then create a new object and add the flag as false for the user
       } else {
         final dynamic newLoggedStatus = {
           response.userId: false,
