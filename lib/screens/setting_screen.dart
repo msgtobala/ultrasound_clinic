@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ultrasound_clinic/routes/routes.dart';
 import 'package:ultrasound_clinic/screens/edit_profile.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
+import 'package:ultrasound_clinic/screens/doctor_list.dart';
 
 class ClinicManagementScreen extends StatelessWidget {
   const ClinicManagementScreen({super.key});
@@ -71,7 +72,7 @@ class ClinicManagementScreen extends StatelessWidget {
         CustomListTile(
           icon: Icons.medical_services,
           title: 'Manage doctor',
-          onTap: () => Navigator.pushNamed(context, Routes.signUp),
+           onTap: () => Navigator.pushNamed(context, Routes.doctorSetting),
         ),
         CustomListTile(
           icon: Icons.people,

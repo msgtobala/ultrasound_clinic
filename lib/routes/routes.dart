@@ -7,6 +7,8 @@ import 'package:ultrasound_clinic/screens/otp_verification_screen.dart';
 import 'package:ultrasound_clinic/screens/clinic_code_screen.dart';
 import 'package:ultrasound_clinic/screens/signup_successful_screen.dart';
 import 'package:ultrasound_clinic/screens/setting_screen.dart';
+import 'package:ultrasound_clinic/screens/doctor_list.dart';
+import 'package:ultrasound_clinic/screens/add_doctor.dart';
 
 class Routes {
   const Routes._();
@@ -19,6 +21,8 @@ class Routes {
   static const String verifyOTP = '/verifyOTP';
   static const String signUpSuccess = '/signUpSuccess';
   static const String setting = '/setting';
+    static const String doctorSetting = '/doctorSetting';
+        static const String addDoctor = '/addDoctor';
 
   // clinic code
   static const String clinicCode = '/clinicCode';
@@ -32,6 +36,8 @@ class Routes {
       clinicCode: (context) => const ClinicCodeScreen(),
       signUpSuccess: (context) => const SignupSuccessFulScreen(),
       setting: (context) => const ClinicManagementScreen(),
+      doctorSetting: (context) => const DoctorListScreen(),
+      addDoctor: (context) => const AddDoctorScreen(),
     };
   }
 

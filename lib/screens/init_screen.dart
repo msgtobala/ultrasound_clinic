@@ -8,6 +8,8 @@ import 'package:ultrasound_clinic/screens/landing_screen.dart';
 import 'package:ultrasound_clinic/screens/login_screen.dart';
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/widgets/common/svg_loader.dart';
+import 'package:ultrasound_clinic/screens/doctor_list.dart';
+import 'package:ultrasound_clinic/screens/setting_screen.dart';
 
 class InitScreen extends StatefulWidget {
   const InitScreen({super.key});
@@ -47,9 +49,14 @@ class _InitScreenState extends State<InitScreen> {
             );
             return;
           } else {
+            // Navigator.pushReplacement(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => const LoginScreen()),
+            // );
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => const LoginScreen()),
+              MaterialPageRoute(
+                  builder: (context) => const ClinicManagementScreen()),
             );
             return;
           }
