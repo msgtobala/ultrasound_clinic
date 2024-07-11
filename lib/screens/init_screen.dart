@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'package:ultrasound_clinic/resources/images.dart';
 import 'package:ultrasound_clinic/screens/home.dart';
+import 'package:ultrasound_clinic/screens/landing_screen.dart';
 import 'package:ultrasound_clinic/screens/login_screen.dart';
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/widgets/common/svg_loader.dart';
@@ -24,9 +25,17 @@ class _InitScreenState extends State<InitScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
       authProvider.addListener(() {
+        // No user data -> user == null -> Landing screen
+        // User != null but but not email verified -> EmailVerification()
+        // User != null and email verified but not logged -> LoginScreen()
+        // User !== null and email verified and logged -> Load either clientApp() or PatientApp() based on role
         if (!authProvider.isLoading) {
           if (authProvider.user == null) {
-            // Show landing screen
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => const LandingScreen(),
+              ),
+            );
             return;
           }
           if (authProvider.user != null && authProvider.user!.emailVerified) {

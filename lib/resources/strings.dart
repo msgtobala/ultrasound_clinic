@@ -46,4 +46,5 @@ class Strings {
   static const verifyOTPDescription =
       'Enter the OTP we have just sent you on your phone number';
   static const enterClinicCode = 'Enter clinic code';
+  static const String landingQuote = 'Your Health, Your record, Your Control';
 }
