@@ -2,24 +2,32 @@ import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'package:ultrasound_clinic/constants/constants.dart';
 import 'package:ultrasound_clinic/core/services/firebase/firebase_auth_service.dart';
 import 'package:ultrasound_clinic/models/auth/auth_model.dart';
+import 'package:ultrasound_clinic/models/auth/user_model.dart';
 import 'package:ultrasound_clinic/utils/logger/logger.dart';
+import 'package:ultrasound_clinic/utils/shared_preference/shared_preference.dart';
 
 class AuthProvider with ChangeNotifier {
   User? _user;
   bool _isLoading = true;
+  UserModel? _currentUser;
+  bool _loggedInStatus = false;
+
   final log = CustomLogger.getLogger('AuthProvider');
 
   User? get user => _user;
   bool get isLoading => _isLoading;
+  UserModel? get userModel => _currentUser;
+  bool get loggedInStatus => _loggedInStatus;
 
   AuthProvider() {
     _delayUserCheck();
   }
 
   Future<void> _delayUserCheck() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
     _checkUser();
   }
 
@@ -28,6 +36,17 @@ class AuthProvider with ChangeNotifier {
     if (user != null) {
       await user.reload();
       final User? reloadedUser = FirebaseAuthService().currentUser;
+      final loggedInStatuses = await SharedPreferencesUtils().getMapPrefs(
+        constants.loggedInStatusFlag,
+      );
+      final loggedInStatus = loggedInStatuses.status
+          ? loggedInStatuses.value[user.uid] as bool
+          : false;
+      if (loggedInStatus) {
+        final loggedUser = await FirebaseAuthService().getUser(user.uid);
+        _currentUser = loggedUser;
+      }
+      _loggedInStatus = loggedInStatus;
       _user = reloadedUser;
     }
     _isLoading = false;
@@ -61,22 +80,44 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  Future<void> signIn(String email, String password) async {
-    _isLoading = true;
-    notifyListeners();
-    final userCredential =
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
-    // log.i(userCredential);
-    // _checkUser();
+  Future<AuthModel> signIn(String email, String password) async {
+    try {
+      final userCredential =
+          await FirebaseAuthService().signInWithEmailAndPassword(
+        email,
+        password,
+      );
+      if (userCredential.user != null) {
+        final loggedUser =
+            await FirebaseAuthService().getUser(userCredential.user!.uid);
+        _currentUser = loggedUser;
+        if (loggedUser.uid != '') {
+          return AuthModel.success(
+            userName: loggedUser.name,
+            email: email,
+            password: password,
+            credential: userCredential.credential,
+            isEmailVerified: userCredential.user!.emailVerified,
+            userId: userCredential.user!.uid,
+            phoneNumber: loggedUser.phone,
+            imageUrl: userCredential.user!.photoURL ?? '',
+            role: loggedUser.role,
+          );
+        }
+      }
+      // notifyListeners();
+      return AuthModel.error(message: 'An error occurred!');
+    } catch (e) {
+      log.i('Error fetching user: $e');
+      return AuthModel.error(message: 'An error occurred!');
+    }
   }
 
   Future<void> signOut() async {
     _isLoading = true;
+    _user = null;
+    _currentUser = null;
     notifyListeners();
-    // clear storage data also
     await FirebaseAuth.instance.signOut();
     _checkUser();
   }

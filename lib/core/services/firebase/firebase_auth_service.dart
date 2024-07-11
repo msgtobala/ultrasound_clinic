@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ultrasound_clinic/models/auth/user_model.dart';
+
 import 'package:ultrasound_clinic/utils/logger/logger.dart';
 
 class FirebaseAuthService {
@@ -40,7 +42,8 @@ class FirebaseAuthService {
         password: password,
       );
     } catch (e) {
-      log.i('Error signing in: $e');
+      // log.i('Error signing in: $e');
+      log.i(e);
       throw e;
     }
   }
@@ -57,10 +60,8 @@ class FirebaseAuthService {
       // TODO(Balaji): what if user signs up with phone no?
       UserCredential userCredential = await _firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
-      // await userCredential.user!
-      //     .sendEmailVerification(); // Send email verification
-      // After successful signup, store additional user information in Firestore
       await _firestore.collection('users').doc(userCredential.user!.uid).set({
+        'uid': userCredential.user!.uid,
         'email': email,
         'role': role,
         'phone': phone,
@@ -95,6 +96,22 @@ class FirebaseAuthService {
       }
     } catch (e) {
       log.i('Error fetching user role: $e');
+      throw e;
+    }
+  }
+
+  // Fetch user from Firebase
+  Future<UserModel> getUser(String uid) async {
+    try {
+      DocumentSnapshot doc =
+          await _firestore.collection('users').doc(uid).get();
+      if (doc.exists && doc.data() != null) {
+        return UserModel.fromMap(doc.data() as Map<String, dynamic>);
+      } else {
+        return UserModel.empty();
+      }
+    } catch (e) {
+      log.i('Error fetching user: $e');
       throw e;
     }
   }

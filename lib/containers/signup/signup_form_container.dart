@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
+import 'package:ultrasound_clinic/constants/constants.dart';
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/routes/routes.dart';
+import 'package:ultrasound_clinic/utils/shared_preference/shared_preference.dart';
 import 'package:ultrasound_clinic/widgets/signup/signup_form_widget.dart';
 
 class SignFormContainer extends StatefulWidget {
@@ -33,8 +35,34 @@ class _SignFormContainerState extends State<SignFormContainer> {
     setState(() {
       _isLoading = false;
     });
-    if (!response.error && context.mounted) {
-      Navigator.of(context).pushNamed(Routes.signUpSuccess);
+    // TODO(Balaji/Jagu) error handling to be done
+    if (!response.error) {
+      final loggedInStatuses = await SharedPreferencesUtils().getMapPrefs(
+        constants.loggedInStatusFlag,
+      );
+      // 1. If not, then create a new object and add the flag as false for the user
+      if (loggedInStatuses.status) {
+        final dynamic newLoggedStatus = {
+          ...loggedInStatuses.value,
+          response.userId: false,
+        };
+        await SharedPreferencesUtils().addMapPrefs(
+          constants.loggedInStatusFlag,
+          newLoggedStatus,
+        );
+        // 2. If exist, the add the user flag to false in existing object
+      } else {
+        final dynamic newLoggedStatus = {
+          response.userId: false,
+        };
+        await SharedPreferencesUtils().addMapPrefs(
+          constants.loggedInStatusFlag,
+          newLoggedStatus,
+        );
+      }
+      if (context.mounted) {
+        Navigator.of(context).pushNamed(Routes.signUpSuccess);
+      }
     }
   }
 
