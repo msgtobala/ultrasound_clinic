@@ -18,17 +18,8 @@ class UltraSoundClinicApp extends StatelessWidget {
       child: MaterialApp(
         title: Strings.appName,
         theme: Themes.buildLightTheme(context),
-        initialRoute: Routes.initialRoute,
-        routes: Routes.buildRoutes,
-        onUnknownRoute: Routes.unknownRoute,
+        home: Routes.initialScreen,
       ),
     );
-    // return StreamProvider<User?>.value(
-    //   value: FirebaseAuthService().user,
-    //   initialData: null,
-    //   child: const MaterialApp(
-    //     home: AuthWrapper(),
-    //   ),
-    // );
   }
 }

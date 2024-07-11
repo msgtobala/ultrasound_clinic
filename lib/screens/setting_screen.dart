@@ -72,27 +72,32 @@ class ClinicManagementScreen extends StatelessWidget {
         CustomListTile(
           icon: Icons.medical_services,
           title: 'Manage doctor',
-           onTap: () => Navigator.pushNamed(context, Routes.doctorSetting),
+          onTap: () => {},
+          // onTap: () => Navigator.pushNamed(context, Routes.doctorSetting),
         ),
         CustomListTile(
           icon: Icons.people,
           title: 'Manage staff',
-          onTap: () => Navigator.pushNamed(context, Routes.signUp),
+          onTap: () {},
+          // onTap: () => Navigator.pushNamed(context, Routes.signUp),
         ),
         CustomListTile(
           icon: Icons.description,
           title: 'USG',
-          onTap: () => Navigator.pushNamed(context, Routes.signUp),
+          onTap: () => {},
+          // onTap: () => Navigator.pushNamed(context, Routes.signUp),
         ),
         CustomListTile(
           icon: Icons.lock,
           title: 'Change password',
-          onTap: () => Navigator.pushNamed(context, Routes.signUp),
+          onTap: () => {},
+          // onTap: () => Navigator.pushNamed(context, Routes.signUp),
         ),
         CustomListTile(
           icon: Icons.description,
           title: 'Terms & Conditions',
-          onTap: () => Navigator.pushNamed(context, Routes.signUp),
+          onTap: () => {},
+          // onTap: () => Navigator.pushNamed(context, Routes.signUp),
         ),
       ],
     );

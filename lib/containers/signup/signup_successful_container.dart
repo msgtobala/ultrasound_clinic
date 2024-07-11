@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'package:ultrasound_clinic/core/services/firebase/firebase_auth_service.dart';
-import 'package:ultrasound_clinic/screens/login_screen.dart';
+import 'package:ultrasound_clinic/screens/auth/login_screen.dart';
 import 'package:ultrasound_clinic/widgets/signup/signup_successful_widget.dart';
 
 class SignUpSuccessfulContainer extends StatefulWidget {

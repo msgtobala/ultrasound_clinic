@@ -5,7 +5,7 @@ import 'package:ultrasound_clinic/containers/login/login_form_container.dart';
 import 'package:ultrasound_clinic/layout/base_layout.dart';
 import 'package:ultrasound_clinic/resources/images.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
-import 'package:ultrasound_clinic/routes/routes.dart';
+import 'package:ultrasound_clinic/screens/auth/signup_screen.dart';
 import 'package:ultrasound_clinic/themes/fonts.dart';
 import 'package:ultrasound_clinic/widgets/common/custom_divider.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
@@ -15,7 +15,11 @@ class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   void _navigateToSignUpScreen(BuildContext context) {
-    Navigator.of(context).pushReplacementNamed(Routes.signUp);
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => const SignUpScreen(),
+      ),
+    );
   }
 
   @override

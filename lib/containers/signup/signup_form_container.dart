@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:ultrasound_clinic/constants/constants.dart';
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/routes/routes.dart';
+import 'package:ultrasound_clinic/screens/auth/signup_successful_screen.dart';
 import 'package:ultrasound_clinic/utils/shared_preference/shared_preference.dart';
 import 'package:ultrasound_clinic/widgets/signup/signup_form_widget.dart';
 
@@ -42,7 +43,7 @@ class _SignFormContainerState extends State<SignFormContainer> {
       );
       // 2. If exist, the add the user flag to false in existing object
       if (loggedInStatuses.status) {
-        final dynamic newLoggedStatus = {
+        final Map<String, dynamic> newLoggedStatus = {
           ...loggedInStatuses.value,
           response.userId: false,
         };
@@ -52,7 +53,7 @@ class _SignFormContainerState extends State<SignFormContainer> {
         );
         // 2. If not, then create a new object and add the flag as false for the user
       } else {
-        final dynamic newLoggedStatus = {
+        final Map<String, dynamic> newLoggedStatus = {
           response.userId: false,
         };
         await SharedPreferencesUtils().addMapPrefs(
@@ -61,7 +62,9 @@ class _SignFormContainerState extends State<SignFormContainer> {
         );
       }
       if (context.mounted) {
-        Navigator.of(context).pushNamed(Routes.signUpSuccess);
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => const SignupSuccessFulScreen(),
+        ));
       }
     }
   }

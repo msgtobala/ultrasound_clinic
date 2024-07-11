@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
+import 'package:ultrasound_clinic/constants/enums/role_enum.dart';
 
 import 'package:ultrasound_clinic/resources/images.dart';
-import 'package:ultrasound_clinic/screens/home.dart';
-import 'package:ultrasound_clinic/screens/landing_screen.dart';
-import 'package:ultrasound_clinic/screens/login_screen.dart';
+import 'package:ultrasound_clinic/screens/auth/landing_screen.dart';
+import 'package:ultrasound_clinic/screens/auth/login_screen.dart';
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
-import 'package:ultrasound_clinic/screens/signup_successful_screen.dart';
-import 'package:ultrasound_clinic/utils/shared_preference/shared_preference.dart';
+import 'package:ultrasound_clinic/screens/clinic/clinic_app.dart';
+import 'package:ultrasound_clinic/screens/patient/patient_app.dart';
 import 'package:ultrasound_clinic/widgets/common/svg_loader.dart';
 
 class InitScreen extends StatefulWidget {
@@ -41,10 +41,12 @@ class _InitScreenState extends State<InitScreen> {
           if (authProvider.user != null &&
               authProvider.user!.emailVerified &&
               authProvider.loggedInStatus == true) {
-            Navigator.pushReplacement(
-              context,
+            Navigator.of(context).pushReplacement(
               MaterialPageRoute(
-                builder: (context) => const HomeScreen(),
+                builder: (context) => authProvider.currentUser!.role ==
+                        UserRoleEnum.clinic.roleName
+                    ? const ClinicApp()
+                    : const PatientApp(),
               ),
             );
             return;

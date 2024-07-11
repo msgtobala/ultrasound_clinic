@@ -21,6 +21,7 @@ class _ClinicCodeFormState extends State<ClinicCodeForm> {
       child: Form(
         key: _formKey,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const FormInput(text: Strings.code),
             const SizedBox(height: 30),

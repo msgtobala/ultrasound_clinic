@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:ultrasound_clinic/resources/images.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
-import 'package:ultrasound_clinic/screens/login_screen.dart';
-import 'package:ultrasound_clinic/screens/signup_screen.dart';
+import 'package:ultrasound_clinic/screens/auth/login_screen.dart';
+import 'package:ultrasound_clinic/screens/auth/signup_screen.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
 import 'package:ultrasound_clinic/widgets/common/custom_elevated_button.dart';
 import 'package:ultrasound_clinic/widgets/common/svg_loader.dart';
