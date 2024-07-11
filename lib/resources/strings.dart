@@ -34,11 +34,13 @@ class Strings {
   static const String didNotReceiveCode = 'Didn\'t receive code? ';
   static const String resend = 'Resend';
   static const String signupSuccessful = 'Sign Up Successful!';
+  static const String emailVerificationNotice =
+      'A verification email has been sent to your email address. Please verify your email address to continue.';
   static const String redirectingTextStart =
       'You will be redirected to then landing page in ';
   static const String redirectingTextEnd = ' second automatically';
   static const String redirectingOTPTextStart =
-      'You will be redirected to then landing page in ';
+      'You will be redirected to then login page in ';
   static const String redirectingOTPTextEnd = ' second automatically';
   static const String submit = 'Submit';
   static const String code = 'Code';

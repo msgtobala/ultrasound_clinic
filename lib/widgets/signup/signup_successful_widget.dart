@@ -33,6 +33,12 @@ class _SignupSuccessfulWidgetState extends State<SignupSuccessfulWidget> {
           ),
           SizedBox(height: 10.h),
           Text(
+            Strings.emailVerificationNotice,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+          SizedBox(height: 6.h),
+          Text(
             Strings.redirectingTextStart +
                 widget.seconds.toString() +
                 Strings.redirectingTextEnd,
