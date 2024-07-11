@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'package:ultrasound_clinic/utils/logger/logger.dart';
+
 class FireStoreService {
+  final log = CustomLogger.getLogger('Dashboard');
   // Private constructor
   FireStoreService._privateConstructor();
 
@@ -15,7 +18,7 @@ class FireStoreService {
 
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
 
-  // Example: Method to fetch documents from a collection
+  // Method to fetch documents from a collection
   Future<List<DocumentSnapshot>> fetchDocumentsFromCollection(
       String collectionPath) async {
     try {
@@ -24,7 +27,7 @@ class FireStoreService {
       return querySnapshot.docs;
     } catch (e) {
       // Handle errors or return an empty list
-      print(e); // Consider using a logging package for better logging
+      log.e(e); // Consider using a logging package for better logging
       return [];
     }
   }

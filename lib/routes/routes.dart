@@ -1,25 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:ultrasound_clinic/screens/home.dart';
 
-import 'package:ultrasound_clinic/screens/login_screen.dart';
+import 'package:ultrasound_clinic/screens/auth/init_screen.dart';
+import 'package:ultrasound_clinic/screens/auth/login_screen.dart';
 
 class Routes {
   const Routes._();
 
-  // login
-  static const String login = '/login';
-
-  // home
-  static const String home = '/';
+  // auth
+  static const String initScreen = '/';
 
   static Map<String, WidgetBuilder> get buildRoutes {
     return {
-      login: (context) => const LoginScreen(),
-      home: (context) => const HomeScreen(),
+      initScreen: (context) => const InitScreen(),
     };
   }
 
   static String get initialRoute {
-    return Routes.login;
+    return Routes.initScreen;
+  }
+
+  static Widget get initialScreen {
+    return const InitScreen();
+  }
+
+  static Route<dynamic> unknownRoute(RouteSettings settings) {
+    return MaterialPageRoute(
+      builder: (context) => const LoginScreen(),
+      settings: settings,
+    );
   }
 }
