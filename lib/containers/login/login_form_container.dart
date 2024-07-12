@@ -30,8 +30,30 @@ class _LoginFormContainerState extends State<LoginFormContainer> {
 
     final AuthModel user = await authProvider.signIn(userEmail, userPassword);
     if (user.error) {
-      // TODO(jagu): show toast message
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Please check your credentials and try again"),
+          ),
+        );
+        setState(() {
+          _isLoading = false;
+        });
+      }
     } else {
+      if (!user.isEmailVerified) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Center(
+              child: Text("Please Verify your email!"),
+            ),
+          ),
+        );
+        setState(() {
+          _isLoading = false;
+        });
+        return;
+      }
       final loggedInStatuses = await SharedPreferencesUtils().getMapPrefs(
         constants.loggedInStatusFlag,
       );

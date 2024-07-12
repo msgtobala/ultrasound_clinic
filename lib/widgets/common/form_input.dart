@@ -9,12 +9,16 @@ class FormInput extends StatelessWidget {
     this.obscureText = false,
     this.keyboardType,
     this.onSaved,
+    this.validator,
+    this.controller,
   });
 
   final String text;
   final bool? obscureText;
   final TextInputType? keyboardType;
   final void Function(String?)? onSaved;
+  final String? Function(String?)? validator;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +36,8 @@ class FormInput extends StatelessWidget {
         ),
         labelStyle: Theme.of(context).textTheme.displayMediumGray,
       ),
+      validator: validator,
+      controller: controller,
     );
   }
 }
