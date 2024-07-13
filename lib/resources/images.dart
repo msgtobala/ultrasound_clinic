@@ -7,4 +7,8 @@ class Images {
   static const String successBadge = 'assets/images/success_badge.svg';
   static const String layoutBackground = 'assets/images/layout_background.png';
   static const String landingAvatar = 'assets/images/landing_avatar.svg';
+  static const String addFile = 'assets/images/add_file.svg';
+  static const String dateTime = 'assets/images/date_time.svg';
+  static const String phone = 'assets/images/phone.svg';
+  static const String editIcon = 'assets/images/edit.svg';
 }

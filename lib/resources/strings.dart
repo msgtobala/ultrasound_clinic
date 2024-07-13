@@ -61,4 +61,17 @@ class Strings {
   static const String pleaseVerfiyYourEmail = 'Please Verfiy your email';
   static const String invalidCredentials = 'Invalid credentials';
   static const String anErrorOccurred = 'An error occurred';
+  static const String patientName = 'Patient Name';
+  static const String address = 'Address';
+  static const String city = 'City';
+  static const String state = 'State';
+  static const String pinCode = 'Pin Code';
+  static const String provideAnAppointmentNo = 'Provide an Appointment No';
+  static const String patientAppointment = 'Patient Appointment';
+  static const String usgForm = 'USG Form';
+  static const String usgSubmit = 'Submit';
+  static const String prescription = 'Prescription';
+  static const String today = 'Today';
+  static const String upcoming = 'Upcoming';
+  static const String search = 'Search';
 }
