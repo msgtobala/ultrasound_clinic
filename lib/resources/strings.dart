@@ -49,4 +49,16 @@ class Strings {
       'Enter the OTP we have just sent you on your phone number';
   static const enterClinicCode = 'Enter clinic code';
   static const String landingQuote = 'Your Health, Your record, Your Control';
+  static const String invalidEmail = 'Invalid Email';
+  static const String invalidFullName = 'Invalid Full Name';
+  static const String invalidEmailOrPhone = 'Invalid Email or Phone';
+  static const String invalidPassword = 'Invalid Password';
+  static const String invalidMobileNumber = 'Invalid Mobile Number';
+  static const String pleaseSelectRole = 'Please select a role';
+  static const String passwordValidationString =
+      'Password must be at least 6 characters';
+  static const String passwordsShouldMatch = 'Passwords should match';
+  static const String pleaseVerfiyYourEmail = 'Please Verfiy your email';
+  static const String invalidCredentials = 'Invalid credentials';
+  static const String anErrorOccurred = 'An error occurred';
 }

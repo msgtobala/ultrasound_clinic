@@ -4,9 +4,9 @@ import 'package:provider/provider.dart';
 
 import 'package:ultrasound_clinic/constants/constants.dart';
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
-import 'package:ultrasound_clinic/routes/routes.dart';
 import 'package:ultrasound_clinic/screens/auth/signup_successful_screen.dart';
 import 'package:ultrasound_clinic/utils/shared_preference/shared_preference.dart';
+import 'package:ultrasound_clinic/utils/snackbar/show_snackbar.dart';
 import 'package:ultrasound_clinic/widgets/signup/signup_form_widget.dart';
 
 class SignFormContainer extends StatefulWidget {
@@ -36,12 +36,11 @@ class _SignFormContainerState extends State<SignFormContainer> {
     setState(() {
       _isLoading = false;
     });
-    // TODO(Balaji/Jagu) error handling to be done
     if (!response.error) {
       final loggedInStatuses = await SharedPreferencesUtils().getMapPrefs(
         constants.loggedInStatusFlag,
       );
-      // 2. If exist, the add the user flag to false in existing object
+      // 1. If exist, the add the user flag to false in existing object
       if (loggedInStatuses.status) {
         final Map<String, dynamic> newLoggedStatus = {
           ...loggedInStatuses.value,
@@ -66,6 +65,8 @@ class _SignFormContainerState extends State<SignFormContainer> {
           builder: (context) => const SignupSuccessFulScreen(),
         ));
       }
+    } else {
+      showSnackbar(context, response.message);
     }
   }
 

@@ -52,12 +52,24 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                 text: Strings.enterYourEmailOrPhoneNo,
                 keyboardType: TextInputType.name,
                 onSaved: (value) => {_userEmail = value!},
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return Strings.invalidEmailOrPhone;
+                  }
+                  return null;
+                },
               ),
               SizedBox(height: 16.h),
               FormInput(
                 text: Strings.enterYourPassword,
                 obscureText: true,
                 onSaved: (value) => {_userPassword = value!},
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return Strings.invalidPassword;
+                  }
+                  return null;
+                },
               ),
               SizedBox(height: 16.h),
               Row(
