@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 
 import 'package:ultrasound_clinic/config/auth/user_role.dart';
+import 'package:ultrasound_clinic/resources/regex.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/themes/colors.dart';
 import 'package:ultrasound_clinic/themes/fonts.dart';
@@ -101,9 +102,10 @@ class _SignupFormWidgetState extends State<SignupFormWidget> {
               keyboardType: TextInputType.emailAddress,
               onSaved: (value) => {_userEmail = value!},
               validator: (value) {
-                // const emailPattern =
-                //     r'^[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]+@[a-zA-Z0-9]+\.[a-zA-Z]+$';
-                if (value == null || value.isEmpty || !value.contains("@")) {
+                final emailPattern = RegExp(Regex.emailRegEx);
+                if (value == null ||
+                    value.isEmpty ||
+                    !emailPattern.hasMatch(value)) {
                   return Strings.invalidEmail;
                 }
                 return null;
