@@ -83,8 +83,8 @@ class LandingScreen extends StatelessWidget {
               Expanded(
                 child: SizedBox(
                   width: screenWidth,
-                  child: Image.asset(
-                    Images.landingAvatar,
+                  child: const SVGLoader(
+                    image: Images.landingAvatar,
                     fit: BoxFit.fill,
                   ),
                 ),

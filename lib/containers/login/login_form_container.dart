@@ -6,9 +6,11 @@ import 'package:ultrasound_clinic/constants/constants.dart';
 import 'package:ultrasound_clinic/constants/enums/role_enum.dart';
 import 'package:ultrasound_clinic/models/auth/auth_model.dart';
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
+import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/screens/clinic/clinic_app.dart';
 import 'package:ultrasound_clinic/screens/patient/patient_app.dart';
 import 'package:ultrasound_clinic/utils/shared_preference/shared_preference.dart';
+import 'package:ultrasound_clinic/utils/snackbar/show_snackbar.dart';
 import 'package:ultrasound_clinic/widgets/login/login_form_widget.dart';
 
 class LoginFormContainer extends StatefulWidget {
@@ -31,24 +33,14 @@ class _LoginFormContainerState extends State<LoginFormContainer> {
     final AuthModel user = await authProvider.signIn(userEmail, userPassword);
     if (user.error) {
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Please check your credentials and try again"),
-          ),
-        );
+        showSnackbar(context, user.message);
         setState(() {
           _isLoading = false;
         });
       }
     } else {
       if (!user.isEmailVerified) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Center(
-              child: Text("Please Verify your email!"),
-            ),
-          ),
-        );
+        showSnackbar(context, Strings.pleaseVerfiyYourEmail);
         setState(() {
           _isLoading = false;
         });

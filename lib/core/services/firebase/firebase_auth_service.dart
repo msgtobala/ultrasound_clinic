@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ultrasound_clinic/models/auth/user_model.dart';
+import 'package:ultrasound_clinic/resources/strings.dart';
 
 import 'package:ultrasound_clinic/utils/logger/logger.dart';
 
@@ -41,10 +42,10 @@ class FirebaseAuthService {
         email: email,
         password: password,
       );
+    } on FirebaseAuthException {
+      throw Exception(Strings.invalidCredentials);
     } catch (e) {
-      // log.i('Error signing in: $e');
-      log.i(e);
-      throw e;
+      throw Exception(Strings.anErrorOccurred);
     }
   }
 
@@ -57,7 +58,6 @@ class FirebaseAuthService {
     String role,
   ) async {
     try {
-      // TODO(Balaji): what if user signs up with phone no?
       UserCredential userCredential = await _firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
       await _firestore.collection('users').doc(userCredential.user!.uid).set({
@@ -69,9 +69,11 @@ class FirebaseAuthService {
         'clinics': ['XVL560'],
       });
       return userCredential;
+    } on FirebaseAuthException {
+      log.i('Error signing up: ');
+      throw Exception(Strings.invalidCredentials);
     } catch (e) {
-      log.i('Error signing up: $e');
-      return Future.error(e);
+      throw Exception(Strings.anErrorOccurred);
     }
   }
 

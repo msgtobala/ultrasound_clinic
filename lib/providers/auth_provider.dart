@@ -6,6 +6,7 @@ import 'package:ultrasound_clinic/constants/constants.dart';
 import 'package:ultrasound_clinic/core/services/firebase/firebase_auth_service.dart';
 import 'package:ultrasound_clinic/models/auth/auth_model.dart';
 import 'package:ultrasound_clinic/models/auth/user_model.dart';
+import 'package:ultrasound_clinic/utils/error/parse_expection.dart';
 import 'package:ultrasound_clinic/utils/logger/logger.dart';
 import 'package:ultrasound_clinic/utils/shared_preference/shared_preference.dart';
 
@@ -76,7 +77,7 @@ class AuthProvider with ChangeNotifier {
       );
     } catch (e) {
       log.e(e);
-      return AuthModel.error(message: 'An error occurred!');
+      return AuthModel.error(message: parseErrorMessage(e.toString()));
     }
   }
 
@@ -109,7 +110,7 @@ class AuthProvider with ChangeNotifier {
       return AuthModel.error(message: 'An error occurred!');
     } catch (e) {
       log.i('Error fetching user: $e');
-      return AuthModel.error(message: 'An error occurred!');
+      return AuthModel.error(message: parseErrorMessage(e.toString()));
     }
   }
 

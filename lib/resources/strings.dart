@@ -58,4 +58,7 @@ class Strings {
   static const String passwordValidationString =
       'Password must be at least 6 characters';
   static const String passwordsShouldMatch = 'Passwords should match';
+  static const String pleaseVerfiyYourEmail = 'Please Verfiy your email';
+  static const String invalidCredentials = 'Invalid credentials';
+  static const String anErrorOccurred = 'An error occurred';
 }
