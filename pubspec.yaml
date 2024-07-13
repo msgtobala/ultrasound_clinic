@@ -22,6 +22,9 @@ dependencies:
   flutter_svg: ^2.0.10+1
   shared_preferences: ^2.2.3
   image_picker: ^0.8.4+4
+  carousel_slider: ^4.2.1
+  panorama_viewer_plus: ^0.1.2
+  dotted_border: ^2.1.0
 
 dev_dependencies:
   flutter_test:
@@ -34,7 +37,7 @@ flutter:
     - assets/
     - assets/fonts/
     - assets/images/
-    # - assets/icons
+    - assets/icons/
   fonts:
     - family: Poppins
       fonts:

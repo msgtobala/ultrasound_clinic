@@ -40,7 +40,7 @@ class _LoginFormContainerState extends State<LoginFormContainer> {
       }
     } else {
       if (!user.isEmailVerified) {
-        showSnackbar(context, Strings.pleaseVerfiyYourEmail);
+        showSnackbar(context, Strings.pleaseVerifyYourEmail);
         setState(() {
           _isLoading = false;
         });

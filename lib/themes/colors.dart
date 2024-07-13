@@ -14,5 +14,6 @@ class ThemeColors {
   static final Color black200 = Pigment.fromString('#565656');
   static final Color gray200 = Pigment.fromString('#B9B9B9');
   static final Color errorColor = Pigment.fromString('#FF1313');
+  static final Color lightBlue = Pigment.fromString('#D4EFFF');
   static const Color transparent = Colors.transparent;
 }

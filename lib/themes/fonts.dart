@@ -107,4 +107,6 @@ extension ThemeExtension on TextTheme {
       .copyWith(fontWeight: FontWeight.w500, color: ThemeColors.white);
   TextStyle get displaySmallBlack =>
       displaySmall!.copyWith(color: ThemeColors.black);
+  TextStyle get bodyLargeLight =>
+      bodyLarge!.copyWith(fontWeight: FontWeight.w400);
 }

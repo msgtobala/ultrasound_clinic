@@ -12,6 +12,8 @@ class Themes {
   static ThemeData buildLightTheme(BuildContext context) {
     return ThemeData(
       useMaterial3: true,
+      splashFactory: NoSplash.splashFactory,
+      highlightColor: Colors.transparent,
       fontFamily: ThemeFonts.poppins,
       appBarTheme: _buildAppBarTheme(),
       textTheme: ThemeFonts.buildLightTextTheme(context),
