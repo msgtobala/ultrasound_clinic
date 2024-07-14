@@ -18,4 +18,6 @@ class Icons {
   static const String view360White = 'assets/icons/view_360_white.svg';
   static const String menu = 'assets/icons/menu.svg';
   static const String close = 'assets/icons/close-white.svg';
+  static const String addFile = 'assets/icons/add_file.svg';
+  static const String notification = 'assets/icons/notification.svg';
 }

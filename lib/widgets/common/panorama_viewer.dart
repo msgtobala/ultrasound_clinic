@@ -7,8 +7,13 @@ import 'package:ultrasound_clinic/widgets/common/svg_loader.dart';
 
 class PanoramaViewer extends StatelessWidget {
   final String imagePath;
+  final bool? showCloseButton;
 
-  const PanoramaViewer({super.key, required this.imagePath});
+  const PanoramaViewer({
+    super.key,
+    required this.imagePath,
+    this.showCloseButton,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,17 +25,18 @@ class PanoramaViewer extends StatelessWidget {
           width: double.infinity,
           height: MediaQuery.of(context).size.height,
         ),
-        Positioned(
-          top: MediaQuery.of(context).padding.top + 10,
-          left: 30,
-          child: SizedBox(
-            width: 15.w,
-            height: 15.h,
-            child: const SVGLoader(
-              image: icons.Icons.close,
+        if (showCloseButton == true)
+          Positioned(
+            top: 80,
+            left: 30,
+            child: SizedBox(
+              width: 15.w,
+              height: 15.h,
+              child: const SVGLoader(
+                image: icons.Icons.close,
+              ),
             ),
           ),
-        ),
         Positioned(
           bottom: kBottomNavigationBarHeight - 30.h,
           child: Container(

@@ -40,9 +40,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    IconButton(
-                      icon: const SVGLoader(image: icons.Icons.back),
-                      onPressed: () {},
+                    Transform.scale(
+                      scale: 0,
+                      child: IconButton(
+                        icon: const SVGLoader(image: icons.Icons.back),
+                        onPressed: () {},
+                      ),
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,

@@ -69,4 +69,13 @@ class Strings {
   static const preview = 'Preview';
   static const availableScreens = 'Available Scenes';
   static const upload = 'Upload';
+  static const String patientName = 'Patient Name';
+  static const String address = 'Address';
+  static const String city = 'City';
+  static const String state = 'State';
+  static const String pinCode = 'Pin Code';
+  static const String prescription = 'Prescription';
+  static const String provideAnAppointmentNo = 'Provide an Appointment No';
+  static const String usgForm = 'USG Form';
+  static const String patientAppointment = 'Patient appointment';
 }

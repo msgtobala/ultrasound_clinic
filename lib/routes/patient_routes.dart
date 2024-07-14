@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:ultrasound_clinic/screens/patient/clinic_selection_screen.dart';
-import 'package:ultrasound_clinic/screens/common/home_navigation.dart';
+import 'package:ultrasound_clinic/screens/common/home_navigation_screen.dart';
 
 class PatientRoutes {
   const PatientRoutes._();
@@ -12,7 +12,7 @@ class PatientRoutes {
   static Map<String, WidgetBuilder> get buildPatientRoutes {
     return {
       clinicSelection: (context) => const ClinicSelectionScreen(),
-      menu: (context) => const NavigationMenu(),
+      menu: (context) => const HomeNavigationMenu(),
     };
   }
 

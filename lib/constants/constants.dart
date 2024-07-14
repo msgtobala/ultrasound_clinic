@@ -48,6 +48,9 @@ final constantsMap = {
       label: 'Doctor room',
     ),
   ],
+  'formInputTypes': {
+    'text': 'text',
+  }
 };
 
 final constants = ConstantsModel.fromMap(constantsMap);
