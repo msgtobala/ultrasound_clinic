@@ -1,20 +1,30 @@
 import 'package:flutter/material.dart';
 
+import 'package:ultrasound_clinic/models/common/panorama_image_model.dart';
 import 'package:ultrasound_clinic/resources/icons.dart' as icons;
 import 'package:ultrasound_clinic/themes/colors.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
 import 'package:ultrasound_clinic/widgets/common/svg_loader.dart';
 
 class PanoramaDraggableArea extends StatefulWidget {
-  const PanoramaDraggableArea({super.key});
+  final List<PanoramaImageModel> items;
+  final void Function(bool? isEdit, String? sceneName) onUploadPanoramaImage;
+  final Function(String sceneName) onDeletePanoramaImage;
+  final Function(int oldIndex, int newIndex) onReorderPanoramaImage;
+
+  const PanoramaDraggableArea({
+    super.key,
+    required this.items,
+    required this.onUploadPanoramaImage,
+    required this.onDeletePanoramaImage,
+    required this.onReorderPanoramaImage,
+  });
 
   @override
   State<PanoramaDraggableArea> createState() => _PanoramaDraggableAreaState();
 }
 
 class _PanoramaDraggableAreaState extends State<PanoramaDraggableArea> {
-  final List<String> items = ['Reception', 'Waiting room', 'Item 3', 'Item 4'];
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,11 +34,11 @@ class _PanoramaDraggableAreaState extends State<PanoramaDraggableArea> {
           type: MaterialType.transparency,
           child: child,
         ),
-        itemCount: items.length,
+        itemCount: widget.items.length,
         itemBuilder: (context, index) {
           return Container(
             margin: EdgeInsets.only(bottom: 10.h),
-            key: ValueKey(items[index]),
+            key: ValueKey(widget.items[index].sceneName),
             decoration: BoxDecoration(
               border: Border.all(color: ThemeColors.lightBlue),
               borderRadius: BorderRadius.circular(10.d),
@@ -37,7 +47,7 @@ class _PanoramaDraggableAreaState extends State<PanoramaDraggableArea> {
               enableFeedback: false,
               dense: false,
               leading: const SVGLoader(image: icons.Icons.drag),
-              title: Text(items[index]),
+              title: Text(widget.items[index].sceneName),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -45,27 +55,23 @@ class _PanoramaDraggableAreaState extends State<PanoramaDraggableArea> {
                 children: [
                   GestureDetector(
                     child: const SVGLoader(image: icons.Icons.delete),
-                    onTap: () {},
+                    onTap: () => widget
+                        .onDeletePanoramaImage(widget.items[index].sceneName),
                   ),
                   const SizedBox(width: 20),
                   GestureDetector(
+                    onTap: () => widget.onUploadPanoramaImage(
+                      true,
+                      widget.items[index].sceneName,
+                    ),
                     child: const SVGLoader(image: icons.Icons.edit),
-                    onTap: () {},
                   )
                 ],
               ),
             ),
           );
         },
-        onReorder: (oldIndex, newIndex) {
-          setState(() {
-            if (newIndex > oldIndex) {
-              newIndex -= 1;
-            }
-            final String item = items.removeAt(oldIndex);
-            items.insert(newIndex, item);
-          });
-        },
+        onReorder: widget.onReorderPanoramaImage,
       ),
     );
   }

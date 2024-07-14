@@ -17,7 +17,7 @@ class CustomElevatedButton extends StatelessWidget {
   final String text;
   final ButtonSize? buttonSize;
   final bool? isLoading;
-  final void Function() onPressed;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {

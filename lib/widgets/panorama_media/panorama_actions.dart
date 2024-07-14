@@ -8,6 +8,7 @@ class PanoramaActions extends StatelessWidget {
   final String? icon;
   final IconData? iconData;
   final double? width;
+  final bool hidePillButton;
   final void Function() onTap;
 
   const PanoramaActions({
@@ -18,6 +19,7 @@ class PanoramaActions extends StatelessWidget {
     required this.onTap,
     this.width,
     this.iconData,
+    required this.hidePillButton,
   });
 
   @override
@@ -29,13 +31,14 @@ class PanoramaActions extends StatelessWidget {
           text,
           style: Theme.of(context).textTheme.bodyLarge,
         ),
-        PillActionButton(
-          text: iconText,
-          icon: icon,
-          iconData: iconData,
-          onTap: onTap,
-          width: width,
-        ),
+        if (!hidePillButton)
+          PillActionButton(
+            text: iconText,
+            icon: icon,
+            iconData: iconData,
+            onTap: onTap,
+            width: width,
+          ),
       ],
     );
   }

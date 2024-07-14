@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:ultrasound_clinic/models/common/carousel_model.dart';
+import 'package:ultrasound_clinic/models/common/panorama_image_model.dart';
 import 'package:ultrasound_clinic/resources/icons.dart' as icons;
 import 'package:ultrasound_clinic/themes/colors.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
@@ -9,7 +9,7 @@ import 'package:ultrasound_clinic/widgets/common/custom_chip.dart';
 import 'package:ultrasound_clinic/widgets/common/svg_loader.dart';
 
 class CustomImageCarousel extends StatefulWidget {
-  final List<CarouselModel> items;
+  final List<PanoramaImageModel> items;
 
   const CustomImageCarousel({super.key, required this.items});
 
@@ -32,7 +32,7 @@ class _CustomImageCarouselState extends State<CustomImageCarousel> {
               options: CarouselOptions(
                 clipBehavior: Clip.none,
                 aspectRatio: 16 / 9,
-                viewportFraction: 0.85,
+                viewportFraction: widget.items.length == 1 ? 0.97 : 0.85,
                 padEnds: false,
                 initialPage: 0,
                 enableInfiniteScroll: false,
@@ -48,7 +48,7 @@ class _CustomImageCarouselState extends State<CustomImageCarousel> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           image: DecorationImage(
-                            image: NetworkImage(item.image),
+                            image: NetworkImage(item.imageURL),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -56,7 +56,7 @@ class _CustomImageCarouselState extends State<CustomImageCarousel> {
                           alignment: Alignment.bottomLeft,
                           child: Container(
                             margin: EdgeInsets.only(left: 15.hs, bottom: 5.vs),
-                            child: CustomChip(label: item.label),
+                            child: CustomChip(label: item.sceneName),
                           ),
                         ),
                       );

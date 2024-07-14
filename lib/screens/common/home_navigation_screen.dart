@@ -24,7 +24,7 @@ import 'package:ultrasound_clinic/widgets/common/custom_app_bar.dart';
 const List<Widget> _clinicScreens = [
   USGReport(),
   Appointments(),
-  PanoramaMedia(),
+  PanoramaMediaScreen(),
   clinic_settings.Settings(),
 ];
 
@@ -57,7 +57,7 @@ class HomeNavigationMenu extends StatefulWidget {
 }
 
 class _HomeNavigationMenuState extends State<HomeNavigationMenu> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 2;
 
   void _onNavigationChanged(int index) {
     setState(() {

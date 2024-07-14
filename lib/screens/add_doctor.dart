@@ -1,6 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+
+import 'package:flutter/material.dart';
+
+import 'package:image_picker/image_picker.dart';
 
 class AddDoctorScreen extends StatefulWidget {
   const AddDoctorScreen({Key? key}) : super(key: key);
@@ -27,7 +29,8 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
     _descriptionController.dispose();
     super.dispose();
   }
-Future<void> _getImage(ImageSource source) async {
+
+  Future<void> _getImage(ImageSource source) async {
     final pickedFile = await _picker.pickImage(source: source);
     if (pickedFile != null) {
       setState(() {
@@ -57,7 +60,7 @@ Future<void> _getImage(ImageSource source) async {
         // });
 
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Doctor added successfully')),
+          const SnackBar(content: Text('Doctor added successfully')),
         );
         Navigator.of(context).pop();
       } catch (e) {
@@ -67,6 +70,7 @@ Future<void> _getImage(ImageSource source) async {
       }
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,11 +91,13 @@ Future<void> _getImage(ImageSource source) async {
               children: [
                 _buildTextField(_nameController, 'Doctor name'),
                 SizedBox(height: 16),
-                _buildTextField(_phoneController, 'Phone number', TextInputType.phone),
+                _buildTextField(
+                    _phoneController, 'Phone number', TextInputType.phone),
                 SizedBox(height: 16),
                 _buildDropdown(),
                 SizedBox(height: 16),
-                _buildTextField(_descriptionController, 'Description', TextInputType.multiline),
+                _buildTextField(_descriptionController, 'Description',
+                    TextInputType.multiline),
                 SizedBox(height: 24),
                 _buildUploadButton(),
                 SizedBox(height: 24),
@@ -105,7 +111,8 @@ Future<void> _getImage(ImageSource source) async {
     );
   }
 
-  Widget _buildTextField(TextEditingController controller, String label, [TextInputType? keyboardType]) {
+  Widget _buildTextField(TextEditingController controller, String label,
+      [TextInputType? keyboardType]) {
     return TextFormField(
       controller: controller,
       decoration: InputDecoration(
@@ -152,7 +159,8 @@ Future<void> _getImage(ImageSource source) async {
       },
     );
   }
-Widget _buildUploadButton() {
+
+  Widget _buildUploadButton() {
     return OutlinedButton.icon(
       onPressed: () {
         showModalBottomSheet(
@@ -185,7 +193,9 @@ Widget _buildUploadButton() {
         );
       },
       icon: Icon(Icons.upload, color: Colors.blue),
-      label: Text(_image != null ? 'Change profile picture' : 'Upload profile picture', style: TextStyle(color: Colors.blue)),
+      label: Text(
+          _image != null ? 'Change profile picture' : 'Upload profile picture',
+          style: TextStyle(color: Colors.blue)),
       style: OutlinedButton.styleFrom(
         side: BorderSide(color: Colors.blue),
         shape: RoundedRectangleBorder(
@@ -194,7 +204,8 @@ Widget _buildUploadButton() {
       ),
     );
   }
-Widget _buildSaveButton() {
+
+  Widget _buildSaveButton() {
     return ElevatedButton(
       onPressed: _uploadImageAndSaveData,
       child: Text('Save'),
@@ -211,8 +222,10 @@ Widget _buildSaveButton() {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.medical_services), label: 'USG'),
-        BottomNavigationBarItem(icon: Icon(Icons.calendar_today), label: 'Appointment'),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.medical_services), label: 'USG'),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_today), label: 'Appointment'),
         BottomNavigationBarItem(icon: Icon(Icons.photo), label: 'Media'),
         BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
       ],

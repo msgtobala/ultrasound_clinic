@@ -1,8 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
+
+import 'package:ultrasound_clinic/constants/enums/role_enum.dart';
 import 'package:ultrasound_clinic/models/auth/user_model.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
-
 import 'package:ultrasound_clinic/utils/logger/logger.dart';
 
 class FirebaseAuthService {
@@ -68,6 +70,14 @@ class FirebaseAuthService {
         'phone': phone,
         'clinics': ['XVL560'],
       });
+      if (role == UserRoleEnum.clinic.roleName) {
+        await _firestore.collection('clinics').doc('XVL560').set({
+          'uid': 'XVL560',
+          'clinicId': 'XVL560',
+          'clinicName': '',
+          'images': [],
+        });
+      }
       return userCredential;
     } on FirebaseAuthException {
       log.i('Error signing up: ');
@@ -83,7 +93,7 @@ class FirebaseAuthService {
       await _firebaseAuth.signOut();
     } catch (e) {
       log.i('Error signing out: $e');
-      throw e;
+      rethrow;
     }
   }
 
@@ -99,7 +109,7 @@ class FirebaseAuthService {
       }
     } catch (e) {
       log.i('Error fetching user role: $e');
-      throw e;
+      rethrow;
     }
   }
 
@@ -115,7 +125,7 @@ class FirebaseAuthService {
       }
     } catch (e) {
       log.i('Error fetching user: $e');
-      throw e;
+      rethrow;
     }
   }
 }
