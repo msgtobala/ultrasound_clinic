@@ -50,7 +50,16 @@ final constantsMap = {
   ],
   'formInputTypes': {
     'text': 'text',
-  }
+  },
+  'sceneTypes': [
+    'Front',
+    'Reception',
+    'Doctor Room',
+    'Ultrasound Machine',
+    'Waiting Room',
+    'Rest Room',
+  ],
+  'maxSceneTypes': 6,
 };
 
 final constants = ConstantsModel.fromMap(constantsMap);

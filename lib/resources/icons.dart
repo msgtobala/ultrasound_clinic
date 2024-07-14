@@ -20,4 +20,5 @@ class Icons {
   static const String close = 'assets/icons/close-white.svg';
   static const String addFile = 'assets/icons/add_file.svg';
   static const String notification = 'assets/icons/notification.svg';
+  static const String closeRed = 'assets/icons/close_red.svg';
 }

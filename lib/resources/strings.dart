@@ -78,4 +78,10 @@ class Strings {
   static const String provideAnAppointmentNo = 'Provide an Appointment No';
   static const String usgForm = 'USG Form';
   static const String patientAppointment = 'Patient appointment';
+  static const String uploadClinicPicture = 'Upload clinic picture';
+  static const String mediaType = 'Media Type';
+  static const String uploadPicture = 'Upload Picture';
+  static const String save = 'Save';
+  static const String gallery = 'Gallery';
+  static const String camera = 'Camera';
 }

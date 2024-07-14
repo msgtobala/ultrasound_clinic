@@ -16,14 +16,14 @@ class FireStoreService {
     return _instance;
   }
 
-  final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
+  final FirebaseFirestore fireStore = FirebaseFirestore.instance;
 
   // Method to fetch documents from a collection
   Future<List<DocumentSnapshot>> fetchDocumentsFromCollection(
       String collectionPath) async {
     try {
       QuerySnapshot querySnapshot =
-          await _fireStore.collection(collectionPath).get();
+          await fireStore.collection(collectionPath).get();
       return querySnapshot.docs;
     } catch (e) {
       // Handle errors or return an empty list

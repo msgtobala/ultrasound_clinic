@@ -25,6 +25,7 @@ dependencies:
   carousel_slider: ^4.2.1
   panorama_viewer_plus: ^0.1.2
   dotted_border: ^2.1.0
+  firebase_storage: ^12.1.1
 
 dev_dependencies:
   flutter_test:
