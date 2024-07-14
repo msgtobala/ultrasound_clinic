@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:ultrasound_clinic/screens/clinic/panorama_previewer_screen.dart';
 import 'package:ultrasound_clinic/screens/common/home_navigation_screen.dart';
+import 'package:ultrasound_clinic/screens/clinic/panorama_previewer_screen.dart';
 
 class ClinicRoutes {
   const ClinicRoutes._();
