@@ -65,5 +65,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'ultrasonic-clinic.appspot.com',
     iosBundleId: 'com.example.ultrasoundClinic',
   );
-
 }

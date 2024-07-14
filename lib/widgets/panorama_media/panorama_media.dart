@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:ultrasound_clinic/constants/constants.dart';
+
 import 'package:ultrasound_clinic/models/common/panorama_image_model.dart';
 import 'package:ultrasound_clinic/resources/icons.dart' as icons;
 import 'package:ultrasound_clinic/resources/strings.dart';
@@ -12,12 +12,18 @@ import 'package:ultrasound_clinic/widgets/panorama_media/panorama_draggable_area
 
 class PanoramaMedia extends StatelessWidget {
   final List<PanoramaImageModel> clinicImages;
-  final Function() onUploadPanoramaImage;
+  final void Function(bool? isEdit, String? sceneName) onUploadPanoramaImage;
+  final Function(BuildContext context) onPanoramaPreview;
+  final Function(String sceneName) onDeletePanoramaImage;
+  final Function(int oldIndex, int newIndex) onReorderPanoramaImage;
 
   const PanoramaMedia({
     super.key,
     required this.clinicImages,
     required this.onUploadPanoramaImage,
+    required this.onPanoramaPreview,
+    required this.onDeletePanoramaImage,
+    required this.onReorderPanoramaImage,
   });
 
   @override
@@ -36,7 +42,7 @@ class PanoramaMedia extends StatelessWidget {
             SizedBox(height: 26.h),
             CustomDashedInput(
               text: Strings.uploadClinicPicture,
-              onTap: onUploadPanoramaImage,
+              onTap: () => onUploadPanoramaImage(null, null),
             ),
           ],
         ),
@@ -51,13 +57,14 @@ class PanoramaMedia extends StatelessWidget {
             text: Strings.enterClinicPhotos,
             icon: icons.Icons.edit,
             iconText: Strings.preview,
-            onTap: () {},
+            hidePillButton: false,
+            onTap: () => onPanoramaPreview(context),
           ),
         ),
         Container(
           margin: EdgeInsets.only(left: 15.hs),
           child: CustomImageCarousel(
-            items: constants.carouselItems,
+            items: clinicImages,
           ),
         ),
         Container(
@@ -66,12 +73,18 @@ class PanoramaMedia extends StatelessWidget {
             text: Strings.availableScreens,
             iconData: Icons.upload,
             iconText: Strings.upload,
-            onTap: () {},
+            hidePillButton: clinicImages.length == constants.maxSceneTypes,
+            onTap: () => onUploadPanoramaImage(null, null),
           ),
         ),
         SizedBox(
           height: 235.h,
-          child: const PanoramaDraggableArea(),
+          child: PanoramaDraggableArea(
+            items: clinicImages,
+            onUploadPanoramaImage: onUploadPanoramaImage,
+            onDeletePanoramaImage: onDeletePanoramaImage,
+            onReorderPanoramaImage: onReorderPanoramaImage,
+          ),
         ),
         SizedBox(height: 25.h),
       ],

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
+import 'package:ultrasound_clinic/core/services/firebase/firebase_storage_service.dart';
 import 'package:ultrasound_clinic/core/services/panorama/panorama_services.dart';
 import 'package:ultrasound_clinic/models/common/panorama_image_model.dart';
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
+import 'package:ultrasound_clinic/routes/clinic_routes.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
 import 'package:ultrasound_clinic/widgets/panorama_media/media_dialog.dart';
 import 'package:ultrasound_clinic/widgets/panorama_media/panorama_media.dart';
@@ -19,6 +20,7 @@ class PanoramaMediaContainer extends StatefulWidget {
 
 class _PanoramaMediaContainerState extends State<PanoramaMediaContainer> {
   final PanoramaService panoramaService = PanoramaService();
+  final FirebaseStorageService storageService = FirebaseStorageService();
   bool _isFetching = true;
   List<PanoramaImageModel>? _clinicImages;
 
@@ -39,18 +41,66 @@ class _PanoramaMediaContainerState extends State<PanoramaMediaContainer> {
     });
   }
 
-  void onSavePanoramaImage(XFile file, String sceneName) async {}
+  void onSavePanoramaImage(String sceneName, String url) async {
+    final panoramaImage = PanoramaImageModel(
+      sceneName: sceneName,
+      imageURL: url,
+    );
+    setState(() {
+      _clinicImages = [
+        panoramaImage,
+        ..._clinicImages!,
+      ];
+    });
+  }
 
-  void onUploadPanoramaImage() {
+  void onPanoramaPreview(BuildContext context) {
+    Navigator.of(context)
+        .pushNamed(ClinicRoutes.panoramaPreviewer, arguments: _clinicImages);
+  }
+
+  void onUploadPanoramaImage(bool? isEdit, String? sceneName) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return MediaDialog(
           clinicImages: _clinicImages ?? [],
           onSavePanoramaImage: onSavePanoramaImage,
+          isEdit: isEdit ?? false,
+          editScene: sceneName ?? '',
         );
       },
     );
+  }
+
+  void onDeletePanoramaImage(String sceneName) async {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final clinicId = authProvider.currentUser!.clinics.first;
+    final newPanoramaImages = _clinicImages!
+        .where((element) => element.sceneName != sceneName)
+        .toList();
+    await panoramaService.saveClinicImage(clinicId, newPanoramaImages);
+    await storageService.deleteFile('clinics/$clinicId/$sceneName');
+    setState(() {
+      _clinicImages = newPanoramaImages;
+    });
+  }
+
+  void onReorderPanoramaImage(int oldIndex, int newIndex) async {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final clinicId = authProvider.currentUser!.clinics.first;
+    final newPanoramaImages = List<PanoramaImageModel>.from(_clinicImages!);
+
+    if (newIndex > oldIndex) {
+      newIndex -= 1;
+    }
+
+    final item = newPanoramaImages.removeAt(oldIndex);
+    newPanoramaImages.insert(newIndex, item);
+    await panoramaService.saveClinicImage(clinicId, newPanoramaImages);
+    setState(() {
+      _clinicImages = newPanoramaImages;
+    });
   }
 
   @override
@@ -71,6 +121,9 @@ class _PanoramaMediaContainerState extends State<PanoramaMediaContainer> {
         PanoramaMedia(
           clinicImages: _clinicImages ?? [],
           onUploadPanoramaImage: onUploadPanoramaImage,
+          onPanoramaPreview: onPanoramaPreview,
+          onDeletePanoramaImage: onDeletePanoramaImage,
+          onReorderPanoramaImage: onReorderPanoramaImage,
         ),
       ],
     );

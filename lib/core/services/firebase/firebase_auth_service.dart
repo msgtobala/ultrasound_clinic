@@ -1,9 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:ultrasound_clinic/constants/enums/role_enum.dart';
 import 'package:ultrasound_clinic/models/auth/user_model.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
-
 import 'package:ultrasound_clinic/utils/logger/logger.dart';
 
 class FirebaseAuthService {
