@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 
-import 'package:ultrasound_clinic/containers/login/login_form_container.dart';
+import 'package:ultrasound_clinic/containers/auth/login/login_form_container.dart';
 import 'package:ultrasound_clinic/layout/base_layout.dart';
 import 'package:ultrasound_clinic/resources/images.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';

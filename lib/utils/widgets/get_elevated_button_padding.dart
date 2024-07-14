@@ -10,6 +10,6 @@ EdgeInsetsGeometry getElevatedButtonPadding(ButtonSize? buttonSize) {
     case ButtonSize.large:
       return EdgeInsets.symmetric(vertical: 16.h, horizontal: 20.w);
     default:
-      return EdgeInsets.symmetric(vertical: 16.h, horizontal: 20.w);
+      return EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w);
   }
 }

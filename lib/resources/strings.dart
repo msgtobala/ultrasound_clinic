@@ -58,7 +58,24 @@ class Strings {
   static const String passwordValidationString =
       'Password must be at least 6 characters';
   static const String passwordsShouldMatch = 'Passwords should match';
-  static const String pleaseVerfiyYourEmail = 'Please Verfiy your email';
+  static const String pleaseVerifyYourEmail = 'Please Verify your email';
   static const String invalidCredentials = 'Invalid credentials';
   static const String anErrorOccurred = 'An error occurred';
+  static const usg = 'USG';
+  static const appointments = 'Appointments';
+  static const media = '360°';
+  static const settings = 'Settings';
+  static const enterClinicPhotos = 'Enter clinic photos';
+  static const preview = 'Preview';
+  static const availableScreens = 'Available Scenes';
+  static const upload = 'Upload';
+  static const String patientName = 'Patient Name';
+  static const String address = 'Address';
+  static const String city = 'City';
+  static const String state = 'State';
+  static const String pinCode = 'Pin Code';
+  static const String prescription = 'Prescription';
+  static const String provideAnAppointmentNo = 'Provide an Appointment No';
+  static const String usgForm = 'USG Form';
+  static const String patientAppointment = 'Patient appointment';
 }

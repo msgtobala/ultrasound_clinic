@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:ultrasound_clinic/containers/signup/signup_successful_container.dart';
+import 'package:ultrasound_clinic/containers/auth/signup/signup_successful_container.dart';
 
 class SignupSuccessFulScreen extends StatelessWidget {
   const SignupSuccessFulScreen({super.key});

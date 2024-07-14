@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:ultrasound_clinic/screens/common/home_navigation_screen.dart';
 
 class ClinicRoutes {
   const ClinicRoutes._();
 
-  static const String initScreen = '/';
+  static const String menu = '/menu';
 
   static Map<String, WidgetBuilder> get buildClinicRoutes {
     return {
-      initScreen: (context) => const Text('Clinic'),
+      menu: (context) => const HomeNavigationMenu(),
     };
   }
 
   static String get initialClinicRoute {
-    return ClinicRoutes.initScreen;
+    return ClinicRoutes.menu;
   }
 
   static Route<dynamic> unknownRoute(RouteSettings settings) {

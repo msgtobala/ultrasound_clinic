@@ -15,23 +15,19 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class SVGLoader extends StatelessWidget {
   final String image;
-  // final double height;
-  // final double width;
+  final Color? color;
   final BoxFit fit;
 
   const SVGLoader({
     super.key,
     required this.image,
-    // this.width,
-    // this.height,
+    this.color,
     this.fit = BoxFit.contain,
   });
   @override
   Widget build(BuildContext context) {
     return SvgPicture.asset(
       image,
-      // width: width,
-      // height: height,
       fit: fit,
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ultrasound_clinic/constants/enums/button_size.dart';
 
 import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/widgets/common/custom_elevated_button.dart';
@@ -25,7 +26,11 @@ class _ClinicCodeFormState extends State<ClinicCodeForm> {
           children: [
             const FormInput(text: Strings.code),
             const SizedBox(height: 30),
-            CustomElevatedButton(text: Strings.submit, onPressed: () {})
+            CustomElevatedButton(
+              text: Strings.submit,
+              buttonSize: ButtonSize.large,
+              onPressed: () {},
+            )
           ],
         ),
       ),

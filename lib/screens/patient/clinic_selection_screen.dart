@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:ultrasound_clinic/containers/clinic_selection/clinic_selection_container.dart';
+import 'package:ultrasound_clinic/containers/patient/clinic_selection_container.dart';
 import 'package:ultrasound_clinic/layout/base_layout.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
 
