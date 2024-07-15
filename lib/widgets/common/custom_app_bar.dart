@@ -8,6 +8,7 @@ import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/resources/icons.dart' as icons;
 import 'package:ultrasound_clinic/resources/images.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
+import 'package:ultrasound_clinic/themes/colors.dart';
 import 'package:ultrasound_clinic/themes/fonts.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
 import 'package:ultrasound_clinic/utils/snackbar/show_snackbar.dart';
@@ -17,7 +18,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key});
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(100);
 
   @override
   Widget build(BuildContext context) {
@@ -67,48 +68,41 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Transform.scale(
-                      scale: 0,
-                      child: IconButton(
-                        icon: const SVGLoader(image: icons.Icons.back),
-                        onPressed: () {},
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Text(
+                            '${currentUser.name} ${Strings.clinic}',
+                            style:
+                                Theme.of(context).textTheme.headlineSmallWhite,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                currentUser.clinics.first,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayMediumStrongWhite,
+                              ),
+                              IconButton(
+                                icon: const SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: SVGLoader(image: icons.Icons.copy),
+                                ),
+                                onPressed: onCopy,
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          '${currentUser.name} ${Strings.clinic}',
-                          style: Theme.of(context).textTheme.headlineSmallWhite,
-                        ),
-                        SizedBox(width: 8.w),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              currentUser.clinics.first,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayMediumStrongWhite,
-                            ),
-                            IconButton(
-                              icon: const SizedBox(
-                                width: 20,
-                                height: 20,
-                                child: SVGLoader(image: icons.Icons.copy),
-                              ),
-                              onPressed: onCopy,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    IconButton(
-                      icon: const SVGLoader(image: icons.Icons.share),
-                      onPressed: onShare,
-                    ),
+                    // IconButton(
+                    //   icon: const SVGLoader(image: icons.Icons.share),
+                    //   onPressed: onShare,
+                    // ),
                   ],
                 ),
               ),

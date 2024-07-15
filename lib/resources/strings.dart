@@ -94,4 +94,6 @@ class Strings {
   static const String search = 'Search';
   static const String today = 'Today';
   static const String upcoming = 'Upcoming';
+  static const String manageDoctor = 'Manage Doctor';
+  static const String manageStaff = 'Manage Staff';
 }

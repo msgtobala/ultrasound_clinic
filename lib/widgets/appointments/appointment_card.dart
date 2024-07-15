@@ -38,10 +38,10 @@ class AppointmentCard extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 10.hs, vertical: 16.vs),
           child: Row(
             children: [
-              CircleAvatar(
-                radius: 30.d,
-                backgroundImage: NetworkImage(imageUrl),
-              ),
+              // CircleAvatar(
+              //   radius: 30.d,
+              //   backgroundImage: NetworkImage(imageUrl),
+              // ),
               SizedBox(width: 12.w),
               Expanded(
                 child: Column(
