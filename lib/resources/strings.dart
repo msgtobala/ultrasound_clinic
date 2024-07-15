@@ -87,4 +87,11 @@ class Strings {
   static const String edit = 'Edit';
   static const String gallery = 'Gallery';
   static const String camera = 'Camera';
+  static const String hi = 'Hi,';
+  static const String pendingApproval = 'Pending approval';
+  static const String clinicCodeCopied = 'Clinic code copied!';
+  static const String clinicCodeShared = 'Clinic code shared!';
+  static const String search = 'Search';
+  static const String today = 'Today';
+  static const String upcoming = 'Upcoming';
 }

@@ -8,6 +8,7 @@ class BaseLayout extends StatelessWidget {
   const BaseLayout({
     super.key,
     required this.child,
+    this.hideMeta = false,
     required this.pageTitle,
     required this.pageDescription,
     this.offset = const Offset(0, -40),
@@ -17,6 +18,7 @@ class BaseLayout extends StatelessWidget {
   final String pageTitle;
   final String pageDescription;
   final Offset? offset;
+  final bool? hideMeta;
 
   @override
   Widget build(BuildContext context) {
@@ -36,27 +38,28 @@ class BaseLayout extends StatelessWidget {
                       fit: BoxFit.fill,
                     ),
                   ),
-                  Positioned(
-                    top: 120.h,
-                    left: 20.w,
-                    right: 20.w,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          pageTitle,
-                          style: Theme.of(context).textTheme.headlineLarge,
-                        ),
-                        SizedBox(height: 7.h),
-                        Text(
-                          pageDescription,
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMediumStrongWhite,
-                        )
-                      ],
+                  if (hideMeta != false)
+                    Positioned(
+                      top: 120.h,
+                      left: 20.w,
+                      right: 20.w,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            pageTitle,
+                            style: Theme.of(context).textTheme.headlineLarge,
+                          ),
+                          SizedBox(height: 7.h),
+                          Text(
+                            pageDescription,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMediumStrongWhite,
+                          )
+                        ],
+                      ),
                     ),
-                  ),
                 ],
               ),
             ),

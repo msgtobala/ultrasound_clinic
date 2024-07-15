@@ -21,4 +21,12 @@ class Icons {
   static const String addFile = 'assets/icons/add_file.svg';
   static const String notification = 'assets/icons/notification.svg';
   static const String closeRed = 'assets/icons/close_red.svg';
+  static const String bell = 'assets/icons/bell.svg';
+  static const String phone = 'assets/icons/phone.svg';
+  static const String calendar = 'assets/icons/calendar.svg';
+  static const String manageDoctor = 'assets/icons/manage_doctor.svg';
+  static const String manageStaff = 'assets/icons/manage_staff.svg';
+  static const String manageUSG = 'assets/icons/manage_usg.svg';
+  static const String changePassword = 'assets/icons/change_password.svg';
+  static const String termsAndConditions = 'assets/icons/terms.svg';
 }

@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
+import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
+
+import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/resources/icons.dart' as icons;
 import 'package:ultrasound_clinic/resources/images.dart';
+import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/themes/fonts.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
+import 'package:ultrasound_clinic/utils/snackbar/show_snackbar.dart';
 import 'package:ultrasound_clinic/widgets/common/svg_loader.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -14,6 +21,26 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final currentUser = authProvider.currentUser!;
+
+    void onCopy() async {
+      final clinicId = currentUser.clinics.first;
+      await Clipboard.setData(ClipboardData(text: clinicId));
+      if (context.mounted) {
+        showSnackbar(context, Strings.clinicCodeCopied);
+      }
+    }
+
+    void onShare() async {
+      final clinicId = currentUser.clinics.first;
+      final result = await Share.share(clinicId);
+
+      if (result.status == ShareResultStatus.success && context.mounted) {
+        showSnackbar(context, Strings.clinicCodeShared);
+      }
+    }
+
     return AppBar(
       automaticallyImplyLeading: false,
       flexibleSpace: Stack(
@@ -52,7 +79,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Balaji Clinic',
+                          '${currentUser.name} ${Strings.clinic}',
                           style: Theme.of(context).textTheme.headlineSmallWhite,
                         ),
                         SizedBox(width: 8.w),
@@ -61,14 +88,18 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              'XVL560',
+                              currentUser.clinics.first,
                               style: Theme.of(context)
                                   .textTheme
                                   .displayMediumStrongWhite,
                             ),
                             IconButton(
-                              icon: const SVGLoader(image: icons.Icons.copy),
-                              onPressed: () {},
+                              icon: const SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: SVGLoader(image: icons.Icons.copy),
+                              ),
+                              onPressed: onCopy,
                             ),
                           ],
                         ),
@@ -76,7 +107,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                     IconButton(
                       icon: const SVGLoader(image: icons.Icons.share),
-                      onPressed: () {},
+                      onPressed: onShare,
                     ),
                   ],
                 ),

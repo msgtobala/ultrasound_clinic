@@ -16,4 +16,5 @@ class ThemeColors {
   static final Color errorColor = Pigment.fromString('#FF1313');
   static final Color lightBlue = Pigment.fromString('#D4EFFF');
   static const Color transparent = Colors.transparent;
+  static final Color cardBorder = Pigment.fromString('#C9EBFF');
 }

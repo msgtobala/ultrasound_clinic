@@ -73,6 +73,7 @@ class FirebaseAuthService {
       if (role == UserRoleEnum.clinic.roleName) {
         await _firestore.collection('clinics').doc('XVL560').set({
           'uid': 'XVL560',
+          'email': email,
           'clinicId': 'XVL560',
           'clinicName': '',
           'images': [],
