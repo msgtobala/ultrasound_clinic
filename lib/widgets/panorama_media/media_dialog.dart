@@ -28,7 +28,8 @@ List<String> extractSceneType(List<PanoramaImageModel> clinicImages) {
 
 class MediaDialog extends StatefulWidget {
   final List<PanoramaImageModel> clinicImages;
-  final void Function(String sceneName, String url) onSavePanoramaImage;
+  final void Function(List<PanoramaImageModel> panoramaImages)
+      onSavePanoramaImage;
   final bool isEdit;
   final String editScene;
 
@@ -87,19 +88,52 @@ class _MediaDialogState extends State<MediaDialog> {
       setState(() {
         _isUploading = false;
       });
-      await panoramaService.saveClinicImage(clinicId, [
+      final newPanoramaClinicImages = [
         PanoramaImageModel(
           sceneName: _sceneName,
           imageURL: url,
         ),
         ...widget.clinicImages,
-      ]);
-      widget.onSavePanoramaImage(_sceneName, url);
+      ];
+      await panoramaService.saveClinicImage(clinicId, newPanoramaClinicImages);
+      widget.onSavePanoramaImage(newPanoramaClinicImages);
       closeModal(context);
     }
   }
 
-  void onEdit() async {}
+  void onEdit() async {
+    final clinicId = Provider.of<AuthProvider>(context, listen: false)
+        .currentUser!
+        .clinics
+        .first;
+    if (_image != null && widget.editScene.isNotEmpty) {
+      setState(() {
+        _isUploading = true;
+      });
+      final url = await storageService.uploadFile(
+        _image!,
+        'clinics/$clinicId',
+        widget.editScene,
+      );
+      setState(() {
+        _isUploading = false;
+      });
+      final editedPanoramaImage = PanoramaImageModel(
+        sceneName: widget.editScene,
+        imageURL: url,
+      );
+      final newClinicImages = widget.clinicImages
+          .map(
+            (image) => image.sceneName == widget.editScene
+                ? editedPanoramaImage
+                : image,
+          )
+          .toList();
+      await panoramaService.saveClinicImage(clinicId, newClinicImages);
+      widget.onSavePanoramaImage(newClinicImages);
+      closeModal(context);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -127,19 +161,27 @@ class _MediaDialogState extends State<MediaDialog> {
                   : Strings.uploadClinicPicture,
               style: Theme.of(context).textTheme.headlineSmall,
             ),
-            const SizedBox(height: 32),
+            SizedBox(height: 32.h),
             DropdownMenu(
               inputDecorationTheme: InputDecorationTheme(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30.d),
                 ),
               ),
-              textStyle: Theme.of(context).textTheme.bodyMedium,
-              dropdownMenuEntries: extractSceneType(widget.clinicImages)
-                  .map(
-                    (scene) => DropdownMenuEntry(value: scene, label: scene),
-                  )
-                  .toList(),
+              textStyle: widget.isEdit
+                  ? Theme.of(context).textTheme.displayMediumGray
+                  : Theme.of(context).textTheme.bodyMedium,
+              dropdownMenuEntries: widget.isEdit
+                  ? [
+                      DropdownMenuEntry(
+                          value: widget.editScene, label: widget.editScene)
+                    ]
+                  : extractSceneType(widget.clinicImages)
+                      .map(
+                        (scene) =>
+                            DropdownMenuEntry(value: scene, label: scene),
+                      )
+                      .toList(),
               label: Text(
                 Strings.mediaType,
                 style: Theme.of(context).textTheme.displayMediumGray,
@@ -180,8 +222,9 @@ class _MediaDialogState extends State<MediaDialog> {
                 width: double.infinity,
                 child: CustomElevatedButton(
                   text: Strings.edit,
-                  onPressed:
-                      _image != null && _sceneName.isNotEmpty ? onEdit : null,
+                  onPressed: widget.editScene.isNotEmpty && _image != null
+                      ? onEdit
+                      : null,
                   isLoading: _isUploading,
                 ),
               ),

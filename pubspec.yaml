@@ -23,9 +23,10 @@ dependencies:
   shared_preferences: ^2.2.3
   image_picker: ^1.1.2
   carousel_slider: ^4.2.1
-  panorama_viewer_plus: ^0.1.2
   dotted_border: ^2.1.0
   firebase_storage: ^12.1.1
+  panorama_viewer: ^1.0.5
+  cached_network_image: ^3.3.1
 
 dev_dependencies:
   flutter_test:

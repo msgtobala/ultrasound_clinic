@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:ultrasound_clinic/models/common/panorama_image_model.dart';
 import 'package:ultrasound_clinic/resources/icons.dart' as icons;
 import 'package:ultrasound_clinic/themes/colors.dart';
@@ -27,7 +29,7 @@ class _CustomImageCarouselState extends State<CustomImageCarousel> {
       children: [
         Column(
           children: [
-            CarouselSlider(
+            CarouselSlider.builder(
               carouselController: _controller,
               options: CarouselOptions(
                 clipBehavior: Clip.none,
@@ -38,34 +40,30 @@ class _CustomImageCarouselState extends State<CustomImageCarousel> {
                 enableInfiniteScroll: false,
                 enlargeCenterPage: false,
               ),
-              items: widget.items.map(
-                (item) {
-                  return Builder(
-                    builder: (BuildContext context) {
-                      return Container(
-                        width: MediaQuery.of(context).size.width,
-                        margin: EdgeInsets.symmetric(horizontal: 6.h),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          image: DecorationImage(
-                            image: NetworkImage(item.imageURL),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        child: Align(
-                          alignment: Alignment.bottomLeft,
-                          child: Container(
-                            margin: EdgeInsets.only(left: 15.hs, bottom: 5.vs),
-                            child: CustomChip(label: item.sceneName),
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                },
-              ).toList(),
+              itemCount: widget.items.length,
+              itemBuilder: (BuildContext context, int index, int realIndex) {
+                final item = widget.items[index];
+                return Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: EdgeInsets.symmetric(horizontal: 6.h),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                      image: CachedNetworkImageProvider(item.imageURL),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Container(
+                      margin: EdgeInsets.only(left: 15.hs, bottom: 5.vs),
+                      child: CustomChip(label: item.sceneName),
+                    ),
+                  ),
+                );
+              },
             ),
-            const SizedBox(height: 50)
+            SizedBox(height: 50.h),
           ],
         ),
         Positioned(

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'package:panorama_viewer_plus/panorama_viewer_plus.dart';
+import 'package:panorama_viewer/panorama_viewer.dart';
+
 import 'package:ultrasound_clinic/resources/icons.dart' as icons;
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
 import 'package:ultrasound_clinic/widgets/common/svg_loader.dart';
 
-class PanoramaPreViewer extends StatelessWidget {
+class PanoramaPreViewer extends StatefulWidget {
   final String imagePath;
   final bool? showCloseButton;
   final Function()? onClose;
@@ -22,22 +23,24 @@ class PanoramaPreViewer extends StatelessWidget {
   });
 
   @override
+  State<PanoramaPreViewer> createState() => _PanoramaPreViewerState();
+}
+
+class _PanoramaPreViewerState extends State<PanoramaPreViewer> {
+  @override
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.center,
       children: [
-        CustomPanoramaViewer(
-          key: Key(imagePath),
-          imagePath: imagePath,
-          width: double.infinity,
-          height: MediaQuery.of(context).size.height,
+        PanoramaViewer(
+          child: Image.network(widget.imagePath),
         ),
-        if (showCloseButton == true)
+        if (widget.showCloseButton == true)
           Positioned(
             top: 80,
             left: 30,
             child: InkWell(
-              onTap: onClose,
+              onTap: widget.onClose,
               child: SizedBox(
                 width: 15.w,
                 height: 15.h,
@@ -68,7 +71,7 @@ class PanoramaPreViewer extends StatelessWidget {
                 Row(
                   children: [
                     InkWell(
-                      onTap: onBackward,
+                      onTap: widget.onBackward,
                       child: SizedBox(
                         width: 14.w,
                         height: 28.h,
@@ -81,7 +84,7 @@ class PanoramaPreViewer extends StatelessWidget {
                     Transform.rotate(
                       angle: 3.14,
                       child: InkWell(
-                        onTap: onForward,
+                        onTap: widget.onForward,
                         child: SizedBox(
                           width: 14.w,
                           height: 28.h,

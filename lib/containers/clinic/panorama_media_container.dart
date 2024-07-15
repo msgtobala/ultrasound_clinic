@@ -41,16 +41,9 @@ class _PanoramaMediaContainerState extends State<PanoramaMediaContainer> {
     });
   }
 
-  void onSavePanoramaImage(String sceneName, String url) async {
-    final panoramaImage = PanoramaImageModel(
-      sceneName: sceneName,
-      imageURL: url,
-    );
+  void onSavePanoramaImage(List<PanoramaImageModel> panoramaImages) async {
     setState(() {
-      _clinicImages = [
-        panoramaImage,
-        ..._clinicImages!,
-      ];
+      _clinicImages = panoramaImages;
     });
   }
 
