@@ -6,7 +6,7 @@ import 'package:ultrasound_clinic/constants/enums/role_enum.dart';
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/screens/clinic/appointments_screen.dart';
-import 'package:ultrasound_clinic/screens/clinic/panorama_media.dart';
+import 'package:ultrasound_clinic/screens/clinic/panorama_media_screen.dart';
 import 'package:ultrasound_clinic/screens/clinic/clinic_settings_screen.dart';
 import 'package:ultrasound_clinic/screens/patient/patient_settings_screen.dart';
 import 'package:ultrasound_clinic/screens/patient/panorama_viewer_screen.dart';

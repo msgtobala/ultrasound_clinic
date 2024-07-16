@@ -17,30 +17,34 @@ import 'package:ultrasound_clinic/widgets/common/svg_loader.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key});
 
+  void onCopy(BuildContext context) async {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final currentUser = authProvider.currentUser!;
+    final clinicId = currentUser.clinics.first;
+    await Clipboard.setData(ClipboardData(text: clinicId));
+    if (context.mounted) {
+      showSnackbar(context, Strings.clinicCodeCopied);
+    }
+  }
+
+  void onShare(BuildContext context) async {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final currentUser = authProvider.currentUser!;
+    final clinicId = currentUser.clinics.first;
+    final result = await Share.share(clinicId);
+
+    if (result.status == ShareResultStatus.success && context.mounted) {
+      showSnackbar(context, Strings.clinicCodeShared);
+    }
+  }
+
   @override
-  Size get preferredSize => const Size.fromHeight(100);
+  Size get preferredSize => Size.fromHeight(75.h);
 
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final currentUser = authProvider.currentUser!;
-
-    void onCopy() async {
-      final clinicId = currentUser.clinics.first;
-      await Clipboard.setData(ClipboardData(text: clinicId));
-      if (context.mounted) {
-        showSnackbar(context, Strings.clinicCodeCopied);
-      }
-    }
-
-    void onShare() async {
-      final clinicId = currentUser.clinics.first;
-      final result = await Share.share(clinicId);
-
-      if (result.status == ShareResultStatus.success && context.mounted) {
-        showSnackbar(context, Strings.clinicCodeShared);
-      }
-    }
 
     return AppBar(
       automaticallyImplyLeading: false,
@@ -56,57 +60,42 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 8.0,
-                  left: 8.0,
-                  right: 8.0,
-                  bottom: 12.0,
-                ),
+              Text(
+                '${currentUser.name} ${Strings.clinic}',
+                style: Theme.of(context).textTheme.headlineSmallWhite,
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 10.w),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Expanded(
-                      child: Column(
-                        children: [
-                          Text(
-                            '${currentUser.name} ${Strings.clinic}',
-                            style:
-                                Theme.of(context).textTheme.headlineSmallWhite,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                currentUser.clinics.first,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displayMediumStrongWhite,
-                              ),
-                              IconButton(
-                                icon: const SizedBox(
-                                  width: 20,
-                                  height: 20,
-                                  child: SVGLoader(image: icons.Icons.copy),
-                                ),
-                                onPressed: onCopy,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                    Text(
+                      currentUser.clinics.first,
+                      style:
+                          Theme.of(context).textTheme.displayMediumStrongWhite,
                     ),
-                    // IconButton(
-                    //   icon: const SVGLoader(image: icons.Icons.share),
-                    //   onPressed: onShare,
-                    // ),
+                    IconButton(
+                      icon: const SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: SVGLoader(image: icons.Icons.copy),
+                      ),
+                      onPressed: () => onCopy(context),
+                    ),
                   ],
                 ),
               ),
             ],
+          ),
+          Positioned(
+            bottom: 30.vs,
+            right: 18.hs,
+            child: IconButton(
+              icon: const SVGLoader(image: icons.Icons.share),
+              onPressed: () => onShare(context),
+            ),
           ),
         ],
       ),

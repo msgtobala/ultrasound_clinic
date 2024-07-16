@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:ultrasound_clinic/constants/constants.dart';
+import 'package:ultrasound_clinic/containers/patient/today_appintments_container.dart';
+import 'package:ultrasound_clinic/containers/patient/upcoming_appointments_container.dart';
 
 import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/themes/colors.dart';
@@ -22,7 +25,7 @@ class AppointmentsScreen extends StatelessWidget {
           SizedBox(height: 20.h),
           Expanded(
             child: DefaultTabController(
-              length: 2,
+              length: constants.appointmentTabs,
               child: Column(
                 children: [
                   TabBar(
@@ -50,8 +53,8 @@ class AppointmentsScreen extends StatelessWidget {
                   const Expanded(
                     child: TabBarView(
                       children: [
-                        AppointmentList(tab: Strings.today),
-                        AppointmentList(tab: Strings.upcoming),
+                        TodaysAppointmentsContainer(),
+                        UpcomingAppointmentsContainer(),
                       ],
                     ),
                   ),

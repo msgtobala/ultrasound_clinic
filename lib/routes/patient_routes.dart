@@ -26,4 +26,7 @@ class PatientRoutes {
       settings: settings,
     );
   }
+
+  static final GlobalKey<NavigatorState> patientNavigatorKey =
+      GlobalKey<NavigatorState>();
 }
