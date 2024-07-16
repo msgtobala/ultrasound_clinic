@@ -6,6 +6,7 @@ class FormModel {
   final String type;
   final String key;
   final List<FormModel>? next;
+  final Widget? prefixIcon;
 
   FormModel({
     required this.label,
@@ -13,6 +14,7 @@ class FormModel {
     this.keyboardType,
     required this.key,
     this.next,
+    this.prefixIcon,
   });
 
   // Factory method to create a FormModel from a map
@@ -23,6 +25,7 @@ class FormModel {
       type: map['type'] as String,
       key: map['key'] as String,
       next: map['next'] as List<FormModel>,
+      prefixIcon: map['prefixIcon'] as Widget,
     );
   }
 }

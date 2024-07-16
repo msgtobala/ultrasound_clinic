@@ -1,16 +1,87 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import 'package:ultrasound_clinic/core/services/panorama/panorama_services.dart';
+import 'package:ultrasound_clinic/models/common/panorama_image_model.dart';
+import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/widgets/common/panorama_previewer.dart';
 
-class PanoramaViewerContainer extends StatelessWidget {
+class PanoramaViewerContainer extends StatefulWidget {
   const PanoramaViewerContainer({super.key});
 
   @override
+  State<PanoramaViewerContainer> createState() =>
+      _PanoramaViewerContainerState();
+}
+
+class _PanoramaViewerContainerState extends State<PanoramaViewerContainer> {
+  final PanoramaService panoramaService = PanoramaService();
+  bool _isLoading = false;
+  List<PanoramaImageModel> _panoramaImages = [];
+  int _selectedIndex = 0;
+
+  Future<void> fetchPanoramaImages() async {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final clinicId = authProvider.currentUser!.clinics.first;
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    // Fetch panorama images from API
+    final clinicImages = await panoramaService.getClinicImages(clinicId);
+
+    setState(() {
+      _isLoading = false;
+      _panoramaImages = clinicImages;
+    });
+  }
+
+  void onForward() {
+    if (_selectedIndex < _panoramaImages.length - 1) {
+      setState(() {
+        _selectedIndex++;
+      });
+    }
+  }
+
+  void onBackward() {
+    if (_selectedIndex > 0) {
+      setState(() {
+        _selectedIndex--;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    fetchPanoramaImages();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const PanoramaPreViewer(
-      imagePath:
-          'https://raw.githubusercontent.com/ShreyaAmbaliya/panorama_viewer_plus/main/example/assets/test.jpg',
+    if (_isLoading) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
+    if (_panoramaImages.isEmpty) {
+      return Center(
+        child: Text(
+          'No images found',
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
+      );
+    }
+
+    return PanoramaPreViewer(
+      imagePath: _panoramaImages[_selectedIndex].imageURL,
       showCloseButton: false,
+      onBackward: onBackward,
+      onForward: onForward,
     );
   }
 }

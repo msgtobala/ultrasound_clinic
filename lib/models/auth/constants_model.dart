@@ -6,6 +6,7 @@ class ConstantsModel {
   final Map<String, String> formInputTypes;
   final List<String> sceneTypes;
   final int maxSceneTypes;
+  final int appointmentTabs;
 
   ConstantsModel({
     required this.loggedInStatusFlag,
@@ -13,6 +14,7 @@ class ConstantsModel {
     required this.formInputTypes,
     required this.sceneTypes,
     required this.maxSceneTypes,
+    required this.appointmentTabs,
   });
 
   // Factory method to create a ConstantsModel from a map
@@ -23,6 +25,7 @@ class ConstantsModel {
       formInputTypes: map['formInputTypes'] as Map<String, String>,
       sceneTypes: map['sceneTypes'] as List<String>,
       maxSceneTypes: map['maxSceneTypes'] as int,
+      appointmentTabs: map['appointmentTabs'] as int,
     );
   }
 }

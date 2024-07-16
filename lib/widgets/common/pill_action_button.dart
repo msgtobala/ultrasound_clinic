@@ -26,7 +26,7 @@ class PillActionButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: width ?? 110.w,
+        // width: width ?? 110.w,
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
         decoration: BoxDecoration(
           color: ThemeColors.lightBlue,
@@ -40,6 +40,7 @@ class PillActionButton extends StatelessWidget {
               text,
               style: Theme.of(context).textTheme.bodyLargeLight,
             ),
+            SizedBox(width: 10.w),
             if (icon != null)
               SizedBox(width: 18, height: 18, child: SVGLoader(image: icon!)),
             if (iconData != null)
