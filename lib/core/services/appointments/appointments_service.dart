@@ -40,12 +40,14 @@ class AppointmentsService {
         ...appointment,
         'uid': appointmentId,
         'userId': userId,
+        'appointmentRefId': userAppointmentId,
       });
       UserAppointmentModel userAppointmentModel =
           UserAppointmentModel.fromJson({
         ...appointment,
         'uid': userAppointmentId,
         'refId': appointmentId,
+        'clinicId': clinicId,
       });
 
       await _firestore

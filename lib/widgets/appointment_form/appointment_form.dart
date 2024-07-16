@@ -196,34 +196,6 @@ class _AppointmentFormState extends State<AppointmentForm> {
                 );
               }
 
-              if (input.type == 'next') {
-                return Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      key: Key(input.label),
-                      children: [
-                        ...input.next!.map((nextInput) {
-                          return Flexible(
-                            key: Key(nextInput.label),
-                            child: SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.43,
-                              child: FormInput(
-                                text: nextInput.label,
-                                onSaved: (value) => _onSaved(input.key, value),
-                                validator: (value) =>
-                                    validator(input.key, value!),
-                              ),
-                            ),
-                          );
-                        }),
-                      ],
-                    ),
-                    SizedBox(height: 20.h),
-                  ],
-                );
-              }
-
               return const SizedBox();
             }),
             SizedBox(

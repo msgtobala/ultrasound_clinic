@@ -52,8 +52,8 @@ class Strings {
   static const String invalidEmail = 'Invalid Email';
   static const String invalidFullName = 'Invalid Full Name';
   static const String invalidEmailOrPhone = 'Invalid Email or Phone';
-  static const String invalidPassword = 'Invalid Password';
-  static const String invalidMobileNumber = 'Invalid Mobile Number';
+  static const String invalidPassword = 'Invalid password';
+  static const String invalidMobileNumber = 'Invalid mobile number';
   static const String pleaseSelectRole = 'Please select a role';
   static const String passwordValidationString =
       'Password must be at least 6 characters';
@@ -98,14 +98,25 @@ class Strings {
   static const String upcoming = 'Upcoming';
   static const String manageDoctor = 'Manage Doctor';
   static const String manageStaff = 'Manage Staff';
-  static const String invalidPatientName = 'Invalid Patient Name';
-  static const String invalidDate = 'Invalid Date';
-  static const String invalidTime = 'Invalid Time';
+  static const String invalidPatientName = 'Invalid patient name';
+  static const String invalidDate = 'Invalid date';
+  static const String invalidTime = 'Invalid time';
   static const String appointmentRequested = 'Appointment Requested';
   static const String yourAppointmentRequestHasBeenSubmitted =
       'Your appointment request has been submitted.';
   static const String failedToCreateAppointment =
       'Failed to create appointment';
   static const String close = 'Close';
-  static const noAppointmentsFound = 'No appointments found';
+  static const String noAppointmentsFound = 'No appointments found';
+  static const String invalidAddress = 'Invalid address';
+  static const String invalidCity = 'Invalid city';
+  static const String invalidPinCode = 'Invalid Pin code';
+  static const String invalidPrescription = 'Invalid prescription';
+  static const String image = 'image';
+  static const String samplePrescription = 'prescription.jpg';
+  static const String failedToAddUSG = 'Failed to add USG';
+  static const String copiedToCLipboard = 'Copied to clipboard';
+  static const String prescriptionsUploadedSuccessfully =
+      'Prescriptions uploaded successfully';
+  static const String usgSubmitted = 'USG Submitted';
 }

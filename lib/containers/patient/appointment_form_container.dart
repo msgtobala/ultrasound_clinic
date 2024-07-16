@@ -5,13 +5,9 @@ import 'package:provider/provider.dart';
 
 import 'package:ultrasound_clinic/core/services/appointments/appointments_service.dart';
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
-import 'package:ultrasound_clinic/resources/icons.dart' as icons;
 import 'package:ultrasound_clinic/resources/strings.dart';
-import 'package:ultrasound_clinic/themes/colors.dart';
-import 'package:ultrasound_clinic/themes/fonts.dart';
-import 'package:ultrasound_clinic/themes/responsiveness.dart';
 import 'package:ultrasound_clinic/widgets/appointment_form/appointment_form.dart';
-import 'package:ultrasound_clinic/widgets/common/svg_loader.dart';
+import 'package:ultrasound_clinic/widgets/common/custom_info_dialog.dart';
 
 class AppointmentFormContainer extends StatefulWidget {
   const AppointmentFormContainer({super.key});
@@ -29,7 +25,7 @@ class _AppointmentFormContainerState extends State<AppointmentFormContainer> {
   void onCopy(String appointmentId) {
     Clipboard.setData(ClipboardData(text: appointmentId));
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Copied to clipboard')),
+      const SnackBar(content: Text(Strings.copiedToCLipboard)),
     );
   }
 
@@ -41,43 +37,12 @@ class _AppointmentFormContainerState extends State<AppointmentFormContainer> {
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.d),
-          ),
-          title: const Text(Strings.appointmentRequested),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(Strings.yourAppointmentRequestHasBeenSubmitted),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Text(
-                      appointmentId,
-                      style:
-                          Theme.of(context).textTheme.headlineSmallRegularGrey,
-                    ),
-                  ),
-                  IconButton(
-                    icon: const SVGLoader(image: icons.Icons.copyBlack),
-                    onPressed: () => onCopy(appointmentId),
-                    color: ThemeColors.black,
-                  ),
-                ],
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => onClose(context),
-              child: Text(Strings.close.toUpperCase()),
-            ),
-          ],
+        return CustomInfoDialog(
+          title: Strings.appointmentRequested,
+          content: Strings.yourAppointmentRequestHasBeenSubmitted,
+          displayData: appointmentId,
+          onClose: onClose,
+          onCopy: onCopy,
         );
       },
     );

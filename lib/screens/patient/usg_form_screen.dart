@@ -4,7 +4,9 @@ import 'package:ultrasound_clinic/containers/patient/usg_form_container.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
 
 class USGFormScreen extends StatelessWidget {
-  const USGFormScreen({super.key});
+  const USGFormScreen({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

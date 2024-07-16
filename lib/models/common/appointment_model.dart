@@ -7,6 +7,7 @@ class AppointmentModel {
   DateTime date;
   DateTime requestDate;
   String userId;
+  String appointmentRefId;
 
   AppointmentModel({
     required this.uid,
@@ -15,6 +16,7 @@ class AppointmentModel {
     required this.date,
     required this.requestDate,
     required this.userId,
+    required this.appointmentRefId,
   });
 
   // Method to convert a JSON map to an AppointmentInputModel instance
@@ -26,6 +28,7 @@ class AppointmentModel {
       requestDate: json['requestDate'] as DateTime,
       uid: json['uid'],
       userId: json['userId'],
+      appointmentRefId: json['appointmentRefId'],
     );
   }
 
@@ -38,6 +41,7 @@ class AppointmentModel {
       requestDate: (json['requestDate'] as Timestamp).toDate().toLocal(),
       uid: json['uid'],
       userId: json['userId'],
+      appointmentRefId: json['appointmentRefId'],
     );
   }
 
@@ -50,6 +54,7 @@ class AppointmentModel {
       'requestDate': requestDate,
       'uid': uid,
       'userId': userId,
+      'appointmentRefId': appointmentRefId,
     };
   }
 }
@@ -61,6 +66,7 @@ class UserAppointmentModel {
   DateTime date;
   DateTime requestDate;
   String refId;
+  String clinicId;
 
   UserAppointmentModel({
     required this.uid,
@@ -69,6 +75,7 @@ class UserAppointmentModel {
     required this.date,
     required this.requestDate,
     required this.refId,
+    required this.clinicId,
   });
 
   // Method to convert a JSON map to an UserAppointmentModel instance
@@ -80,6 +87,7 @@ class UserAppointmentModel {
       requestDate: json['requestDate'],
       uid: json['uid'],
       refId: json['refId'],
+      clinicId: json['clinicId'],
     );
   }
 
@@ -92,6 +100,7 @@ class UserAppointmentModel {
       'requestDate': requestDate,
       'uid': uid,
       'refId': refId,
+      'clinicId': clinicId,
     };
   }
 }
