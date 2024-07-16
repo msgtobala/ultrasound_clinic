@@ -41,9 +41,7 @@ class USGReportListCard extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 10.vs, horizontal: 20.hs),
             child: Row(
               children: [
-                CircleAvatar(
-                  radius: 30.d,
-                ),
+                CircleAvatar(radius: 30.d),
                 SizedBox(width: 16.w),
                 Expanded(
                   child: Text(usgReportDetail["name"],
