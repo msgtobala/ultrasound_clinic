@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:ultrasound_clinic/models/common/appointment_model.dart';
 
 import 'package:ultrasound_clinic/models/common/form_model.dart';
 import 'package:ultrasound_clinic/resources/regex.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
+import 'package:ultrasound_clinic/utils/date_time/date_time.dart';
 import 'package:ultrasound_clinic/widgets/common/custom_elevated_button.dart';
 import 'package:ultrasound_clinic/widgets/common/form_input.dart';
 
 class AppointmentForm extends StatefulWidget {
   final bool isLoading;
-  final void Function(AppointmentInputModel appointment) addAppointment;
+  final void Function(Map<String, dynamic> appointment) addAppointment;
 
   const AppointmentForm({
     super.key,
@@ -98,11 +98,12 @@ class _AppointmentFormState extends State<AppointmentForm> {
   void _handleAppointment() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState?.save();
-      final appointment = AppointmentInputModel.fromJson({
-        ...formData,
-        'requestDate': DateTime.now().toString().split(" ")[0]
+      widget.addAppointment({
+        'patientName': formData['patientName']!,
+        'mobileNumber': formData['mobileNumber']!,
+        'date': parseDateTime(formData['date']!, formData['time']!),
+        'requestDate': DateTime.now(),
       });
-      widget.addAppointment(appointment);
       resetForm();
     }
   }

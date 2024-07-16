@@ -20,7 +20,7 @@ class AppointmentsService {
   Future<String?> createAppointment(
     String clinicId,
     String userId,
-    AppointmentInputModel appointment,
+    Map<String, dynamic> appointment,
   ) async {
     try {
       String appointmentId = _firestore
@@ -35,6 +35,19 @@ class AppointmentsService {
           .collection('userAppointments')
           .doc()
           .id;
+
+      AppointmentModel appointmentModel = AppointmentModel.fromJson({
+        ...appointment,
+        'uid': appointmentId,
+        'userId': userId,
+      });
+      UserAppointmentModel userAppointmentModel =
+          UserAppointmentModel.fromJson({
+        ...appointment,
+        'uid': userAppointmentId,
+        'refId': appointmentId,
+      });
+
       await _firestore
           .collection('clinics')
           .doc(clinicId)
@@ -42,11 +55,10 @@ class AppointmentsService {
           .doc(appointmentId)
           .set(
         {
-          ...appointment.toJson(),
-          'uid': appointmentId,
-          'userId': userId,
+          ...appointmentModel.toJson(),
         },
       );
+
       await _firestore
           .collection('users')
           .doc(userId)
@@ -54,9 +66,7 @@ class AppointmentsService {
           .doc(userAppointmentId)
           .set(
         {
-          ...appointment.toJson(),
-          'uid': userAppointmentId,
-          'refId': appointmentId,
+          ...userAppointmentModel.toJson(),
         },
       );
 
@@ -64,6 +74,63 @@ class AppointmentsService {
     } catch (e) {
       log.e('Error creating appointment: $e');
       return null;
+    }
+  }
+
+  // Method to get today's clinic appointments
+  Future<List<AppointmentModel>> getTodaysClinicAppointments(
+      String clinicId) async {
+    try {
+      DateTime now = DateTime.now();
+      DateTime todayStart = DateTime(now.year, now.month, now.day);
+      DateTime todayEnd = DateTime(now.year, now.month, now.day + 1);
+
+      Timestamp startTimestamp = Timestamp.fromDate(todayStart);
+      Timestamp endTimestamp = Timestamp.fromDate(todayEnd);
+
+      QuerySnapshot querySnapshot = await _firestore
+          .collection('clinics')
+          .doc(clinicId)
+          .collection('appointments')
+          .where('date', isGreaterThanOrEqualTo: startTimestamp)
+          .where('date', isLessThan: endTimestamp)
+          .get();
+      List<AppointmentModel> appointments = querySnapshot.docs
+          .map((doc) =>
+              AppointmentModel.fromTJson(doc.data() as Map<String, dynamic>))
+          .toList();
+
+      return appointments;
+    } catch (e) {
+      log.e('Error fetching today\'s clinic appointments: $e');
+      return [];
+    }
+  }
+
+  // Method to get upcoming clinic appointments
+  Future<List<AppointmentModel>> getUpcomingAppointments(
+      String clinicId) async {
+    try {
+      DateTime now = DateTime.now();
+      Timestamp startTimestamp = Timestamp.fromDate(now);
+
+      QuerySnapshot querySnapshot = await _firestore
+          .collection('clinics')
+          .doc(clinicId)
+          .collection('appointments')
+          .where('date', isGreaterThanOrEqualTo: startTimestamp)
+          .orderBy('date')
+          .get();
+
+      List<AppointmentModel> appointments = querySnapshot.docs
+          .map((doc) =>
+              AppointmentModel.fromTJson(doc.data() as Map<String, dynamic>))
+          .toList();
+
+      return appointments;
+    } catch (e) {
+      log.e('Error fetching upcoming clinic appointments: $e');
+      return [];
     }
   }
 }

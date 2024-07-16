@@ -107,4 +107,5 @@ class Strings {
   static const String failedToCreateAppointment =
       'Failed to create appointment';
   static const String close = 'Close';
+  static const noAppointmentsFound = 'No appointments found';
 }
