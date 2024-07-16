@@ -176,11 +176,15 @@ class AccordionPage extends StatelessWidget {
                       text: 'View Report',
                       onPressed: () {},
                       buttonSize: ButtonSize.small,
+                      buttonTextStyle:
+                          Theme.of(context).textTheme.bodyMediumWhite,
                     ),
                     CustomOutlinedButton(
                       text: 'Download Report',
                       onPressed: () {},
                       buttonSize: ButtonSize.small,
+                      borderColor: Theme.of(context).primaryColor,
+                      textColor: Theme.of(context).primaryColor,
                     ),
                   ],
                 ),

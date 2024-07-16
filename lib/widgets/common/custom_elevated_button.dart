@@ -12,11 +12,13 @@ class CustomElevatedButton extends StatelessWidget {
     required this.onPressed,
     this.buttonSize,
     this.isLoading,
+    this.buttonTextStyle,
   });
 
   final String text;
   final ButtonSize? buttonSize;
   final bool? isLoading;
+  final TextStyle? buttonTextStyle;
   final void Function()? onPressed;
 
   @override
@@ -31,7 +33,8 @@ class CustomElevatedButton extends StatelessWidget {
           ? LoadingCircularBar(isButtonLoader: isLoading!)
           : Text(
               text,
-              style: Theme.of(context).textTheme.headlineSmallWhite,
+              style: buttonTextStyle ??
+                  Theme.of(context).textTheme.headlineSmallWhite,
             ),
     );
   }
