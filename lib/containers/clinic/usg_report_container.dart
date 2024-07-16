@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class USGReport extends StatelessWidget {
-  const USGReport({super.key});
+class USGReportContainer extends StatelessWidget {
+  const USGReportContainer({super.key});
 
   @override
   Widget build(BuildContext context) {

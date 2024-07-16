@@ -27,6 +27,7 @@ dependencies:
   firebase_storage: ^12.1.1
   panorama_viewer: ^1.0.5
   cached_network_image: ^3.3.1
+  share_plus: ^9.0.0
 
 dev_dependencies:
   flutter_test:

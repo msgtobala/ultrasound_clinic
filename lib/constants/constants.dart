@@ -48,6 +48,7 @@ final constantsMap = {
     'Rest Room',
   ],
   'maxSceneTypes': 6,
+  'appointmentTabs': 2,
 };
 
 final constants = ConstantsModel.fromMap(constantsMap);

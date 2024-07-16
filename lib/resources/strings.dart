@@ -70,12 +70,14 @@ class Strings {
   static const availableScreens = 'Available Scenes';
   static const upload = 'Upload';
   static const String patientName = 'Patient Name';
+  static const String selectDate = 'Select Date';
+  static const String selectTime = 'Select Time';
   static const String address = 'Address';
   static const String city = 'City';
   static const String state = 'State';
   static const String pinCode = 'Pin Code';
   static const String prescription = 'Prescription';
-  static const String provideAnAppointmentNo = 'Provide an Appointment No';
+  static const String provideAnAppointmentNo = 'Book Appointment';
   static const String usgForm = 'USG Form';
   static const String patientAppointment = 'Patient appointment';
   static const String uploadClinicPicture = 'Upload clinic picture';
@@ -87,4 +89,23 @@ class Strings {
   static const String edit = 'Edit';
   static const String gallery = 'Gallery';
   static const String camera = 'Camera';
+  static const String hi = 'Hi,';
+  static const String pendingApproval = 'Pending approval';
+  static const String clinicCodeCopied = 'Clinic code copied!';
+  static const String clinicCodeShared = 'Clinic code shared!';
+  static const String search = 'Search';
+  static const String today = 'Today';
+  static const String upcoming = 'Upcoming';
+  static const String manageDoctor = 'Manage Doctor';
+  static const String manageStaff = 'Manage Staff';
+  static const String invalidPatientName = 'Invalid Patient Name';
+  static const String invalidDate = 'Invalid Date';
+  static const String invalidTime = 'Invalid Time';
+  static const String appointmentRequested = 'Appointment Requested';
+  static const String yourAppointmentRequestHasBeenSubmitted =
+      'Your appointment request has been submitted.';
+  static const String failedToCreateAppointment =
+      'Failed to create appointment';
+  static const String close = 'Close';
+  static const noAppointmentsFound = 'No appointments found';
 }

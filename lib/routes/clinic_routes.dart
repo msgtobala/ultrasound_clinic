@@ -26,4 +26,7 @@ class ClinicRoutes {
       settings: settings,
     );
   }
+
+  static final GlobalKey<NavigatorState> clinicNavigatorKey =
+      GlobalKey<NavigatorState>();
 }
