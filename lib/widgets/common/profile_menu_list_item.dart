@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
 
 class ProfileMenuListItem extends StatelessWidget {
@@ -23,6 +24,7 @@ class ProfileMenuListItem extends StatelessWidget {
         horizontal: 0,
       ),
       child: ListTile(
+        contentPadding: EdgeInsets.only(left: 10.hs),
         leading: leading,
         title: Text(
           itemName,

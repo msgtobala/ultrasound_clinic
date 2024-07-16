@@ -10,6 +10,7 @@ class Icons {
   static const String settings = 'assets/icons/settings.svg';
   static const String settingsActive = 'assets/icons/settings_active.svg';
   static const String copy = 'assets/icons/copy.svg';
+  static const String copyBlack = 'assets/icons/copy_black.svg';
   static const String back = 'assets/icons/back.svg';
   static const String share = 'assets/icons/share.svg';
   static const String edit = 'assets/icons/edit.svg';
@@ -29,4 +30,5 @@ class Icons {
   static const String manageUSG = 'assets/icons/manage_usg.svg';
   static const String changePassword = 'assets/icons/change_password.svg';
   static const String termsAndConditions = 'assets/icons/terms.svg';
+  static const String rightArrow = 'assets/icons/right_arrow.png';
 }

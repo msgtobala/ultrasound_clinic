@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:ultrasound_clinic/layout/base_layout.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
-import 'package:ultrasound_clinic/widgets/common/clinic_profile.dart';
+import 'package:ultrasound_clinic/widgets/common/user_profile.dart';
+import 'package:ultrasound_clinic/widgets/common/user_profile_controls.dart';
 
 class ClinicSettingsScreen extends StatelessWidget {
   const ClinicSettingsScreen({super.key});
@@ -16,9 +17,11 @@ class ClinicSettingsScreen extends StatelessWidget {
       offset: Offset(0, -(MediaQuery.of(context).padding.top + 300.h)),
       child: Padding(
         padding: EdgeInsets.all(20.s),
-        child: const Column(
+        child: Column(
           children: [
-            ClinicProfile(),
+            const UserProfile(),
+            SizedBox(height: 90.h),
+            const UserProfileControls(),
           ],
         ),
       ),
