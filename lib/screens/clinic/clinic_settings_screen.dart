@@ -19,7 +19,7 @@ class ClinicSettingsScreen extends StatelessWidget {
         padding: EdgeInsets.all(20.s),
         child: Column(
           children: [
-            const ClinicProfile(),
+            const UserProfile(),
             SizedBox(height: 90.h),
             const UserProfileControls(),
           ],

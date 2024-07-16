@@ -8,7 +8,6 @@ import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/resources/icons.dart' as icons;
 import 'package:ultrasound_clinic/resources/images.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
-import 'package:ultrasound_clinic/themes/colors.dart';
 import 'package:ultrasound_clinic/themes/fonts.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
 import 'package:ultrasound_clinic/utils/snackbar/show_snackbar.dart';

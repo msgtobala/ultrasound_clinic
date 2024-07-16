@@ -1,6 +1,5 @@
 import 'package:ultrasound_clinic/models/auth/constants_model.dart';
 import 'package:ultrasound_clinic/models/common/bottom_navigation_model.dart';
-import 'package:ultrasound_clinic/models/common/carousel_model.dart';
 import 'package:ultrasound_clinic/resources/icons.dart' as icons;
 import 'package:ultrasound_clinic/resources/strings.dart';
 

@@ -6,7 +6,7 @@ import 'package:ultrasound_clinic/constants/constants.dart';
 import 'package:ultrasound_clinic/core/services/firebase/firebase_auth_service.dart';
 import 'package:ultrasound_clinic/models/auth/auth_model.dart';
 import 'package:ultrasound_clinic/models/auth/user_model.dart';
-import 'package:ultrasound_clinic/utils/error/parse_expection.dart';
+import 'package:ultrasound_clinic/utils/error/parse_exception.dart';
 import 'package:ultrasound_clinic/utils/logger/logger.dart';
 import 'package:ultrasound_clinic/utils/shared_preference/shared_preference.dart';
 

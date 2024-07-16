@@ -7,8 +7,8 @@ import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/themes/colors.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
 
-class ClinicProfile extends StatelessWidget {
-  const ClinicProfile({super.key});
+class UserProfile extends StatelessWidget {
+  const UserProfile({super.key});
 
   @override
   Widget build(BuildContext context) {
