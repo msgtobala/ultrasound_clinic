@@ -38,7 +38,7 @@ class BaseLayout extends StatelessWidget {
                       fit: BoxFit.fill,
                     ),
                   ),
-                  if (hideMeta != false)
+                  if (!(hideMeta ?? false))
                     Positioned(
                       top: 120.h,
                       left: 20.w,

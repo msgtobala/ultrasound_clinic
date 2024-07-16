@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ultrasound_clinic/models/common/appointment_model.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/utils/date_time/date_time.dart';
+
 import 'package:ultrasound_clinic/widgets/appointments/appointment_card.dart';
 
 class AppointmentList extends StatelessWidget {
