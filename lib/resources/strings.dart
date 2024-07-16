@@ -119,4 +119,5 @@ class Strings {
   static const String prescriptionsUploadedSuccessfully =
       'Prescriptions uploaded successfully';
   static const String usgSubmitted = 'USG Submitted';
+  static const String logout = 'Logout';
 }

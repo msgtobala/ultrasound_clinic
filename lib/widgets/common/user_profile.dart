@@ -25,10 +25,10 @@ class UserProfile extends StatelessWidget {
           ),
           child: Row(
             children: [
-              const CircleAvatar(
-                radius: 38,
-                backgroundImage: AssetImage('assets/images/clinic_icon.png'),
-              ),
+              // const CircleAvatar(
+              //   radius: 38,
+              //   backgroundImage: AssetImage('assets/images/clinic_icon.png'),
+              // ),
               SizedBox(width: 16.w),
               Expanded(
                 child: Column(
