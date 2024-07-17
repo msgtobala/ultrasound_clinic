@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:ultrasound_clinic/constants/constants.dart';
@@ -21,12 +21,12 @@ class AuthProvider with ChangeNotifier {
   bool _loggedInStatus = false;
 
   final log = CustomLogger.getLogger('AuthProvider');
+  final storageService = FirebaseStorageService();
 
   User? get user => _user;
   bool get isLoading => _isLoading;
   UserModel? get currentUser => _currentUser;
   bool get loggedInStatus => _loggedInStatus;
-  final storageService = FirebaseStorageService();
 
   AuthProvider() {
     _delayUserCheck();
@@ -50,7 +50,6 @@ class AuthProvider with ChangeNotifier {
           : false;
       if (loggedInStatus) {
         final loggedUser = await FirebaseAuthService().getUser(user.uid);
-        // _currentUser = loggedUser;
         _currentUser = UserModel(
           uid: loggedUser.uid,
           name: loggedUser.name,

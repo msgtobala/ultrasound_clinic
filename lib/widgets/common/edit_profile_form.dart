@@ -182,9 +182,8 @@ class _EditProfileFormState extends State<EditProfileForm> {
                                   width:
                                       MediaQuery.of(context).size.width * 0.43,
                                   child: FormInput(
-                                    initialValue: nextInput.key == 'city'
-                                        ? currentUser.city
-                                        : currentUser.state,
+                                    initialValue:
+                                        currentUser.toMap()[nextInput.key],
                                     text: nextInput.label,
                                     onSaved: (value) =>
                                         _onSaved(nextInput.key, value),

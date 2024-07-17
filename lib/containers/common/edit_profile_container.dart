@@ -20,10 +20,10 @@ class _EditProfileContainerState extends State<EditProfileContainer> {
   bool _isLoading = false;
 
   Future<void> onSaveUser(Map<String, String> data, File? profile) async {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
     setState(() {
       _isLoading = true;
     });
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
     try {
       final isUpdated = await authProvider.saveUser(data, profile);
       showSnackbar(context, Strings.savedSuccessfully);

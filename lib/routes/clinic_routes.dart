@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ultrasound_clinic/screens/common/edit_profile_screen.dart';
 
 import 'package:ultrasound_clinic/screens/common/home_navigation_screen.dart';
 import 'package:ultrasound_clinic/screens/clinic/panorama_previewer_screen.dart';
@@ -8,11 +9,13 @@ class ClinicRoutes {
 
   static const String menu = '/menu';
   static const String panoramaPreviewer = '/panorama-previewer';
+  static const String editProfile = '/edit-profile';
 
   static Map<String, WidgetBuilder> get buildClinicRoutes {
     return {
       menu: (context) => const HomeNavigationMenu(),
       panoramaPreviewer: (context) => const PanoramaPreviewerScreen(),
+      editProfile: (context) => const EditProfileScreen(),
     };
   }
 

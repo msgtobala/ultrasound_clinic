@@ -4,9 +4,11 @@ import 'package:provider/provider.dart';
 
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
-import 'package:ultrasound_clinic/screens/common/edit_profile_screen.dart';
+import 'package:ultrasound_clinic/routes/clinic_routes.dart';
 import 'package:ultrasound_clinic/themes/colors.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
+import 'package:ultrasound_clinic/resources/icons.dart' as icons;
+import 'package:ultrasound_clinic/widgets/common/svg_loader.dart';
 
 class UserProfile extends StatelessWidget {
   const UserProfile({super.key});
@@ -54,13 +56,9 @@ class UserProfile extends StatelessWidget {
                 ),
               ),
               IconButton(
-                icon: const Icon(Icons.edit),
+                icon: const SVGLoader(image: icons.Icons.edit),
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (ctx) => const EditProfileScreen(),
-                    ),
-                  );
+                  Navigator.of(context).pushNamed(ClinicRoutes.editProfile);
                 },
               ),
             ],

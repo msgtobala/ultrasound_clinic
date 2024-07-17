@@ -10,17 +10,18 @@ class UserModel {
   final String? profileUrl;
   final String? state;
 
-  UserModel(
-      {required this.uid,
-      required this.name,
-      required this.email,
-      required this.role,
-      required this.phone,
-      required this.clinics,
-      this.profileUrl,
-      this.address,
-      this.state,
-      this.city});
+  UserModel({
+    required this.uid,
+    required this.name,
+    required this.email,
+    required this.role,
+    required this.phone,
+    required this.clinics,
+    this.profileUrl,
+    this.address,
+    this.state,
+    this.city,
+  });
 
   factory UserModel.fromMap(Map<String, dynamic> data) {
     return UserModel(
@@ -63,7 +64,7 @@ class UserModel {
       'address': address,
       'city': city,
       'state': state,
-      'profileUrl': profileUrl
+      'profileUrl': profileUrl,
     };
   }
 }
