@@ -16,15 +16,20 @@ class USGReport extends StatefulWidget {
     required this.isLoading,
     required this.isUploading,
     required this.usgs,
-    required this.uploadReport,
     required this.viewPrescription,
+    required this.reportAction,
   });
 
   final bool isLoading;
   final bool isUploading;
   final List<USGModel> usgs;
-  final Function() uploadReport;
-  final Function() viewPrescription;
+  final Function(String prescription) viewPrescription;
+  final Function(
+    String report,
+    String uid,
+    String userUsgId,
+    String userId,
+  ) reportAction;
 
   @override
   State<USGReport> createState() => _USGReportState();
@@ -62,7 +67,7 @@ class _USGReportState extends State<USGReport> {
               backgroundColor: Theme.of(context).primaryColor,
               headerBuilder: (BuildContext context, bool isExpanded) {
                 return ListTile(
-                  contentPadding: const EdgeInsets.all(10),
+                  contentPadding: EdgeInsets.all(10.d),
                   title: Text(
                     usg.value.patientName,
                     style: Theme.of(context).textTheme.headlineSmallWhite,
@@ -78,33 +83,31 @@ class _USGReportState extends State<USGReport> {
                   ),
                   trailing: Container(
                     color: Theme.of(context).primaryColor,
-                    width: 50,
-                    height: 50,
+                    width: 50.w,
+                    height: 50.h,
                     child: InkWell(
                       onTap: () => toggleExpanded(usg.key),
                       child: isExpanded
-                          ? const Icon(
+                          ? Icon(
                               Icons.expand_less,
                               color: Colors.white,
-                              size: 30,
+                              size: 30.ics,
                             )
-                          : const Icon(
+                          : Icon(
                               Icons.expand_more,
                               color: Colors.white,
-                              size: 30,
+                              size: 30.ics,
                             ),
                     ),
                   ),
                 );
               },
               body: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 15,
-                  vertical: 8,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 15.hs,
+                  vertical: 8.vs,
                 ),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                ),
+                decoration: BoxDecoration(color: ThemeColors.white),
                 child: Column(
                   children: <Widget>[
                     ListTile(
@@ -128,21 +131,34 @@ class _USGReportState extends State<USGReport> {
                       children: <Widget>[
                         CustomElevatedButton(
                           text: Strings.viewPrescription,
-                          onPressed: widget.viewPrescription,
                           buttonSize: ButtonSize.extraSmall,
                           buttonTextStyle:
                               Theme.of(context).textTheme.bodyMediumWhite,
+                          onPressed: () =>
+                              widget.viewPrescription(usg.value.prescription),
                         ),
-                        CustomOutlinedButton(
-                          text: usg.value.report.isNotEmpty
-                              ? Strings.viewReport
-                              : Strings.uploadReport,
-                          onPressed: widget.uploadReport,
-                          borderColor: ThemeColors.primary,
-                          buttonSize: ButtonSize.extraSmall,
-                          buttonTextStyle:
-                              Theme.of(context).textTheme.bodyMediumPrimary,
-                        ),
+                        widget.isUploading
+                            ? SizedBox(
+                                width: 25.w,
+                                height: 25.h,
+                                child: const CircularProgressIndicator(),
+                              )
+                            : CustomOutlinedButton(
+                                text: usg.value.report.isNotEmpty
+                                    ? Strings.viewReport
+                                    : Strings.uploadReport,
+                                borderColor: ThemeColors.primary,
+                                buttonSize: ButtonSize.extraSmall,
+                                buttonTextStyle: Theme.of(context)
+                                    .textTheme
+                                    .bodyMediumPrimary,
+                                onPressed: () => widget.reportAction(
+                                  usg.value.report,
+                                  usg.value.uid,
+                                  usg.value.usgRefId,
+                                  usg.value.userId,
+                                ),
+                              ),
                       ],
                     ),
                   ],

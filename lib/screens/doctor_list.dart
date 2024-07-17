@@ -24,9 +24,9 @@ class DoctorListScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => AddDoctorScreen()),
-    );
+            context,
+            MaterialPageRoute(builder: (context) => AddDoctorScreen()),
+          );
         },
         child: Icon(Icons.add),
         backgroundColor: Colors.blue,
@@ -38,8 +38,10 @@ class DoctorListScreen extends StatelessWidget {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.medical_services), label: 'USG'),
-        BottomNavigationBarItem(icon: Icon(Icons.calendar_today), label: 'Appointment'),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.medical_services), label: 'USG'),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_today), label: 'Appointment'),
         BottomNavigationBarItem(icon: Icon(Icons.photo), label: 'Media'),
         BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
       ],
@@ -102,16 +104,40 @@ class Doctor {
   final String specialization;
   final String imageUrl;
 
-  Doctor({required this.name, required this.specialization, required this.imageUrl});
+  Doctor(
+      {required this.name,
+      required this.specialization,
+      required this.imageUrl});
 }
 
 // Dummy data for demonstration
 List<Doctor> dummyDoctors = [
-  Doctor(name: 'Dr. Lina Thomas', specialization: 'MD - Ultrasound', imageUrl: 'assets/images/layout_background.png'),
-  Doctor(name: 'Wanda Maximoff', specialization: 'MD - Ultrasound', imageUrl: 'assets/images/layout_background.png'),
-  Doctor(name: 'Diana Prince', specialization: 'MD - Ultrasound', imageUrl: 'assets/images/layout_background.png'),
-  Doctor(name: 'Karen Starr', specialization: 'MD - Ultrasound', imageUrl: 'assets/images/layout_background.png'),
-  Doctor(name: 'Natasha Romanoff', specialization: 'MD - Ultrasound', imageUrl: 'assets/images/layout_background.png'),
-  Doctor(name: 'Harleen Quinzel', specialization: 'MD - Ultrasound', imageUrl: 'assets/images/layout_background.png'),
-  Doctor(name: 'Pepper Potts', specialization: 'MD - Ultrasound',imageUrl: 'assets/images/layout_background.png'),
+  Doctor(
+      name: 'Dr. Lina Thomas',
+      specialization: 'MD - Ultrasound',
+      imageUrl: 'assets/images/layout_background.png'),
+  Doctor(
+      name: 'Wanda Maximoff',
+      specialization: 'MD - Ultrasound',
+      imageUrl: 'assets/images/layout_background.png'),
+  Doctor(
+      name: 'Diana Prince',
+      specialization: 'MD - Ultrasound',
+      imageUrl: 'assets/images/layout_background.png'),
+  Doctor(
+      name: 'Karen Starr',
+      specialization: 'MD - Ultrasound',
+      imageUrl: 'assets/images/layout_background.png'),
+  Doctor(
+      name: 'Natasha Romanoff',
+      specialization: 'MD - Ultrasound',
+      imageUrl: 'assets/images/layout_background.png'),
+  Doctor(
+      name: 'Harleen Quinzel',
+      specialization: 'MD - Ultrasound',
+      imageUrl: 'assets/images/layout_background.png'),
+  Doctor(
+      name: 'Pepper Potts',
+      specialization: 'MD - Ultrasound',
+      imageUrl: 'assets/images/layout_background.png'),
 ];

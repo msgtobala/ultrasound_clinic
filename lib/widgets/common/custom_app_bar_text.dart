@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 import 'package:ultrasound_clinic/resources/images.dart';
+import 'package:ultrasound_clinic/themes/colors.dart';
 import 'package:ultrasound_clinic/themes/fonts.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
 
 class CustomAppBarText extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBarText({super.key, required this.title});
+  const CustomAppBarText({super.key, required this.title, this.showBackButton});
 
   final String title;
+  final bool? showBackButton;
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -15,7 +17,10 @@ class CustomAppBarText extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      automaticallyImplyLeading: false,
+      automaticallyImplyLeading: showBackButton ?? false,
+      iconTheme: IconThemeData(
+        color: ThemeColors.white,
+      ),
       flexibleSpace: Stack(
         children: [
           Container(

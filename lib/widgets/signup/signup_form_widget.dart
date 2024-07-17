@@ -36,8 +36,22 @@ class _SignupFormWidgetState extends State<SignupFormWidget> {
   String? _role;
   String? _roleError;
   String? _isTermsAcceptedError;
+  bool _isPasswordVisible = true;
+  bool _isConfirmPasswordVisible = true;
 
   final _passwordController = TextEditingController();
+
+  void revealPassword() {
+    setState(() {
+      _isPasswordVisible = !_isPasswordVisible;
+    });
+  }
+
+  void revealConfirmPassword() {
+    setState(() {
+      _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
+    });
+  }
 
   void _handleRoleChange(String? value) {
     setState(() {
@@ -168,6 +182,13 @@ class _SignupFormWidgetState extends State<SignupFormWidget> {
               text: Strings.password,
               keyboardType: TextInputType.text,
               onSaved: (value) => {_userPassword = value!},
+              suffixIcon: InkWell(
+                onTap: revealPassword,
+                child: _isPasswordVisible
+                    ? const Icon(Icons.visibility_off_outlined)
+                    : const Icon(Icons.remove_red_eye_outlined),
+              ),
+              obscureText: _isPasswordVisible,
               controller: _passwordController,
               validator: (value) {
                 if (value == null || value.isEmpty || value.length < 6) {
@@ -180,7 +201,13 @@ class _SignupFormWidgetState extends State<SignupFormWidget> {
             FormInput(
               text: Strings.confirmPassword,
               keyboardType: TextInputType.text,
-              obscureText: true,
+              suffixIcon: InkWell(
+                onTap: revealConfirmPassword,
+                child: _isConfirmPasswordVisible
+                    ? const Icon(Icons.visibility_off_outlined)
+                    : const Icon(Icons.remove_red_eye_outlined),
+              ),
+              obscureText: _isConfirmPasswordVisible,
               validator: (value) {
                 if (value == null ||
                     value.isEmpty ||
