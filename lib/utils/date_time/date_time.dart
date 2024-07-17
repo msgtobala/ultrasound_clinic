@@ -74,8 +74,7 @@ String formatDateTime(DateTime dateTime) {
 
 String generateFileName(String originalFilePath) {
   // Extract the original file extension
-  String fileExtension = originalFilePath.split('.').last;
-
+  // String fileExtension = originalFilePath.split('.').last;
   // Generate a timestamp
   DateTime now = DateTime.now();
   String timestamp =
@@ -85,7 +84,7 @@ String generateFileName(String originalFilePath) {
   String uniqueId = Random().nextInt(100000).toString().padLeft(5, '0');
 
   // Combine to create a versatile file name
-  String fileName = 'file_${timestamp}_$uniqueId.$fileExtension';
+  String fileName = 'file_${timestamp}_$uniqueId';
 
   return fileName;
 }

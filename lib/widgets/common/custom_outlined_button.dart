@@ -11,8 +11,8 @@ class CustomOutlinedButton extends StatelessWidget {
   final Color? borderColor;
   final ButtonSize? buttonSize;
   final bool? isLoading;
-  final Color? textColor;
   final VoidCallback onPressed;
+  final TextStyle? buttonTextStyle;
 
   const CustomOutlinedButton({
     super.key,
@@ -21,7 +21,7 @@ class CustomOutlinedButton extends StatelessWidget {
     this.buttonSize,
     this.isLoading,
     required this.onPressed,
-    this.textColor,
+    this.buttonTextStyle,
   });
 
   @override
@@ -42,9 +42,7 @@ class CustomOutlinedButton extends StatelessWidget {
           ? LoadingCircularBar(isButtonLoader: isLoading!)
           : Text(
               text,
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    color: textColor ?? ThemeColors.errorColor,
-                  ),
+              style: buttonTextStyle ?? Theme.of(context).textTheme.bodyMedium,
             ),
     );
   }

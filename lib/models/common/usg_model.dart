@@ -5,6 +5,7 @@ class USGModel {
   String prescription;
   String report;
   String address;
+  String state;
   String city;
   String pinCode;
   String usgRefId;
@@ -15,6 +16,7 @@ class USGModel {
     required this.mobileNumber,
     required this.prescription,
     required this.address,
+    required this.state,
     required this.city,
     required this.pinCode,
     required this.report,
@@ -29,6 +31,7 @@ class USGModel {
       mobileNumber: json['mobileNumber'] as String,
       prescription: json['prescription'] as String,
       address: json['address'] as String,
+      state: json['state'] as String,
       city: json['city'] as String,
       pinCode: json['pinCode'] as String,
       report: json['report'] as String,
@@ -44,6 +47,7 @@ class USGModel {
       'mobileNumber': mobileNumber,
       'prescription': prescription,
       'address': address,
+      'state': state,
       'city': city,
       'pinCode': pinCode,
       'report': report,
@@ -59,6 +63,7 @@ class UserUSGModel {
   String prescription;
   String report;
   String address;
+  String state;
   String city;
   String pinCode;
   String refId;
@@ -70,6 +75,7 @@ class UserUSGModel {
     required this.mobileNumber,
     required this.prescription,
     required this.address,
+    required this.state,
     required this.city,
     required this.pinCode,
     required this.report,
@@ -85,6 +91,7 @@ class UserUSGModel {
       mobileNumber: json['mobileNumber'] as String,
       prescription: json['prescription'] as String,
       address: json['address'] as String,
+      state: json['state'] as String,
       city: json['city'] as String,
       pinCode: json['pinCode'] as String,
       report: json['report'] as String,
@@ -101,6 +108,7 @@ class UserUSGModel {
       'mobileNumber': mobileNumber,
       'prescription': prescription,
       'address': address,
+      'state': state,
       'city': city,
       'pinCode': pinCode,
       'report': report,

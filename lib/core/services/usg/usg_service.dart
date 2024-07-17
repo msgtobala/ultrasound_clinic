@@ -32,6 +32,7 @@ class USGService {
         'users/$userId/prescriptions',
         fileName,
       );
+
       String usgId = _firestore
           .collection('clinics')
           .doc(clinicId)
@@ -84,6 +85,24 @@ class USGService {
     } catch (e) {
       log.e('Error creating USG: $e');
       return null;
+    }
+  }
+
+  Future<List<USGModel>> getUSGs(String clinicId) async {
+    try {
+      QuerySnapshot querySnapshot = await _firestore
+          .collection('clinics')
+          .doc(clinicId)
+          .collection('usg')
+          .get();
+      List<USGModel> usgList = querySnapshot.docs
+          .map((doc) => USGModel.fromJson(doc.data() as Map<String, dynamic>))
+          .toList();
+
+      return usgList;
+    } catch (e) {
+      log.e('Error getting USGs: $e');
+      return [];
     }
   }
 }
