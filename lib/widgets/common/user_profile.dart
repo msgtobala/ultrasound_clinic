@@ -4,17 +4,20 @@ import 'package:provider/provider.dart';
 
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
+import 'package:ultrasound_clinic/routes/clinic_routes.dart';
 import 'package:ultrasound_clinic/themes/colors.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
+import 'package:ultrasound_clinic/resources/icons.dart' as icons;
+import 'package:ultrasound_clinic/widgets/common/svg_loader.dart';
 
 class UserProfile extends StatelessWidget {
   const UserProfile({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final authProvider = Provider.of<AuthProvider>(context, listen: true);
     final currentUser = authProvider.currentUser!;
-
+    final String src = currentUser.profileUrl ?? '';
     return Column(
       children: [
         Container(
@@ -25,10 +28,11 @@ class UserProfile extends StatelessWidget {
           ),
           child: Row(
             children: [
-              // const CircleAvatar(
-              //   radius: 38,
-              //   backgroundImage: AssetImage('assets/images/clinic_icon.png'),
-              // ),
+              //Todo(should add custom widget for empty image)
+              CircleAvatar(
+                radius: 38,
+                backgroundImage: src.isNotEmpty ? NetworkImage(src) : null,
+              ),
               SizedBox(width: 16.w),
               Expanded(
                 child: Column(
@@ -52,12 +56,14 @@ class UserProfile extends StatelessWidget {
                 ),
               ),
               IconButton(
-                icon: const Icon(Icons.edit),
-                onPressed: () {},
+                icon: const SVGLoader(image: icons.Icons.edit),
+                onPressed: () {
+                  Navigator.of(context).pushNamed(ClinicRoutes.editProfile);
+                },
               ),
             ],
           ),
-        )
+        ),
       ],
     );
   }
