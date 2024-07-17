@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -5,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:ultrasound_clinic/constants/constants.dart';
 import 'package:ultrasound_clinic/core/services/firebase/firebase_auth_service.dart';
+import 'package:ultrasound_clinic/core/services/firebase/firebase_storage_service.dart';
 import 'package:ultrasound_clinic/models/auth/auth_model.dart';
 import 'package:ultrasound_clinic/models/auth/user_model.dart';
 import 'package:ultrasound_clinic/utils/error/parse_exception.dart';
@@ -23,6 +26,7 @@ class AuthProvider with ChangeNotifier {
   bool get isLoading => _isLoading;
   UserModel? get currentUser => _currentUser;
   bool get loggedInStatus => _loggedInStatus;
+  final storageService = FirebaseStorageService();
 
   AuthProvider() {
     _delayUserCheck();
@@ -45,12 +49,20 @@ class AuthProvider with ChangeNotifier {
           ? loggedInStatuses.value[user.uid] as bool
           : false;
       if (loggedInStatus) {
-        print("user id .....");
-        print(user.uid);
         final loggedUser = await FirebaseAuthService().getUser(user.uid);
-        _currentUser = loggedUser;
-        print("current user.....");
-        print(loggedUser.address);
+        // _currentUser = loggedUser;
+        _currentUser = UserModel(
+          uid: loggedUser.uid,
+          name: loggedUser.name,
+          email: loggedUser.email,
+          role: loggedUser.role,
+          phone: loggedUser.phone,
+          clinics: loggedUser.clinics,
+          profileUrl: user.photoURL,
+          state: loggedUser.state,
+          city: loggedUser.city,
+          address: loggedUser.address,
+        );
       }
       _loggedInStatus = loggedInStatus;
       _user = reloadedUser;
@@ -93,8 +105,6 @@ class AuthProvider with ChangeNotifier {
         email,
         password,
       );
-      print("user credentials.....");
-      print(userCredential.user);
       if (userCredential.user != null) {
         final loggedUser =
             await FirebaseAuthService().getUser(userCredential.user!.uid);
@@ -121,24 +131,47 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  Future<bool> saveUser(Map<String, String> data) async {
+  Future<bool> saveUser(Map<String, String> data, File? profile) async {
     User? user = FirebaseAuth.instance.currentUser;
+    String? url = user?.photoURL;
     if (user != null) {
       try {
-        //userCredentials
-        await user.updateProfile(displayName: data['name']);
+        // If profile is not null, upload the new picture to storage and get the URL
+        if (profile != null) {
+          url = await storageService.uploadFile(
+            profile,
+            'users/${user.uid}/profile',
+            user.uid,
+          );
+        }
+
+        // Update the user's profile
+        await user.updateProfile(displayName: data['name'], photoURL: url);
         await user.reload();
         user = FirebaseAuth.instance.currentUser!;
-        //db
+
+        // Update Firestore document
         final userRef =
             FirebaseFirestore.instance.collection('users').doc(user.uid);
-
         data.removeWhere((key, value) => value.isEmpty);
-
         await userRef.update(data);
 
+        // Fetch the updated user data
         final loggedUser = await FirebaseAuthService().getUser(user.uid);
-        _currentUser = loggedUser;
+
+        // Update the current user model
+        _currentUser = UserModel(
+          uid: loggedUser.uid,
+          name: loggedUser.name,
+          email: loggedUser.email,
+          role: loggedUser.role,
+          phone: loggedUser.phone,
+          address: loggedUser.address,
+          clinics: loggedUser.clinics,
+          state: loggedUser.state,
+          city: loggedUser.city,
+          profileUrl: url,
+        );
 
         notifyListeners();
         return true;

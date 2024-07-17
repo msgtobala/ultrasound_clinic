@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+
 import 'package:image_picker/image_picker.dart';
-
 import 'package:provider/provider.dart';
-import 'package:ultrasound_clinic/models/auth/user_model.dart';
 
+import 'package:ultrasound_clinic/models/auth/user_model.dart';
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/models/common/form_model.dart';
 import 'package:ultrasound_clinic/resources/regex.dart';
@@ -18,7 +18,7 @@ import 'package:ultrasound_clinic/widgets/common/svg_loader.dart';
 
 class EditProfileForm extends StatefulWidget {
   final bool isLoading;
-  final void Function(Map<String, String> data) saveUser;
+  final void Function(Map<String, String> data, File? profile) saveUser;
 
   const EditProfileForm({
     super.key,
@@ -33,18 +33,10 @@ class EditProfileForm extends StatefulWidget {
 class _EditProfileFormState extends State<EditProfileForm> {
   UserModel? currentUser;
   File? _selectedImage;
-  @override
-  void initState() {
-    super.initState();
-
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    currentUser = authProvider.currentUser!;
-    print(currentUser!.city);
-  }
 
   Future<void> selectImage() async {
     final ImagePicker picker = ImagePicker();
-    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    final image = await picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       setState(() {
         _selectedImage = File(image.path);
@@ -85,16 +77,20 @@ class _EditProfileFormState extends State<EditProfileForm> {
       key: 'address',
       keyboardType: TextInputType.name,
     ),
-    FormModel(label: 'Next', type: 'next', key: 'next', next: [
-      FormModel(type: 'text', label: Strings.city, key: 'city'),
-      FormModel(type: 'text', label: Strings.state, key: 'state'),
-    ]),
+    FormModel(
+      label: 'Next',
+      type: 'next',
+      key: 'next',
+      next: [
+        FormModel(type: 'text', label: Strings.city, key: 'city'),
+        FormModel(type: 'text', label: Strings.state, key: 'state'),
+      ],
+    ),
   ];
   void _onSaveProfile() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      print(formData);
-      widget.saveUser(formData);
+      widget.saveUser(formData, _selectedImage);
     }
   }
 
@@ -117,25 +113,30 @@ class _EditProfileFormState extends State<EditProfileForm> {
       return Strings.invalidMobileNumber;
     }
 
-    // if (key == 'city' && (value == null || value.isEmpty)) {
-    //   return Strings.invalidCity;
-    // }
+    if (key == 'city' && (value == null || value.isEmpty)) {
+      return Strings.invalidCity;
+    }
 
     return null;
   }
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context, listen: true);
+    final currentUser = authProvider.currentUser!;
+    final String src = currentUser.profileUrl ?? '';
     return Container(
       margin: EdgeInsets.only(top: 20.h),
       child: Column(
         children: [
-          SizedBox(
-            height: 30.h,
-          ),
+          SizedBox(height: 30.h),
           CircleAvatar(
-            backgroundImage:
-                _selectedImage != null ? FileImage(_selectedImage!) : null,
+            //Todo(should add custom widget for empty image)
+            backgroundImage: _selectedImage != null
+                ? FileImage(_selectedImage!)
+                : src.isNotEmpty
+                    ? NetworkImage(src)
+                    : null,
             radius: 50.d,
             child: InkWell(
               onTap: selectImage,
@@ -155,15 +156,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
                       key: Key(input.label),
                       children: [
                         FormInput(
-                          initialValue: input.key == 'name'
-                              ? currentUser!.name
-                              : input.key == 'email'
-                                  ? currentUser!.email
-                                  : input.key == 'phone'
-                                      ? currentUser!.phone
-                                      : input.key == 'address'
-                                          ? currentUser!.address
-                                          : '',
+                          initialValue: currentUser.toMap()[input.key],
                           text: input.label,
                           readOnly: input.key == 'email',
                           onSaved: (value) => _onSaved(input.key, value),
@@ -183,7 +176,6 @@ class _EditProfileFormState extends State<EditProfileForm> {
                           key: Key(input.label),
                           children: [
                             ...input.next!.map((nextInput) {
-                              print(nextInput.label);
                               return Flexible(
                                 key: Key(nextInput.label),
                                 child: SizedBox(
@@ -191,8 +183,8 @@ class _EditProfileFormState extends State<EditProfileForm> {
                                       MediaQuery.of(context).size.width * 0.43,
                                   child: FormInput(
                                     initialValue: nextInput.key == 'city'
-                                        ? currentUser!.city
-                                        : currentUser!.state,
+                                        ? currentUser.city
+                                        : currentUser.state,
                                     text: nextInput.label,
                                     onSaved: (value) =>
                                         _onSaved(nextInput.key, value),

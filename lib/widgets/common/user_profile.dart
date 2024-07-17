@@ -15,7 +15,7 @@ class UserProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context, listen: true);
     final currentUser = authProvider.currentUser!;
-
+    final String src = currentUser.profileUrl ?? '';
     return Column(
       children: [
         Container(
@@ -26,8 +26,10 @@ class UserProfile extends StatelessWidget {
           ),
           child: Row(
             children: [
-              const CircleAvatar(
+              //Todo(should add custom widget for empty image)
+              CircleAvatar(
                 radius: 38,
+                backgroundImage: src.isNotEmpty ? NetworkImage(src) : null,
               ),
               SizedBox(width: 16.w),
               Expanded(
@@ -63,7 +65,7 @@ class UserProfile extends StatelessWidget {
               ),
             ],
           ),
-        )
+        ),
       ],
     );
   }

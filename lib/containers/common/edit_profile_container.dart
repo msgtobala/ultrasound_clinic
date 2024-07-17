@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
+import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/utils/snackbar/show_snackbar.dart';
 import 'package:ultrasound_clinic/widgets/common/edit_profile_form.dart';
 
@@ -16,14 +19,14 @@ class EditProfileContainer extends StatefulWidget {
 class _EditProfileContainerState extends State<EditProfileContainer> {
   bool _isLoading = false;
 
-  Future<void> onSaveUser(Map<String, String> data) async {
+  Future<void> onSaveUser(Map<String, String> data, File? profile) async {
     setState(() {
       _isLoading = true;
     });
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     try {
-      final isUpdated = await authProvider.saveUser(data);
-      showSnackbar(context, "saved successfully");
+      final isUpdated = await authProvider.saveUser(data, profile);
+      showSnackbar(context, Strings.savedSuccessfully);
       setState(() {
         _isLoading = false;
       });
@@ -31,7 +34,6 @@ class _EditProfileContainerState extends State<EditProfileContainer> {
         Navigator.of(context).pop();
       }
     } catch (e) {
-      print(e);
       showSnackbar(context, e.toString());
       setState(() {
         _isLoading = false;
