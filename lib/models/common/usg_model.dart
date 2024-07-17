@@ -9,6 +9,7 @@ class USGModel {
   String city;
   String pinCode;
   String usgRefId;
+  String userId;
 
   USGModel({
     required this.uid,
@@ -21,6 +22,7 @@ class USGModel {
     required this.pinCode,
     required this.report,
     required this.usgRefId,
+    required this.userId,
   });
 
   // Factory constructor to create an instance from a JSON map
@@ -36,6 +38,7 @@ class USGModel {
       pinCode: json['pinCode'] as String,
       report: json['report'] as String,
       usgRefId: json['usgRefId'] as String,
+      userId: json['userId'] as String,
     );
   }
 
@@ -52,6 +55,7 @@ class USGModel {
       'pinCode': pinCode,
       'report': report,
       'usgRefId': usgRefId,
+      'userId': userId,
     };
   }
 }

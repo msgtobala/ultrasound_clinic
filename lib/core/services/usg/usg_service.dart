@@ -26,7 +26,7 @@ class USGService {
     Map<String, dynamic> usg,
   ) async {
     try {
-      String fileName = generateFileName(usg['prescription'].path);
+      String fileName = generateFileName();
       final prescriptionURL = await _firebaseStorage.uploadFile(
         usg['prescription'],
         'users/$userId/prescriptions',
@@ -103,6 +103,37 @@ class USGService {
     } catch (e) {
       log.e('Error getting USGs: $e');
       return [];
+    }
+  }
+
+  // Method to update the report URL
+  Future<bool> updateReportUrl(
+    String clinicId,
+    String usgId,
+    String userId,
+    String userUsgId,
+    String reportUrl,
+  ) async {
+    try {
+      DocumentReference documentReference = _firestore
+          .collection('clinics')
+          .doc(clinicId)
+          .collection('usg')
+          .doc(usgId);
+
+      DocumentReference userDocumentReference = _firestore
+          .collection('users')
+          .doc(userId)
+          .collection('userUSG')
+          .doc(userUsgId);
+
+      await documentReference.update({'report': reportUrl});
+      await userDocumentReference.update({'report': reportUrl});
+      log.i('Report URL updated successfully');
+      return true;
+    } catch (e) {
+      log.e('Failed to update report URL: $e');
+      return false;
     }
   }
 }

@@ -16,15 +16,20 @@ class USGReport extends StatefulWidget {
     required this.isLoading,
     required this.isUploading,
     required this.usgs,
-    required this.uploadReport,
     required this.viewPrescription,
+    required this.reportAction,
   });
 
   final bool isLoading;
   final bool isUploading;
   final List<USGModel> usgs;
   final Function(String prescription) viewPrescription;
-  final Function() uploadReport;
+  final Function(
+    String report,
+    String uid,
+    String userUsgId,
+    String userId,
+  ) reportAction;
 
   @override
   State<USGReport> createState() => _USGReportState();
@@ -132,16 +137,28 @@ class _USGReportState extends State<USGReport> {
                           onPressed: () =>
                               widget.viewPrescription(usg.value.prescription),
                         ),
-                        CustomOutlinedButton(
-                          text: usg.value.report.isNotEmpty
-                              ? Strings.viewReport
-                              : Strings.uploadReport,
-                          borderColor: ThemeColors.primary,
-                          buttonSize: ButtonSize.extraSmall,
-                          buttonTextStyle:
-                              Theme.of(context).textTheme.bodyMediumPrimary,
-                          onPressed: widget.uploadReport,
-                        ),
+                        widget.isUploading
+                            ? SizedBox(
+                                width: 25.w,
+                                height: 25.h,
+                                child: const CircularProgressIndicator(),
+                              )
+                            : CustomOutlinedButton(
+                                text: usg.value.report.isNotEmpty
+                                    ? Strings.viewReport
+                                    : Strings.uploadReport,
+                                borderColor: ThemeColors.primary,
+                                buttonSize: ButtonSize.extraSmall,
+                                buttonTextStyle: Theme.of(context)
+                                    .textTheme
+                                    .bodyMediumPrimary,
+                                onPressed: () => widget.reportAction(
+                                  usg.value.report,
+                                  usg.value.uid,
+                                  usg.value.usgRefId,
+                                  usg.value.userId,
+                                ),
+                              ),
                       ],
                     ),
                   ],

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ultrasound_clinic/resources/strings.dart';
+import 'package:ultrasound_clinic/widgets/common/custom_app_bar_text.dart';
 
 class ViewAssetsScreen extends StatelessWidget {
   const ViewAssetsScreen({
@@ -11,6 +13,10 @@ class ViewAssetsScreen extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments as String;
 
     return Scaffold(
+      appBar: const CustomAppBarText(
+        title: Strings.prescription,
+        showBackButton: true,
+      ),
       body: Image.network(
         imageURL,
         fit: BoxFit.cover,

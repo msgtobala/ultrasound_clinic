@@ -50,6 +50,7 @@ class _LoginFormContainerState extends State<LoginFormContainer> {
         constants.loggedInStatusFlag,
       );
       if (loggedInStatuses.value == null ||
+          loggedInStatuses.value[user.userId] == null ||
           loggedInStatuses.value[user.userId] == false) {
         final Map<String, dynamic> newLoggedStatus = {
           if (loggedInStatuses.value != null) ...loggedInStatuses.value,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ultrasound_clinic/screens/common/edit_profile_screen.dart';
 
+import 'package:ultrasound_clinic/screens/clinic/view_assets_screen.dart';
+import 'package:ultrasound_clinic/screens/common/edit_profile_screen.dart';
 import 'package:ultrasound_clinic/screens/common/home_navigation_screen.dart';
 import 'package:ultrasound_clinic/screens/clinic/panorama_previewer_screen.dart';
 
@@ -17,6 +18,7 @@ class ClinicRoutes {
       menu: (context) => const HomeNavigationMenu(),
       panoramaPreviewer: (context) => const PanoramaPreviewerScreen(),
       editProfile: (context) => const EditProfileScreen(),
+      viewAssets: (context) => const ViewAssetsScreen(),
     };
   }
 

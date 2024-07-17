@@ -185,7 +185,6 @@ class AuthProvider with ChangeNotifier {
   Future<void> signOut() async {
     _user = null;
     _currentUser = null;
-    // notifyListeners();
     await FirebaseAuth.instance.signOut();
   }
 }

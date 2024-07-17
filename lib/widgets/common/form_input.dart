@@ -15,6 +15,7 @@ class FormInput extends StatelessWidget {
     this.onChanged,
     this.onTap,
     this.prefixIcon,
+    this.suffixIcon,
     this.initialValue,
   });
 
@@ -27,6 +28,7 @@ class FormInput extends StatelessWidget {
   final void Function(String)? onChanged;
   final bool? readOnly;
   final Widget? prefixIcon;
+  final Widget? suffixIcon;
   final void Function()? onTap;
   final String? initialValue;
 
@@ -44,6 +46,7 @@ class FormInput extends StatelessWidget {
           borderRadius: BorderRadius.circular(50.0),
         ),
         prefixIcon: prefixIcon,
+        suffixIcon: suffixIcon,
         label: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(text),

@@ -27,6 +27,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
   final _formKey = GlobalKey<FormState>();
   String _userEmail = '';
   String _userPassword = '';
+  bool isPasswordVisible = true;
 
   void _handleSignIn() {
     if (_formKey.currentState!.validate()) {
@@ -36,6 +37,12 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
         _userPassword,
       );
     }
+  }
+
+  void _revealPassword() {
+    setState(() {
+      isPasswordVisible = !isPasswordVisible;
+    });
   }
 
   @override
@@ -62,7 +69,13 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
               SizedBox(height: 16.h),
               FormInput(
                 text: Strings.enterYourPassword,
-                obscureText: true,
+                suffixIcon: InkWell(
+                  onTap: _revealPassword,
+                  child: isPasswordVisible
+                      ? const Icon(Icons.visibility_off_outlined)
+                      : const Icon(Icons.remove_red_eye_outlined),
+                ),
+                obscureText: isPasswordVisible,
                 onSaved: (value) => {_userPassword = value!},
                 validator: (value) {
                   if (value == null || value.isEmpty) {

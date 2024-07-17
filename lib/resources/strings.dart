@@ -128,4 +128,8 @@ class Strings {
   static const String viewPrescription = 'View Prescription';
   static const String viewReport = 'View Report';
   static const String uploadReport = 'Upload Report';
+  static const String report = 'Report';
+  static const String reportUploadedSuccessfully =
+      'Report uploaded successfully';
+  static const String reportUploadFailed = 'Report upload failed';
 }

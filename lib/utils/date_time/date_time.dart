@@ -72,7 +72,7 @@ String formatDateTime(DateTime dateTime) {
   return '$formattedTime - $formattedDate';
 }
 
-String generateFileName(String originalFilePath) {
+String generateFileName([String? identifier]) {
   // Extract the original file extension
   // String fileExtension = originalFilePath.split('.').last;
   // Generate a timestamp
@@ -84,7 +84,7 @@ String generateFileName(String originalFilePath) {
   String uniqueId = Random().nextInt(100000).toString().padLeft(5, '0');
 
   // Combine to create a versatile file name
-  String fileName = 'file_${timestamp}_$uniqueId';
+  String fileName = '${identifier ?? 'file'}_${timestamp}_$uniqueId';
 
   return fileName;
 }
