@@ -67,6 +67,13 @@ class _InitScreenState extends State<InitScreen> {
     });
   }
 
+  // @override
+  // void dispose() {
+  //   final authProvider = Provider.of<AuthProvider>(context, listen: false);
+  //   authProvider.removeListener(authListener);
+  //   super.dispose();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return const Scaffold(

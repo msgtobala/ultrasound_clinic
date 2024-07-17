@@ -15,6 +15,7 @@ class FormInput extends StatelessWidget {
     this.onChanged,
     this.onTap,
     this.prefixIcon,
+    this.initialValue,
   });
 
   final String text;
@@ -27,11 +28,13 @@ class FormInput extends StatelessWidget {
   final bool? readOnly;
   final Widget? prefixIcon;
   final void Function()? onTap;
+  final String? initialValue;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: keyboardType,
+      initialValue: initialValue,
       obscureText: obscureText ?? false,
       onTap: onTap,
       onSaved: onSaved,

@@ -121,6 +121,7 @@ class Strings {
       'Prescriptions uploaded successfully';
   static const String usgSubmitted = 'USG Submitted';
   static const String logout = 'Logout';
+  static const String savedSuccessfully = 'Saved successfully';
   static const String reportUploaded = 'Report uploaded';
   static const String reportNotUploaded = 'Report not uploaded';
   static const String phoneNumber = 'Phone Number';
