@@ -5,15 +5,20 @@ class UserModel {
   final String role;
   final String phone;
   final List<String> clinics;
+  final String? address;
+  final String? city;
+  final String? state;
 
-  UserModel({
-    required this.uid,
-    required this.name,
-    required this.email,
-    required this.role,
-    required this.phone,
-    required this.clinics,
-  });
+  UserModel(
+      {required this.uid,
+      required this.name,
+      required this.email,
+      required this.role,
+      required this.phone,
+      required this.clinics,
+      this.address,
+      this.state,
+      this.city});
 
   factory UserModel.fromMap(Map<String, dynamic> data) {
     return UserModel(
@@ -22,6 +27,9 @@ class UserModel {
       email: data['email'] ?? '',
       role: data['role'] ?? '',
       phone: data['phone'] ?? '',
+      address: data['address'] ?? '',
+      city: data['city'] ?? '',
+      state: data['state'] ?? '',
       clinics: List<String>.from(data['clinics'] ?? []),
     );
   }
@@ -33,6 +41,9 @@ class UserModel {
       email: '',
       role: '',
       phone: '',
+      city: '',
+      state: '',
+      address: '',
       clinics: [],
     );
   }
@@ -45,6 +56,9 @@ class UserModel {
       'role': role,
       'phone': phone,
       'clinics': clinics,
+      'address': address,
+      'city': city,
+      'state': state,
     };
   }
 }

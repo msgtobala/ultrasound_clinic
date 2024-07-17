@@ -15,7 +15,7 @@ class CustomAppBarIntro extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
+    final authProvider = Provider.of<AuthProvider>(context, listen: true);
     final user = authProvider.currentUser!.name;
 
     return AppBar(

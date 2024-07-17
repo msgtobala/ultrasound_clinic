@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -44,8 +45,12 @@ class AuthProvider with ChangeNotifier {
           ? loggedInStatuses.value[user.uid] as bool
           : false;
       if (loggedInStatus) {
+        print("user id .....");
+        print(user.uid);
         final loggedUser = await FirebaseAuthService().getUser(user.uid);
         _currentUser = loggedUser;
+        print("current user.....");
+        print(loggedUser.address);
       }
       _loggedInStatus = loggedInStatus;
       _user = reloadedUser;
@@ -88,6 +93,8 @@ class AuthProvider with ChangeNotifier {
         email,
         password,
       );
+      print("user credentials.....");
+      print(userCredential.user);
       if (userCredential.user != null) {
         final loggedUser =
             await FirebaseAuthService().getUser(userCredential.user!.uid);
@@ -112,6 +119,35 @@ class AuthProvider with ChangeNotifier {
       log.i('Error fetching user: $e');
       return AuthModel.error(message: parseErrorMessage(e.toString()));
     }
+  }
+
+  Future<bool> saveUser(Map<String, String> data) async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      try {
+        //userCredentials
+        await user.updateProfile(displayName: data['name']);
+        await user.reload();
+        user = FirebaseAuth.instance.currentUser!;
+        //db
+        final userRef =
+            FirebaseFirestore.instance.collection('users').doc(user.uid);
+
+        data.removeWhere((key, value) => value.isEmpty);
+
+        await userRef.update(data);
+
+        final loggedUser = await FirebaseAuthService().getUser(user.uid);
+        _currentUser = loggedUser;
+
+        notifyListeners();
+        return true;
+      } catch (e) {
+        log.e('Failed to update user: $e');
+        throw Exception('Failed to update user');
+      }
+    }
+    return false;
   }
 
   Future<void> signOut() async {

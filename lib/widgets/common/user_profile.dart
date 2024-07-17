@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
+import 'package:ultrasound_clinic/screens/common/edit_profile_screen.dart';
 import 'package:ultrasound_clinic/themes/colors.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
 
@@ -12,7 +13,7 @@ class UserProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final authProvider = Provider.of<AuthProvider>(context, listen: true);
     final currentUser = authProvider.currentUser!;
 
     return Column(
@@ -25,10 +26,9 @@ class UserProfile extends StatelessWidget {
           ),
           child: Row(
             children: [
-              // const CircleAvatar(
-              //   radius: 38,
-              //   backgroundImage: AssetImage('assets/images/clinic_icon.png'),
-              // ),
+              const CircleAvatar(
+                radius: 38,
+              ),
               SizedBox(width: 16.w),
               Expanded(
                 child: Column(
@@ -53,7 +53,13 @@ class UserProfile extends StatelessWidget {
               ),
               IconButton(
                 icon: const Icon(Icons.edit),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (ctx) => const EditProfileScreen(),
+                    ),
+                  );
+                },
               ),
             ],
           ),
