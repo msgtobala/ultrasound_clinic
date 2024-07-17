@@ -8,6 +8,7 @@ class ClinicRoutes {
 
   static const String menu = '/menu';
   static const String panoramaPreviewer = '/panorama-previewer';
+  static const String viewAssets = '/view-assets';
 
   static Map<String, WidgetBuilder> get buildClinicRoutes {
     return {
