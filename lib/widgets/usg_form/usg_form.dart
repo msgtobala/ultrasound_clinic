@@ -34,6 +34,7 @@ class _USGFormState extends State<USGForm> {
     'mobileNumber': '',
     'prescription': '',
     'address': '',
+    'state': '',
     'city': '',
     'pinCode': '',
     'report': '',
@@ -43,8 +44,9 @@ class _USGFormState extends State<USGForm> {
     FormModel(type: 'text', label: Strings.mobileNumber, key: 'mobileNumber'),
     FormModel(type: 'upload', label: Strings.prescription, key: 'prescription'),
     FormModel(type: 'text', label: Strings.address, key: 'address'),
+    FormModel(type: 'text', label: Strings.city, key: 'city'),
     FormModel(label: 'Next', type: 'next', key: 'next', next: [
-      FormModel(type: 'text', label: Strings.city, key: 'city'),
+      FormModel(type: 'text', label: Strings.state, key: 'state'),
       FormModel(type: 'text', label: Strings.pinCode, key: 'pinCode'),
     ]),
   ];
@@ -80,6 +82,10 @@ class _USGFormState extends State<USGForm> {
 
     if (key == 'address' && (value == null || value.isEmpty)) {
       return Strings.invalidAddress;
+    }
+
+    if (key == 'state' && (value == null || value.isEmpty)) {
+      return Strings.invalidState;
     }
 
     if (key == 'city' && (value == null || value.isEmpty)) {

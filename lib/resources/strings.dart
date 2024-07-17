@@ -109,6 +109,7 @@ class Strings {
   static const String close = 'Close';
   static const String noAppointmentsFound = 'No appointments found';
   static const String invalidAddress = 'Invalid address';
+  static const String invalidState = 'Invalid State';
   static const String invalidCity = 'Invalid city';
   static const String invalidPinCode = 'Invalid Pin code';
   static const String invalidPrescription = 'Invalid prescription';
@@ -119,4 +120,11 @@ class Strings {
   static const String prescriptionsUploadedSuccessfully =
       'Prescriptions uploaded successfully';
   static const String usgSubmitted = 'USG Submitted';
+  static const String logout = 'Logout';
+  static const String reportUploaded = 'Report uploaded';
+  static const String reportNotUploaded = 'Report not uploaded';
+  static const String phoneNumber = 'Phone Number';
+  static const String viewPrescription = 'View Prescription';
+  static const String viewReport = 'View Report';
+  static const String uploadReport = 'Upload Report';
 }

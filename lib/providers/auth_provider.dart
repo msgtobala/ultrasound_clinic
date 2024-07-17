@@ -41,7 +41,7 @@ class AuthProvider with ChangeNotifier {
         constants.loggedInStatusFlag,
       );
       final loggedInStatus = loggedInStatuses.status
-          ? loggedInStatuses.value[user.uid] as bool
+          ? loggedInStatuses.value[user.uid] ?? false
           : false;
       if (loggedInStatus) {
         final loggedUser = await FirebaseAuthService().getUser(user.uid);
@@ -115,11 +115,9 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> signOut() async {
-    _isLoading = true;
     _user = null;
     _currentUser = null;
-    notifyListeners();
+    // notifyListeners();
     await FirebaseAuth.instance.signOut();
-    _checkUser();
   }
 }
