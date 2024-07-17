@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import 'package:ultrasound_clinic/models/common/bottom_navigation_model.dart';
 
 class ConstantsModel {
@@ -7,6 +9,7 @@ class ConstantsModel {
   final List<String> sceneTypes;
   final int maxSceneTypes;
   final int appointmentTabs;
+  final List<DropdownMenuEntry> doctorDegrees;
 
   ConstantsModel({
     required this.loggedInStatusFlag,
@@ -15,6 +18,7 @@ class ConstantsModel {
     required this.sceneTypes,
     required this.maxSceneTypes,
     required this.appointmentTabs,
+    required this.doctorDegrees,
   });
 
   // Factory method to create a ConstantsModel from a map
@@ -26,6 +30,7 @@ class ConstantsModel {
       sceneTypes: map['sceneTypes'] as List<String>,
       maxSceneTypes: map['maxSceneTypes'] as int,
       appointmentTabs: map['appointmentTabs'] as int,
+      doctorDegrees: map['doctorDegrees'] as List<DropdownMenuEntry>,
     );
   }
 }

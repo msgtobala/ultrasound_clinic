@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:ultrasound_clinic/resources/icons.dart' as icons;
 import 'package:ultrasound_clinic/resources/strings.dart';
+import 'package:ultrasound_clinic/routes/clinic_routes.dart';
 import 'package:ultrasound_clinic/widgets/common/profile_menu_list_item.dart';
 
 class UserProfileControls extends StatelessWidget {
@@ -14,7 +15,9 @@ class UserProfileControls extends StatelessWidget {
       child: Column(
         children: [
           ProfileMenuListItem(
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pushNamed(ClinicRoutes.addAndEditDoctor);
+            },
             leading: Image.asset(
               icons.Icons.manageDoctor,
               width: 34,

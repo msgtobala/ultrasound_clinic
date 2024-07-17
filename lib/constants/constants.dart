@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:ultrasound_clinic/models/auth/constants_model.dart';
 import 'package:ultrasound_clinic/models/common/bottom_navigation_model.dart';
 import 'package:ultrasound_clinic/resources/icons.dart' as icons;
@@ -48,6 +49,12 @@ final constantsMap = {
   ],
   'maxSceneTypes': 6,
   'appointmentTabs': 2,
+  'doctorDegrees': [
+    const DropdownMenuEntry(value: 'MBBS', label: 'MBBS'),
+    const DropdownMenuEntry(value: 'MBBS', label: 'MBBS'),
+    const DropdownMenuEntry(value: 'MBBS', label: 'MBBS'),
+    const DropdownMenuEntry(value: 'MBBS', label: 'MBBS'),
+  ]
 };
 
 final constants = ConstantsModel.fromMap(constantsMap);
