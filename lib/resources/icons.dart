@@ -27,7 +27,7 @@ class Icons {
   static const String calendar = 'assets/icons/calendar.svg';
   static const String manageDoctor = 'assets/icons/manage_doctor.png';
   static const String manageStaff = 'assets/icons/manage_staff.png';
-  static const String manageUSG = 'assets/icons/manage_usg.png';
+  static const String manageAppointments = 'assets/icons/manage_appointments.png';
   static const String changePassword = 'assets/icons/change_password.png';
   static const String termsAndConditions = 'assets/icons/terms.png';
   static const String rightArrow = 'assets/icons/right_arrow.png';

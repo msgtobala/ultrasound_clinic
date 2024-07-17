@@ -28,7 +28,7 @@ class Strings {
   static const String password = 'Password';
   static const String confirmPassword = 'Confirm password';
   static const String iAgreeWithThe = 'I agree with the ';
-  static const String termsAndConditions = 'terms & conditions';
+  static const String termsAndConditions = 'Terms & Conditions';
   static const String register = 'Register';
   static const String verify = 'Verify';
   static const String didNotReceiveCode = 'Didn\'t receive code? ';
@@ -132,4 +132,9 @@ class Strings {
   static const String reportUploadedSuccessfully =
       'Report uploaded successfully';
   static const String reportUploadFailed = 'Report upload failed';
+  static const String errorLoggingOut = 'Error logging out';
+  static const String changePassword = 'Change Password';
+  static const String myAppointments = 'My Appointments';
+  static const String knowYourDoctor = 'Know Your Doctor';
+  static const String staffList = 'Staff List';
 }

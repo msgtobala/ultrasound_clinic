@@ -4,6 +4,7 @@ import 'package:ultrasound_clinic/screens/clinic/view_assets_screen.dart';
 import 'package:ultrasound_clinic/screens/common/edit_profile_screen.dart';
 import 'package:ultrasound_clinic/screens/common/home_navigation_screen.dart';
 import 'package:ultrasound_clinic/screens/clinic/panorama_previewer_screen.dart';
+import 'package:ultrasound_clinic/screens/common/page_not_found.dart';
 
 class ClinicRoutes {
   const ClinicRoutes._();
@@ -28,7 +29,7 @@ class ClinicRoutes {
 
   static Route<dynamic> unknownRoute(RouteSettings settings) {
     return MaterialPageRoute(
-      builder: (context) => const Text(''),
+      builder: (context) => const NotFoundPage(),
       settings: settings,
     );
   }

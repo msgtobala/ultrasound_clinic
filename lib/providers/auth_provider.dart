@@ -182,9 +182,19 @@ class AuthProvider with ChangeNotifier {
     return false;
   }
 
-  Future<void> signOut() async {
-    _user = null;
-    _currentUser = null;
-    await FirebaseAuth.instance.signOut();
+  Future<bool> signOut() async {
+    try {
+      final response = await FirebaseAuthService().signOut();
+      if (response) {
+        _user = null;
+        _currentUser = null;
+        _loggedInStatus = false;
+        return true;
+      }
+      return false;
+    } catch (e) {
+      log.e('Failed to sign out: $e');
+      return false;
+    }
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:ultrasound_clinic/screens/common/page_not_found.dart';
 import 'package:ultrasound_clinic/screens/patient/clinic_selection_screen.dart';
 import 'package:ultrasound_clinic/screens/common/home_navigation_screen.dart';
 
@@ -22,7 +23,7 @@ class PatientRoutes {
 
   static Route<dynamic> unknownRoute(RouteSettings settings) {
     return MaterialPageRoute(
-      builder: (context) => const ClinicSelectionScreen(),
+      builder: (context) => const NotFoundPage(),
       settings: settings,
     );
   }

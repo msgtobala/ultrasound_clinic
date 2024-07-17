@@ -89,12 +89,13 @@ class FirebaseAuthService {
   }
 
   // Sign out
-  Future<void> signOut() async {
+  Future<bool> signOut() async {
     try {
       await _firebaseAuth.signOut();
+      return true;
     } catch (e) {
       log.i('Error signing out: $e');
-      rethrow;
+      return false;
     }
   }
 
