@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
-import 'package:ultrasound_clinic/constants/enums/role_enum.dart';
 
+import 'package:ultrasound_clinic/constants/enums/role_enum.dart';
 import 'package:ultrasound_clinic/resources/images.dart';
 import 'package:ultrasound_clinic/screens/auth/landing_screen.dart';
 import 'package:ultrasound_clinic/screens/auth/login_screen.dart';
@@ -19,47 +19,60 @@ class InitScreen extends StatefulWidget {
 }
 
 class _InitScreenState extends State<InitScreen> {
+  late VoidCallback authListener;
+
   @override
   void initState() {
     super.initState();
 
-    // Listen for changes in the AuthProvider
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
+    authListener = () {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
-
-      authProvider.addListener(() {
-        if (!authProvider.isLoading) {
-          if (authProvider.user == null && context.mounted) {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => const LandingScreen(),
-              ),
-            );
-            return;
-          }
-
-          if (authProvider.user != null &&
-              authProvider.user!.emailVerified &&
-              authProvider.loggedInStatus == true) {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => authProvider.currentUser!.role ==
-                        UserRoleEnum.clinic.roleName
-                    ? const ClinicApp()
-                    : const PatientApp(),
-              ),
-            );
-            return;
-          } else {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const LoginScreen()),
-            );
-          }
+      if (!authProvider.isLoading) {
+        if (authProvider.user == null && context.mounted) {
+          authProvider.removeListener(authListener);
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => const LandingScreen(),
+            ),
+          );
+          return;
         }
-      });
+
+        if (authProvider.user != null &&
+            authProvider.user!.emailVerified &&
+            authProvider.loggedInStatus == true) {
+          authProvider.removeListener(authListener);
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) =>
+                  authProvider.currentUser!.role == UserRoleEnum.clinic.roleName
+                      ? const ClinicApp()
+                      : const PatientApp(),
+            ),
+          );
+          return;
+        } else {
+          authProvider.removeListener(authListener);
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const LoginScreen()),
+          );
+        }
+      }
+    };
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      authProvider.addListener(authListener);
     });
   }
+
+  // @override
+  // void dispose() {
+  //   final authProvider = Provider.of<AuthProvider>(context, listen: false);
+  //   authProvider.removeListener(authListener);
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {

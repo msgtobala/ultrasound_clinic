@@ -41,7 +41,7 @@ class AuthProvider with ChangeNotifier {
         constants.loggedInStatusFlag,
       );
       final loggedInStatus = loggedInStatuses.status
-          ? loggedInStatuses.value[user.uid] as bool
+          ? loggedInStatuses.value[user.uid] ?? false
           : false;
       if (loggedInStatus) {
         final loggedUser = await FirebaseAuthService().getUser(user.uid);
