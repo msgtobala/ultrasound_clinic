@@ -9,10 +9,10 @@ class ClinicApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: Themes.buildLightTheme(context),
-      initialRoute: ClinicRoutes.initialClinicRoute,
-      routes: ClinicRoutes.buildClinicRoutes,
-      onUnknownRoute: ClinicRoutes.unknownRoute,
-    );
+        theme: Themes.buildLightTheme(context),
+        initialRoute: ClinicRoutes.initialClinicRoute,
+        routes: ClinicRoutes.buildClinicRoutes,
+        onUnknownRoute: ClinicRoutes.unknownRoute,
+        navigatorObservers: [ClinicRoutes.routeObserver]);
   }
 }

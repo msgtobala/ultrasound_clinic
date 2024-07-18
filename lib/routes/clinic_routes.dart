@@ -39,6 +39,9 @@ class ClinicRoutes {
     return ClinicRoutes.menu;
   }
 
+  static final RouteObserver<PageRoute> routeObserver =
+      RouteObserver<PageRoute>();
+
   static Route<dynamic> unknownRoute(RouteSettings settings) {
     return MaterialPageRoute(
       builder: (context) => const NotFoundPage(),

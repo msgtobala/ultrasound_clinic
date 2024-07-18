@@ -29,7 +29,7 @@ class StaffListScreen extends StatelessWidget {
         title: Strings.staffList,
         showBackButton: true,
       ),
-      body: const StaffListContainer(),
+      body: StaffListContainer(isClinic: isClinic),
       floatingActionButton: isClinic
           ? FloatingActionButton(
               onPressed: () => navigateToManageStaff(context),
