@@ -7,8 +7,7 @@ import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/screens/clinic/appointments_screen.dart';
 import 'package:ultrasound_clinic/screens/clinic/panorama_media_screen.dart';
-import 'package:ultrasound_clinic/screens/clinic/clinic_settings_screen.dart';
-import 'package:ultrasound_clinic/screens/patient/patient_settings_screen.dart';
+import 'package:ultrasound_clinic/screens/common/settings_screen.dart';
 import 'package:ultrasound_clinic/screens/patient/panorama_viewer_screen.dart';
 import 'package:ultrasound_clinic/screens/clinic/usg_report_screen.dart';
 import 'package:ultrasound_clinic/screens/patient/appointment_form_screen.dart';
@@ -22,14 +21,14 @@ const List<Widget> _clinicScreens = [
   USGReportScreen(),
   AppointmentsScreen(),
   PanoramaMediaScreen(),
-  ClinicSettingsScreen(),
+  SettingsScreen(isClinic: true),
 ];
 
 const List<Widget> _patientScreens = [
   USGFormScreen(),
   AppointmentFormScreen(),
   PanoramaViewerScreen(),
-  PatientSettingsScreen(),
+  SettingsScreen(isClinic: false),
 ];
 
 const List<Widget?> _clinicHeader = [

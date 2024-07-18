@@ -1,68 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:ultrasound_clinic/constants/constants.dart';
+import 'package:ultrasound_clinic/containers/auth/login/logout_container.dart';
+import 'package:ultrasound_clinic/models/common/settings_navigation_model.dart';
 
 import 'package:ultrasound_clinic/resources/icons.dart' as icons;
 import 'package:ultrasound_clinic/resources/strings.dart';
+import 'package:ultrasound_clinic/themes/responsiveness.dart';
 import 'package:ultrasound_clinic/widgets/common/profile_menu_list_item.dart';
 
 class UserProfileControls extends StatelessWidget {
-  const UserProfileControls({super.key});
+  final bool isClinic;
+
+  const UserProfileControls({super.key, required this.isClinic});
+
+  void navigateTo(String route, BuildContext context) {
+    Navigator.of(context).pushNamed(route);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 0),
-      child: Column(
+    final List<SettingsNavigationModel> settingsNavigation = isClinic
+        ? constants.clinicNavigationSettings
+        : constants.patientNavigationSettings;
+    return Expanded(
+      child: ListView(
+        padding: const EdgeInsets.all(16),
         children: [
-          ProfileMenuListItem(
-            onTap: () {},
-            leading: Image.asset(
-              icons.Icons.manageDoctor,
-              width: 34,
-              height: 34,
+          ...settingsNavigation.map(
+            (setting) => ProfileMenuListItem(
+              itemName: setting.iconName,
+              leading: Image.asset(
+                setting.leading,
+                width: 30.w,
+                height: 30.h,
+              ),
+              trailing: Image.asset(setting.trailing),
+              onTap: () => navigateTo(setting.route, context),
             ),
-            trailing: Image.asset(icons.Icons.rightArrow),
-            itemName: Strings.manageDoctor,
           ),
-          ProfileMenuListItem(
-            leading: Image.asset(
-              icons.Icons.manageStaff,
-              width: 34,
-              height: 34,
-            ),
-            onTap: () {},
-            trailing: Image.asset(icons.Icons.rightArrow),
-            itemName: Strings.manageStaff,
-          ),
-          ProfileMenuListItem(
-            leading: Image.asset(
-              icons.Icons.manageUSG,
-              width: 34,
-              height: 34,
-            ),
-            onTap: () {},
-            trailing: Image.asset(icons.Icons.rightArrow),
-            itemName: Strings.usg,
-          ),
-          ProfileMenuListItem(
-            leading: Image.asset(
-              icons.Icons.changePassword,
-              width: 34,
-              height: 34,
-            ),
-            onTap: () {},
-            trailing: Image.asset(icons.Icons.rightArrow),
-            itemName: Strings.password,
-          ),
-          ProfileMenuListItem(
-            leading: Image.asset(
-              icons.Icons.termsAndConditions,
-              width: 34,
-              height: 34,
-            ),
-            onTap: () {},
-            trailing: Image.asset(icons.Icons.rightArrow),
-            itemName: Strings.termsAndConditions,
-          ),
+          SizedBox(height: 20.h),
+          const LogoutContainer(),
         ],
       ),
     );

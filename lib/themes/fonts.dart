@@ -109,4 +109,6 @@ extension ThemeExtension on TextTheme {
       displaySmall!.copyWith(color: ThemeColors.white);
   TextStyle get bodyLargeLight =>
       bodyLarge!.copyWith(fontWeight: FontWeight.w400);
+  TextStyle get errorBodyMedium =>
+      bodyMedium!.copyWith(color: ThemeColors.errorColor);
 }
