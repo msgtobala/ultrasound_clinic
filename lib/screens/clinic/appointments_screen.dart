@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:ultrasound_clinic/constants/constants.dart';
-import 'package:ultrasound_clinic/containers/patient/today_appointments_container.dart';
-import 'package:ultrasound_clinic/containers/patient/upcoming_appointments_container.dart';
+import 'package:ultrasound_clinic/containers/clinic/today_appointments_container.dart';
+import 'package:ultrasound_clinic/containers/clinic/upcoming_appointments_container.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/themes/colors.dart';
 import 'package:ultrasound_clinic/themes/fonts.dart';

@@ -115,6 +115,8 @@ class Strings {
   static const String invalidPrescription = 'Invalid prescription';
   static const String image = 'image';
   static const String samplePrescription = 'prescription.jpg';
+  static const String sampleDoctor = 'doctor.jpg';
+  static const String sampleStaff = 'staff.jpg';
   static const String failedToAddUSG = 'Failed to add USG';
   static const String copiedToCLipboard = 'Copied to clipboard';
   static const String prescriptionsUploadedSuccessfully =
@@ -137,4 +139,19 @@ class Strings {
   static const String myAppointments = 'My Appointments';
   static const String knowYourDoctor = 'Know Your Doctor';
   static const String staffList = 'Staff List';
+  static const String addDoctor = 'Add Doctor';
+  static const String doctorCreatedSuccessfully = 'Doctor created successfully';
+  static const String doctorCreationFailed = 'Doctor creation failed';
+  static const String doctor = 'Doctor';
+  static const String staff = 'Staff';
+  static const String invalidDoctorName = 'Invalid doctor name';
+  static const String degree = 'Degree';
+  static const String invalidDescription = 'Invalid description';
+  static const String invalidDegree = 'Invalid degree';
+  static const String invalidProfileImage = 'Invalid profile image';
+  static const String addStaff = 'Add Staff';
+  static const String staffCreatedSuccessfully = 'Staff created successfully';
+  static const String staffCreationFailed = 'Staff creation failed';
+  static const String invalidStaffName = 'Invalid staff name';
+  static const String designations = 'Designations';
 }

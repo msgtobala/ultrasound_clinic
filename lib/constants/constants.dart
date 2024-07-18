@@ -1,8 +1,11 @@
+import 'package:flutter/material.dart';
+
 import 'package:ultrasound_clinic/models/auth/constants_model.dart';
 import 'package:ultrasound_clinic/models/common/bottom_navigation_model.dart';
 import 'package:ultrasound_clinic/models/common/settings_navigation_model.dart';
 import 'package:ultrasound_clinic/resources/icons.dart' as icons;
 import 'package:ultrasound_clinic/resources/strings.dart';
+import 'package:ultrasound_clinic/routes/clinic_routes.dart';
 
 final constantsMap = {
   'loggedInStatusFlag': 'loggedInStatusFlag',
@@ -54,13 +57,13 @@ final constantsMap = {
       iconName: Strings.manageDoctor,
       leading: icons.Icons.manageDoctor,
       trailing: icons.Icons.rightArrow,
-      route: '/manage-staff',
+      route: ClinicRoutes.addAndEditDoctor,
     ),
     SettingsNavigationModel(
       iconName: Strings.manageStaff,
       leading: icons.Icons.manageStaff,
       trailing: icons.Icons.rightArrow,
-      route: '/manage-staff',
+      route: ClinicRoutes.addAndEditStaff,
     ),
     SettingsNavigationModel(
       iconName: Strings.changePassword,
@@ -106,6 +109,22 @@ final constantsMap = {
       trailing: icons.Icons.rightArrow,
       route: '/manage-staff',
     ),
+  ],
+  'doctorDegrees': [
+    const DropdownMenuEntry(value: 'MDRD', label: 'MDRD'),
+    const DropdownMenuEntry(value: 'DMRD', label: 'DMRD'),
+    const DropdownMenuEntry(value: 'DNBRD', label: 'DNBRD'),
+    const DropdownMenuEntry(value: 'MS', label: 'MS'),
+    const DropdownMenuEntry(value: 'MD', label: 'MD'),
+    const DropdownMenuEntry(value: 'DNB', label: 'DNB'),
+    const DropdownMenuEntry(value: 'MBBS', label: 'MBBS'),
+  ],
+  'staffDesignations': [
+    const DropdownMenuEntry(value: 'Receptionist', label: 'Receptionist'),
+    const DropdownMenuEntry(value: 'Typist', label: 'Typist'),
+    const DropdownMenuEntry(value: 'Helper', label: 'Helper'),
+    const DropdownMenuEntry(value: 'Sweeper', label: 'Sweeper'),
+    const DropdownMenuEntry(value: 'Nurse', label: 'Nurse'),
   ],
 };
 
