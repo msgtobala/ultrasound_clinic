@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+
+import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/screens/add_doctor.dart';
 
-class DoctorListScreen extends StatelessWidget {
-  const DoctorListScreen({super.key});
+class DoctorLists extends StatelessWidget {
+  const DoctorLists({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: 'Doctors list'),
+      appBar: const CustomAppBar(title: Strings.doctorList),
       body: Column(
         children: [
           Expanded(
@@ -18,7 +20,6 @@ class DoctorListScreen extends StatelessWidget {
               },
             ),
           ),
-          _buildBottomNavBar(),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -31,24 +32,6 @@ class DoctorListScreen extends StatelessWidget {
         child: Icon(Icons.add),
         backgroundColor: Colors.blue,
       ),
-    );
-  }
-
-  Widget _buildBottomNavBar() {
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      items: const [
-        BottomNavigationBarItem(
-            icon: Icon(Icons.medical_services), label: 'USG'),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today), label: 'Appointment'),
-        BottomNavigationBarItem(icon: Icon(Icons.photo), label: 'Media'),
-        BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
-      ],
-      currentIndex: 0,
-      onTap: (index) {
-        // Handle navigation
-      },
     );
   }
 }

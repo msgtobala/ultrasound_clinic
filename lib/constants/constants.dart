@@ -6,6 +6,7 @@ import 'package:ultrasound_clinic/models/common/settings_navigation_model.dart';
 import 'package:ultrasound_clinic/resources/icons.dart' as icons;
 import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/routes/clinic_routes.dart';
+import 'package:ultrasound_clinic/routes/patient_routes.dart';
 
 final constantsMap = {
   'loggedInStatusFlag': 'loggedInStatusFlag',
@@ -89,7 +90,7 @@ final constantsMap = {
       iconName: Strings.knowYourDoctor,
       leading: icons.Icons.manageDoctor,
       trailing: icons.Icons.rightArrow,
-      route: '/manage-staff',
+      route: PatientRoutes.doctorList,
     ),
     SettingsNavigationModel(
       iconName: Strings.staffList,

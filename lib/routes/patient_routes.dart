@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:ultrasound_clinic/screens/common/doctors_list_screen.dart';
 import 'package:ultrasound_clinic/screens/common/page_not_found.dart';
 import 'package:ultrasound_clinic/screens/patient/clinic_selection_screen.dart';
 import 'package:ultrasound_clinic/screens/common/home_navigation_screen.dart';
@@ -9,11 +10,13 @@ class PatientRoutes {
 
   static const String clinicSelection = '/clinic-selection';
   static const String menu = '/menu';
+  static const String doctorList = '/doctor-list';
 
   static Map<String, WidgetBuilder> get buildPatientRoutes {
     return {
       clinicSelection: (context) => const ClinicSelectionScreen(),
       menu: (context) => const HomeNavigationMenu(),
+      doctorList: (context) => const DoctorsListScreen(),
     };
   }
 

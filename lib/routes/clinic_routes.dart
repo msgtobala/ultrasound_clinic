@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ultrasound_clinic/screens/clinic/add_and_edit_staff_screen.dart';
 
+import 'package:ultrasound_clinic/screens/clinic/add_and_edit_staff_screen.dart';
 import 'package:ultrasound_clinic/screens/clinic/view_assets_screen.dart';
+import 'package:ultrasound_clinic/screens/common/doctors_list_screen.dart';
 import 'package:ultrasound_clinic/screens/common/edit_profile_screen.dart';
 import 'package:ultrasound_clinic/screens/common/home_navigation_screen.dart';
 import 'package:ultrasound_clinic/screens/clinic/panorama_previewer_screen.dart';
@@ -17,6 +18,7 @@ class ClinicRoutes {
   static const String viewAssets = '/view-assets';
   static const String addAndEditDoctor = '/add-and-edit-doctor';
   static const String addAndEditStaff = '/add-and-edit-staff';
+  static const String doctorList = '/doctor-list';
 
   static Map<String, WidgetBuilder> get buildClinicRoutes {
     return {
@@ -26,6 +28,7 @@ class ClinicRoutes {
       viewAssets: (context) => const ViewAssetsScreen(),
       addAndEditDoctor: (context) => const AddAndEditDoctorScreen(),
       addAndEditStaff: (context) => const AddAndEditStaffScreen(),
+      doctorList: (context) => const DoctorsListScreen(),
     };
   }
 
