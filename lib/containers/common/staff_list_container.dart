@@ -8,17 +8,21 @@ import 'package:ultrasound_clinic/models/common/medical_persons_model.dart';
 import 'package:ultrasound_clinic/models/common/staff_model.dart';
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
+import 'package:ultrasound_clinic/routes/clinic_routes.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
 import 'package:ultrasound_clinic/widgets/common/medical_person_list_item.dart';
 
 class StaffListContainer extends StatefulWidget {
-  const StaffListContainer({super.key});
+  final bool isClinic;
+
+  const StaffListContainer({super.key, required this.isClinic});
 
   @override
   State<StaffListContainer> createState() => _StaffListContainerState();
 }
 
-class _StaffListContainerState extends State<StaffListContainer> {
+class _StaffListContainerState extends State<StaffListContainer>
+    with RouteAware {
   bool _isLoading = true;
   bool _isEdit = false;
   final StaffService _staffService = StaffService();
@@ -28,6 +32,13 @@ class _StaffListContainerState extends State<StaffListContainer> {
   void initState() {
     super.initState();
     _fetchStaffs();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final route = ModalRoute.of(context);
+      if (route is PageRoute && widget.isClinic) {
+        ClinicRoutes.routeObserver.subscribe(this, route);
+      }
+    });
   }
 
   Future<void> _fetchStaffs() async {
@@ -38,6 +49,20 @@ class _StaffListContainerState extends State<StaffListContainer> {
     setState(() {
       _isLoading = false;
     });
+  }
+
+  @override
+  void didPopNext() {
+    _fetchStaffs();
+    super.didPopNext();
+  }
+
+  @override
+  void dispose() {
+    if (widget.isClinic) {
+      ClinicRoutes.routeObserver.unsubscribe(this);
+    }
+    super.dispose();
   }
 
   void navigateToEditScreen(String uid) {

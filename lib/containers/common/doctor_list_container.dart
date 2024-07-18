@@ -1,24 +1,28 @@
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
-import 'package:ultrasound_clinic/constants/enums/role_enum.dart';
 
+import 'package:ultrasound_clinic/constants/enums/role_enum.dart';
 import 'package:ultrasound_clinic/core/services/doctors/doctors_service.dart';
 import 'package:ultrasound_clinic/models/common/doctor_model.dart';
 import 'package:ultrasound_clinic/models/common/medical_persons_model.dart';
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
+import 'package:ultrasound_clinic/routes/clinic_routes.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
 import 'package:ultrasound_clinic/widgets/common/medical_person_list_item.dart';
 
 class DoctorListContainer extends StatefulWidget {
-  const DoctorListContainer({super.key});
+  const DoctorListContainer({super.key, required this.isClinic});
+
+  final bool isClinic;
 
   @override
   State<DoctorListContainer> createState() => _DoctorListContainerState();
 }
 
-class _DoctorListContainerState extends State<DoctorListContainer> {
+class _DoctorListContainerState extends State<DoctorListContainer>
+    with RouteAware {
   bool _isLoading = true;
   bool _isEdit = false;
   final DoctorService _doctorService = DoctorService();
@@ -28,6 +32,27 @@ class _DoctorListContainerState extends State<DoctorListContainer> {
   void initState() {
     super.initState();
     _fetchDoctors();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final route = ModalRoute.of(context);
+      if (route is PageRoute && widget.isClinic) {
+        ClinicRoutes.routeObserver.subscribe(this, route);
+      }
+    });
+  }
+
+  @override
+  void didPopNext() {
+    _fetchDoctors();
+    super.didPopNext();
+  }
+
+  @override
+  void dispose() {
+    if (widget.isClinic) {
+      ClinicRoutes.routeObserver.unsubscribe(this);
+    }
+    super.dispose();
   }
 
   Future<void> _fetchDoctors() async {
@@ -42,7 +67,8 @@ class _DoctorListContainerState extends State<DoctorListContainer> {
 
   void navigateToEditScreen(String uid) {
     final currentDoctor = doctors?.firstWhere((doctor) => doctor.uid == uid);
-    // Navigate to edit screen with currentDoctor
+    Navigator.of(context)
+        .pushNamed(ClinicRoutes.addAndEditDoctor, arguments: currentDoctor);
   }
 
   @override

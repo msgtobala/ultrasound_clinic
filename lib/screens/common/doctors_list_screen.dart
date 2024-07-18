@@ -29,7 +29,7 @@ class DoctorsListScreen extends StatelessWidget {
         title: Strings.doctorList,
         showBackButton: true,
       ),
-      body: const DoctorListContainer(),
+      body: DoctorListContainer(isClinic: isClinic),
       floatingActionButton: isClinic
           ? FloatingActionButton(
               onPressed: () => navigateToManageDoctor(context),
