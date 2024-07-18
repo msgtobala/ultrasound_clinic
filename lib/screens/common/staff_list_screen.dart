@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:ultrasound_clinic/constants/enums/role_enum.dart';
 
+import 'package:provider/provider.dart';
+
+import 'package:ultrasound_clinic/constants/enums/role_enum.dart';
 import 'package:ultrasound_clinic/containers/common/staff_list_container.dart';
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
+import 'package:ultrasound_clinic/routes/clinic_routes.dart';
 import 'package:ultrasound_clinic/themes/colors.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
 import 'package:ultrasound_clinic/widgets/common/custom_app_bar_text.dart';
@@ -12,7 +14,9 @@ import 'package:ultrasound_clinic/widgets/common/custom_app_bar_text.dart';
 class StaffListScreen extends StatelessWidget {
   const StaffListScreen({super.key});
 
-  void navigateToManageStaff() {}
+  void navigateToManageStaff(BuildContext context) {
+    Navigator.of(context).pushNamed(ClinicRoutes.addAndEditStaff);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +32,7 @@ class StaffListScreen extends StatelessWidget {
       body: const StaffListContainer(),
       floatingActionButton: isClinic
           ? FloatingActionButton(
-              onPressed: navigateToManageStaff,
+              onPressed: () => navigateToManageStaff(context),
               backgroundColor: ThemeColors.primary,
               child: Icon(Icons.add, size: 30.ics),
             )
