@@ -75,6 +75,10 @@ class _DoctorListContainerState extends State<DoctorListContainer> {
       return const Center(child: CircularProgressIndicator());
     }
 
+    if (doctors.isEmpty) {
+      return const Center(child: Text('No doctors found'));
+    }
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.hs, vertical: 10.vs),
       child: Column(
