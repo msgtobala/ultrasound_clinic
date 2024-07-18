@@ -58,13 +58,13 @@ final constantsMap = {
       iconName: Strings.manageDoctor,
       leading: icons.Icons.manageDoctor,
       trailing: icons.Icons.rightArrow,
-      route: ClinicRoutes.addAndEditDoctor,
+      route: ClinicRoutes.doctorList,
     ),
     SettingsNavigationModel(
       iconName: Strings.manageStaff,
       leading: icons.Icons.manageStaff,
       trailing: icons.Icons.rightArrow,
-      route: ClinicRoutes.addAndEditStaff,
+      route: ClinicRoutes.staffList,
     ),
     SettingsNavigationModel(
       iconName: Strings.changePassword,
@@ -96,7 +96,7 @@ final constantsMap = {
       iconName: Strings.staffList,
       leading: icons.Icons.manageStaff,
       trailing: icons.Icons.rightArrow,
-      route: '/manage-staff',
+      route: PatientRoutes.staffList,
     ),
     SettingsNavigationModel(
       iconName: Strings.changePassword,

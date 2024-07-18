@@ -8,6 +8,7 @@ import 'package:ultrasound_clinic/screens/common/home_navigation_screen.dart';
 import 'package:ultrasound_clinic/screens/clinic/panorama_previewer_screen.dart';
 import 'package:ultrasound_clinic/screens/common/page_not_found.dart';
 import 'package:ultrasound_clinic/screens/clinic/add_and_edit_doctor_screen.dart';
+import 'package:ultrasound_clinic/screens/common/staff_list_screen.dart';
 
 class ClinicRoutes {
   const ClinicRoutes._();
@@ -19,6 +20,7 @@ class ClinicRoutes {
   static const String addAndEditDoctor = '/add-and-edit-doctor';
   static const String addAndEditStaff = '/add-and-edit-staff';
   static const String doctorList = '/doctor-list';
+  static const String staffList = '/staff-list';
 
   static Map<String, WidgetBuilder> get buildClinicRoutes {
     return {
@@ -29,6 +31,7 @@ class ClinicRoutes {
       addAndEditDoctor: (context) => const AddAndEditDoctorScreen(),
       addAndEditStaff: (context) => const AddAndEditStaffScreen(),
       doctorList: (context) => const DoctorsListScreen(),
+      staffList: (context) => const StaffListScreen(),
     };
   }
 

@@ -8,12 +8,13 @@ import 'package:ultrasound_clinic/widgets/common/svg_loader.dart';
 class MedicalPersonListItem extends StatelessWidget {
   final MedicalPersonsModel person;
   final Function(String) navigateToEditScreen;
+  final bool isEdit;
 
-  const MedicalPersonListItem({
-    super.key,
-    required this.person,
-    required this.navigateToEditScreen,
-  });
+  const MedicalPersonListItem(
+      {super.key,
+      required this.person,
+      required this.navigateToEditScreen,
+      required this.isEdit});
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +33,16 @@ class MedicalPersonListItem extends StatelessWidget {
         person.degree ?? person.designation ?? "",
         style: Theme.of(context).textTheme.bodyMedium,
       ),
-      trailing: IconButton(
-        icon: SizedBox(
-          width: 24.w,
-          height: 24.h,
-          child: const SVGLoader(image: icons.Icons.edit),
-        ),
-        onPressed: () => navigateToEditScreen(person.uid),
-      ),
+      trailing: isEdit
+          ? IconButton(
+              icon: SizedBox(
+                width: 24.w,
+                height: 24.h,
+                child: const SVGLoader(image: icons.Icons.edit),
+              ),
+              onPressed: () => navigateToEditScreen(person.uid),
+            )
+          : null,
     );
   }
 }
