@@ -8,6 +8,7 @@ import 'package:ultrasound_clinic/models/common/doctor_model.dart';
 import 'package:ultrasound_clinic/models/common/medical_persons_model.dart';
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
+import 'package:ultrasound_clinic/routes/clinic_routes.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
 import 'package:ultrasound_clinic/widgets/common/medical_person_list_item.dart';
 
@@ -42,7 +43,8 @@ class _DoctorListContainerState extends State<DoctorListContainer> {
 
   void navigateToEditScreen(String uid) {
     final currentDoctor = doctors?.firstWhere((doctor) => doctor.uid == uid);
-    // Navigate to edit screen with currentDoctor
+    Navigator.of(context)
+        .pushNamed(ClinicRoutes.addAndEditDoctor, arguments: currentDoctor);
   }
 
   @override
