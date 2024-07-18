@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
+import 'package:ultrasound_clinic/routes/clinic_routes.dart';
+import 'package:ultrasound_clinic/routes/patient_routes.dart';
 import 'package:ultrasound_clinic/themes/fonts.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
 import 'package:ultrasound_clinic/resources/icons.dart' as icons;
@@ -36,7 +38,7 @@ class UserProfileCard extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 38.d,
-                  backgroundImage: AssetImage(src),
+                  backgroundImage: src.isNotEmpty ? NetworkImage(src) : null,
                 ),
                 SizedBox(width: 16.w),
                 Expanded(
@@ -69,7 +71,13 @@ class UserProfileCard extends StatelessWidget {
                     height: 24.h,
                     child: const SVGLoader(image: icons.Icons.edit),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(
+                      isClinic!
+                          ? ClinicRoutes.editProfile
+                          : PatientRoutes.editProfile,
+                    );
+                  },
                 ),
               ],
             ),

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:ultrasound_clinic/constants/constants.dart';
 import 'package:ultrasound_clinic/containers/auth/login/logout_container.dart';
 import 'package:ultrasound_clinic/models/common/settings_navigation_model.dart';
-
-import 'package:ultrasound_clinic/resources/icons.dart' as icons;
-import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
 import 'package:ultrasound_clinic/widgets/common/profile_menu_list_item.dart';
 

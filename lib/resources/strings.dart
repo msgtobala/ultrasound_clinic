@@ -154,4 +154,7 @@ class Strings {
   static const String staffCreationFailed = 'Staff creation failed';
   static const String invalidStaffName = 'Invalid staff name';
   static const String designations = 'Designations';
+  static const String doctorList = 'Doctor List';
+  static const String noStaffsFound = 'No Staffs found';
+  static const String noDoctorsFound = 'No Doctors found';
 }
