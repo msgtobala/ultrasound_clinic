@@ -67,7 +67,12 @@ class _StaffListContainerState extends State<StaffListContainer>
 
   void navigateToEditScreen(String uid) {
     final currentStaff = staffs?.firstWhere((staff) => staff.uid == uid);
-    // Navigate to edit screen with currentDoctor
+    if (currentStaff != null) {
+      Navigator.of(context).pushNamed(
+        ClinicRoutes.editStaff,
+        arguments: currentStaff,
+      );
+    }
   }
 
   @override

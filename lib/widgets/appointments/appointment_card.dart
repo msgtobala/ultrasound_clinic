@@ -6,6 +6,7 @@ import 'package:ultrasound_clinic/resources/icons.dart' as icons;
 import 'package:ultrasound_clinic/themes/colors.dart';
 import 'package:ultrasound_clinic/themes/fonts.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
+import 'package:ultrasound_clinic/widgets/common/custom_avatar.dart';
 import 'package:ultrasound_clinic/widgets/common/svg_loader.dart';
 
 class AppointmentCard extends StatelessWidget {
@@ -37,10 +38,11 @@ class AppointmentCard extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 10.hs, vertical: 16.vs),
           child: Row(
             children: [
-              // CircleAvatar(
-              //   radius: 30.d,
-              //   backgroundImage: NetworkImage(imageUrl),
-              // ),
+              CustomAvatar(
+                imageUrl: imageUrl,
+                isNetwork: true,
+                radius: 30.d,
+              ),
               SizedBox(width: 12.w),
               Expanded(
                 child: Column(

@@ -107,7 +107,18 @@ class AuthProvider with ChangeNotifier {
       if (userCredential.user != null) {
         final loggedUser =
             await FirebaseAuthService().getUser(userCredential.user!.uid);
-        _currentUser = loggedUser;
+        _currentUser = UserModel(
+          uid: loggedUser.uid,
+          name: loggedUser.name,
+          email: loggedUser.email,
+          role: loggedUser.role,
+          phone: loggedUser.phone,
+          address: loggedUser.address,
+          clinics: loggedUser.clinics,
+          state: loggedUser.state,
+          city: loggedUser.city,
+          profileUrl: userCredential.user!.photoURL,
+        );
         if (loggedUser.uid != '') {
           return AuthModel.success(
             userName: loggedUser.name,

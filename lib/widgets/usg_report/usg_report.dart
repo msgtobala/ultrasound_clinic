@@ -7,6 +7,7 @@ import 'package:ultrasound_clinic/themes/fonts.dart';
 import 'package:ultrasound_clinic/widgets/common/custom_accordion/custom_accordion.dart';
 import 'package:ultrasound_clinic/models/common/usg_model.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
+import 'package:ultrasound_clinic/widgets/common/custom_avatar.dart';
 import 'package:ultrasound_clinic/widgets/common/custom_elevated_button.dart';
 import 'package:ultrasound_clinic/widgets/common/custom_outlined_button.dart';
 
@@ -67,6 +68,7 @@ class _USGReportState extends State<USGReport> {
               backgroundColor: Theme.of(context).primaryColor,
               headerBuilder: (BuildContext context, bool isExpanded) {
                 return ListTile(
+                  horizontalTitleGap: 10,
                   contentPadding: EdgeInsets.all(10.d),
                   title: Text(
                     usg.value.patientName,
@@ -76,10 +78,10 @@ class _USGReportState extends State<USGReport> {
                     usg.value.mobileNumber,
                     style: Theme.of(context).textTheme.bodyMediumWhite,
                   ),
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.grey[300],
-                    radius: 40.d,
-                    child: const Icon(Icons.person, color: Colors.white),
+                  leading: CustomAvatar(
+                    imageUrl: usg.value.prescription,
+                    isNetwork: true,
+                    radius: 40,
                   ),
                   trailing: Container(
                     color: Theme.of(context).primaryColor,

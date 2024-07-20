@@ -76,7 +76,7 @@ final constantsMap = {
       iconName: Strings.termsAndConditions,
       leading: icons.Icons.termsAndConditions,
       trailing: icons.Icons.rightArrow,
-      route: '/manage-staff',
+      route: ClinicRoutes.termAndConditions,
     ),
   ],
   'patientNavigationSettings': [
@@ -84,7 +84,7 @@ final constantsMap = {
       iconName: Strings.myAppointments,
       leading: icons.Icons.manageAppointments,
       trailing: icons.Icons.rightArrow,
-      route: '/manage-staff',
+      route: PatientRoutes.myAppointments,
     ),
     SettingsNavigationModel(
       iconName: Strings.knowYourDoctor,
@@ -108,7 +108,7 @@ final constantsMap = {
       iconName: Strings.termsAndConditions,
       leading: icons.Icons.termsAndConditions,
       trailing: icons.Icons.rightArrow,
-      route: '/manage-staff',
+      route: PatientRoutes.termAndConditions,
     ),
   ],
   'doctorDegrees': [

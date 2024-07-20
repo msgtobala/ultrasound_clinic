@@ -70,4 +70,33 @@ class DoctorService {
       return [];
     }
   }
+
+  Future<bool> updateDoctor(
+    String clinicId,
+    String doctorId,
+    Map<String, dynamic> updatedData,
+    File? file,
+  ) async {
+    try {
+      if (file != null) {
+        final imageURL = await _firebaseStorage.uploadFile(
+          file,
+          'clinics/$clinicId/doctors',
+          doctorId,
+        );
+        updatedData['imageUrl'] = imageURL;
+      }
+      await _firestore.fireStore
+          .collection('clinics')
+          .doc(clinicId)
+          .collection('doctors')
+          .doc(doctorId)
+          .update(updatedData);
+      log.i('Doctor updated successfully');
+      return true;
+    } catch (e) {
+      log.e('Failed to update doctor: $e');
+      return false;
+    }
+  }
 }

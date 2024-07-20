@@ -70,4 +70,33 @@ class StaffService {
       return [];
     }
   }
+
+  Future<bool> updateStaff(
+    String clinicId,
+    String staffId,
+    Map<String, dynamic> updatedData,
+    File? file,
+  ) async {
+    try {
+      if (file != null) {
+        final imageURL = await _firebaseStorage.uploadFile(
+          file,
+          'clinics/$clinicId/staffs',
+          staffId,
+        );
+        updatedData['imageUrl'] = imageURL;
+      }
+      await _firestore.fireStore
+          .collection('clinics')
+          .doc(clinicId)
+          .collection('staffs')
+          .doc(staffId)
+          .update(updatedData);
+      log.i('Staff updated successfully');
+      return true;
+    } catch (e) {
+      log.e('Failed to update staff: $e');
+      return false;
+    }
+  }
 }
