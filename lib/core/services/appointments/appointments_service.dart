@@ -135,4 +135,35 @@ class AppointmentsService {
       return [];
     }
   }
+
+  Future<List<AppointmentModel>> getUserAppointmentsByDate(
+    String userId,
+    DateTime date,
+  ) async {
+    try {
+      DateTime startOfDay = DateTime(date.year, date.month, date.day);
+      DateTime endOfDay = DateTime(date.year, date.month, date.day, 23, 59, 59);
+
+      Timestamp startTimestamp = Timestamp.fromDate(startOfDay);
+      Timestamp endTimestamp = Timestamp.fromDate(endOfDay);
+
+      QuerySnapshot querySnapshot = await _firestore
+          .collection('users')
+          .doc(userId)
+          .collection('userAppointments')
+          .where('date', isGreaterThanOrEqualTo: startTimestamp)
+          .where('date', isLessThanOrEqualTo: endTimestamp)
+          .get();
+
+      List<AppointmentModel> appointments = querySnapshot.docs
+          .map((doc) =>
+              AppointmentModel.fromJson(doc.data() as Map<String, dynamic>))
+          .toList();
+
+      return appointments;
+    } catch (e) {
+      log.e('Error fetching user appointments by date: $e');
+      return [];
+    }
+  }
 }

@@ -165,7 +165,7 @@ class _MediaDialogState extends State<MediaDialog> {
             DropdownMenu(
               inputDecorationTheme: InputDecorationTheme(
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30.d),
+                  borderRadius: BorderRadius.circular(10.d),
                 ),
               ),
               textStyle: widget.isEdit

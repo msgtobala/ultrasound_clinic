@@ -206,7 +206,7 @@ class _EditStaffFormState extends State<EditStaffForm> {
                   width: MediaQuery.of(context).size.width - 40.w,
                   inputDecorationTheme: InputDecorationTheme(
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.d),
+                      borderRadius: BorderRadius.circular(10.d),
                     ),
                   ),
                   textStyle: Theme.of(context).textTheme.bodyMedium,
