@@ -160,4 +160,5 @@ class Strings {
   static const String noDoctorsFound = 'No Doctors found';
   static const String doctorName = 'Doctor Name';
   static const String staffName = 'Staff Name';
+  static const String dateFormat = 'DD/MM/YYYY';
 }

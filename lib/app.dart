@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:ultrasound_clinic/core/services/http/http_base.dart';
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/routes/routes.dart';
@@ -12,7 +11,6 @@ class UltraSoundClinicApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    HttpBase().setBaseUrl('https://jsonplaceholder.typicode.com');
     return ChangeNotifierProvider(
       create: (_) => AuthProvider(),
       child: MaterialApp(

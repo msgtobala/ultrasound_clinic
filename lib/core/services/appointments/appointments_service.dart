@@ -136,7 +136,7 @@ class AppointmentsService {
     }
   }
 
-  Future<List<AppointmentModel>> getUserAppointmentsByDate(
+  Future<List<UserAppointmentModel>> getUserAppointmentsByDate(
     String userId,
     DateTime date,
   ) async {
@@ -155,9 +155,9 @@ class AppointmentsService {
           .where('date', isLessThanOrEqualTo: endTimestamp)
           .get();
 
-      List<AppointmentModel> appointments = querySnapshot.docs
-          .map((doc) =>
-              AppointmentModel.fromJson(doc.data() as Map<String, dynamic>))
+      List<UserAppointmentModel> appointments = querySnapshot.docs
+          .map((doc) => UserAppointmentModel.fromTJson(
+              doc.data() as Map<String, dynamic>))
           .toList();
 
       return appointments;

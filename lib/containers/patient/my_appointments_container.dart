@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
+import 'package:ultrasound_clinic/core/services/appointments/appointments_service.dart';
 
 import 'package:ultrasound_clinic/models/common/appointment_model.dart';
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
-import 'package:ultrasound_clinic/widgets/signup/my_appointments.dart';
+import 'package:ultrasound_clinic/widgets/settings/my_appointments.dart';
 
 class MyAppointmentsContainer extends StatefulWidget {
   const MyAppointmentsContainer({super.key});
@@ -15,22 +16,48 @@ class MyAppointmentsContainer extends StatefulWidget {
 }
 
 class _MyAppointmentsContainerState extends State<MyAppointmentsContainer> {
+  final AppointmentsService appointmentsService = AppointmentsService();
   bool _isLoading = false;
-  List<AppointmentModel> _appointments = [];
+  List<UserAppointmentModel> _appointments = [];
+  DateTime currentDate = DateTime.now();
 
   @override
   void initState() {
     super.initState();
-    // fetchAppointmentByDate();
+    fetchAppointmentByDate(currentDate);
   }
 
-  void fetchAppointmentByDate() {
+  void fetchAppointmentByDate(DateTime date) async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final clinicId = authProvider.currentUser!.clinics.first;
+    final userId = authProvider.currentUser!.uid;
 
     setState(() {
       _isLoading = true;
     });
+
+    final response = await appointmentsService.getUserAppointmentsByDate(
+      userId,
+      date,
+    );
+    setState(() {
+      _isLoading = false;
+      _appointments = response;
+    });
+  }
+
+  void showDateDialog() async {
+    DateTime? date = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now().subtract(const Duration(days: 365)),
+      lastDate: DateTime.now().add(const Duration(days: 365)),
+    );
+    if (date != null) {
+      setState(() {
+        currentDate = date;
+      });
+      fetchAppointmentByDate(date);
+    }
   }
 
   @override
@@ -38,6 +65,8 @@ class _MyAppointmentsContainerState extends State<MyAppointmentsContainer> {
     return MyAppointments(
       isLoading: _isLoading,
       appointments: _appointments,
+      onTap: showDateDialog,
+      date: currentDate,
     );
   }
 }
