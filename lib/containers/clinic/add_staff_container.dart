@@ -8,17 +8,16 @@ import 'package:ultrasound_clinic/core/services/staff/staff_service.dart';
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/utils/snackbar/show_snackbar.dart';
-import 'package:ultrasound_clinic/widgets/settings/add_and_edit_staff_form.dart';
+import 'package:ultrasound_clinic/widgets/settings/add_staff_form.dart';
 
-class AddAndEditStaffContainer extends StatefulWidget {
-  const AddAndEditStaffContainer({super.key});
+class AddStaffContainer extends StatefulWidget {
+  const AddStaffContainer({super.key});
 
   @override
-  State<AddAndEditStaffContainer> createState() =>
-      _AddAndEditStaffContainerState();
+  State<AddStaffContainer> createState() => _AddStaffContainerState();
 }
 
-class _AddAndEditStaffContainerState extends State<AddAndEditStaffContainer> {
+class _AddStaffContainerState extends State<AddStaffContainer> {
   final StaffService _staffService = StaffService();
   bool _isLoading = false;
 
@@ -46,8 +45,7 @@ class _AddAndEditStaffContainerState extends State<AddAndEditStaffContainer> {
 
   @override
   Widget build(BuildContext context) {
-    return AddAndEditStaffForm(
-      isEdit: false,
+    return AddStaffForm(
       isLoading: _isLoading,
       addStaff: addStaff,
     );

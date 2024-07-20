@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:ultrasound_clinic/constants/enums/button_size.dart';
 import 'package:ultrasound_clinic/themes/fonts.dart';
+import 'package:ultrasound_clinic/themes/responsiveness.dart';
 import 'package:ultrasound_clinic/utils/widgets/get_elevated_button_padding.dart';
 import 'package:ultrasound_clinic/widgets/common/loading_circular_bar.dart';
 
@@ -28,6 +29,9 @@ class CustomElevatedButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: Theme.of(context).primaryColor,
         padding: getElevatedButtonPadding(buttonSize),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.d),
+        ),
       ),
       child: (isLoading != null && isLoading == true)
           ? LoadingCircularBar(isButtonLoader: isLoading!)

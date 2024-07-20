@@ -7,6 +7,7 @@ import 'package:ultrasound_clinic/routes/patient_routes.dart';
 import 'package:ultrasound_clinic/themes/fonts.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
 import 'package:ultrasound_clinic/resources/icons.dart' as icons;
+import 'package:ultrasound_clinic/widgets/common/custom_avatar.dart';
 import 'package:ultrasound_clinic/widgets/common/svg_loader.dart';
 
 class UserProfileCard extends StatelessWidget {
@@ -36,9 +37,10 @@ class UserProfileCard extends StatelessWidget {
             padding: EdgeInsets.all(18.hs),
             child: Row(
               children: [
-                CircleAvatar(
+                CustomAvatar(
+                  imageUrl: src,
                   radius: 38.d,
-                  backgroundImage: src.isNotEmpty ? NetworkImage(src) : null,
+                  isContrast: true,
                 ),
                 SizedBox(width: 16.w),
                 Expanded(

@@ -22,12 +22,12 @@ class CustomDashedInput extends StatelessWidget {
     return DottedBorder(
       color: ThemeColors.primary,
       borderType: BorderType.RRect,
-      radius: Radius.circular(50.d),
+      radius: Radius.circular(10.d),
       dashPattern: const [8, 4],
       strokeWidth: 2,
       padding: const EdgeInsets.all(0),
       child: ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(50.d)),
+        borderRadius: BorderRadius.all(Radius.circular(10.d)),
         child: GestureDetector(
           onTap: onTap,
           child: Container(

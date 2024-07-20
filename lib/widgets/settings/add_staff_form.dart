@@ -13,23 +13,21 @@ import 'package:ultrasound_clinic/widgets/common/custom_elevated_button.dart';
 import 'package:ultrasound_clinic/widgets/common/form_input.dart';
 import 'package:ultrasound_clinic/widgets/common/generic_media_dialog.dart';
 
-class AddAndEditStaffForm extends StatefulWidget {
-  final bool isEdit;
+class AddStaffForm extends StatefulWidget {
   final bool isLoading;
   final void Function(Map<String, String>, File) addStaff;
 
-  const AddAndEditStaffForm({
+  const AddStaffForm({
     super.key,
-    required this.isEdit,
     required this.isLoading,
     required this.addStaff,
   });
 
   @override
-  State<AddAndEditStaffForm> createState() => _AddAndEditStaffFormState();
+  State<AddStaffForm> createState() => _AddStaffFormState();
 }
 
-class _AddAndEditStaffFormState extends State<AddAndEditStaffForm> {
+class _AddStaffFormState extends State<AddStaffForm> {
   final _formKey = GlobalKey<FormState>();
   final _designationController = TextEditingController();
   File? _image;
@@ -185,7 +183,6 @@ class _AddAndEditStaffFormState extends State<AddAndEditStaffForm> {
                       style: Theme.of(context).textTheme.displayMediumGray,
                     ),
                     onSelected: onDropDownSelected,
-                    initialSelection: widget.isEdit ? '' : '',
                   ),
                   if (!_isDesignationValid)
                     Column(

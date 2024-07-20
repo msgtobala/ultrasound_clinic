@@ -14,8 +14,8 @@ import 'package:ultrasound_clinic/widgets/common/custom_app_bar_text.dart';
 class StaffListScreen extends StatelessWidget {
   const StaffListScreen({super.key});
 
-  void navigateToManageStaff(BuildContext context) {
-    Navigator.of(context).pushNamed(ClinicRoutes.addAndEditStaff);
+  void navigateToAddStaff(BuildContext context) {
+    Navigator.of(context).pushNamed(ClinicRoutes.addStaff);
   }
 
   @override
@@ -32,7 +32,7 @@ class StaffListScreen extends StatelessWidget {
       body: StaffListContainer(isClinic: isClinic),
       floatingActionButton: isClinic
           ? FloatingActionButton(
-              onPressed: () => navigateToManageStaff(context),
+              onPressed: () => navigateToAddStaff(context),
               backgroundColor: ThemeColors.primary,
               child: Icon(Icons.add, size: 30.ics),
             )

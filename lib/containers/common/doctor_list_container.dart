@@ -68,7 +68,7 @@ class _DoctorListContainerState extends State<DoctorListContainer>
   void navigateToEditScreen(String uid) {
     final currentDoctor = doctors?.firstWhere((doctor) => doctor.uid == uid);
     Navigator.of(context)
-        .pushNamed(ClinicRoutes.addAndEditDoctor, arguments: currentDoctor);
+        .pushNamed(ClinicRoutes.editDoctor, arguments: currentDoctor);
   }
 
   @override

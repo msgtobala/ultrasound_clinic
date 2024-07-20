@@ -8,17 +8,16 @@ import 'package:ultrasound_clinic/core/services/doctors/doctors_service.dart';
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/utils/snackbar/show_snackbar.dart';
-import 'package:ultrasound_clinic/widgets/settings/add_and_edit_doctor_form.dart';
+import 'package:ultrasound_clinic/widgets/settings/add_doctor_form.dart';
 
-class AddAndEditDoctorContainer extends StatefulWidget {
-  const AddAndEditDoctorContainer({super.key});
+class AddDoctorContainer extends StatefulWidget {
+  const AddDoctorContainer({super.key});
 
   @override
-  State<AddAndEditDoctorContainer> createState() =>
-      _AddAndEditDoctorContainerState();
+  State<AddDoctorContainer> createState() => _AddDoctorContainerState();
 }
 
-class _AddAndEditDoctorContainerState extends State<AddAndEditDoctorContainer> {
+class _AddDoctorContainerState extends State<AddDoctorContainer> {
   final DoctorService _doctorService = DoctorService();
   bool _isLoading = false;
 
@@ -46,8 +45,7 @@ class _AddAndEditDoctorContainerState extends State<AddAndEditDoctorContainer> {
 
   @override
   Widget build(BuildContext context) {
-    return AddAndEditDoctorForm(
-      isEdit: false,
+    return AddDoctorForm(
       isLoading: _isLoading,
       addDoctor: addDoctor,
     );

@@ -14,8 +14,8 @@ import 'package:ultrasound_clinic/widgets/common/custom_app_bar_text.dart';
 class DoctorsListScreen extends StatelessWidget {
   const DoctorsListScreen({super.key});
 
-  void navigateToManageDoctor(BuildContext context) {
-    Navigator.of(context).pushNamed(ClinicRoutes.addAndEditDoctor);
+  void navigateToAddDoctor(BuildContext context) {
+    Navigator.of(context).pushNamed(ClinicRoutes.addDoctor);
   }
 
   @override
@@ -32,7 +32,7 @@ class DoctorsListScreen extends StatelessWidget {
       body: DoctorListContainer(isClinic: isClinic),
       floatingActionButton: isClinic
           ? FloatingActionButton(
-              onPressed: () => navigateToManageDoctor(context),
+              onPressed: () => navigateToAddDoctor(context),
               backgroundColor: ThemeColors.primary,
               child: Icon(Icons.add, size: 30.ics),
             )

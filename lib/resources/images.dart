@@ -8,4 +8,5 @@ class Images {
   static const String layoutBackground = 'assets/images/layout_background.png';
   static const String landingAvatar = 'assets/images/landing_avatar.svg';
   static const String frameBackground = 'assets/images/frame_background.png';
+  static const String pageNotFound = 'assets/images/background_404.png';
 }

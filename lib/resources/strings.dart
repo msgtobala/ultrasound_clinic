@@ -124,6 +124,7 @@ class Strings {
   static const String usgSubmitted = 'USG Submitted';
   static const String logout = 'Logout';
   static const String savedSuccessfully = 'Saved successfully';
+  static const String failedToSave = 'Failed to save';
   static const String reportUploaded = 'Report uploaded';
   static const String reportNotUploaded = 'Report not uploaded';
   static const String phoneNumber = 'Phone Number';
@@ -157,4 +158,6 @@ class Strings {
   static const String doctorList = 'Doctor List';
   static const String noStaffsFound = 'No Staffs found';
   static const String noDoctorsFound = 'No Doctors found';
+  static const String doctorName = 'Doctor Name';
+  static const String staffName = 'Staff Name';
 }

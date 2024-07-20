@@ -12,7 +12,6 @@ class PatientApp extends StatelessWidget {
       theme: Themes.buildLightTheme(context),
       initialRoute: PatientRoutes.initialPatientRoute,
       routes: PatientRoutes.buildPatientRoutes,
-      navigatorKey: PatientRoutes.patientNavigatorKey,
       onUnknownRoute: PatientRoutes.unknownRoute,
     );
   }
