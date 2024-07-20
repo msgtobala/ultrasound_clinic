@@ -24,9 +24,9 @@ class _InitScreenState extends State<InitScreen> {
   @override
   void initState() {
     super.initState();
-
     authListener = () {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
+
       if (!authProvider.isLoading) {
         if (authProvider.user == null && context.mounted) {
           authProvider.removeListener(authListener);
@@ -66,13 +66,6 @@ class _InitScreenState extends State<InitScreen> {
       authProvider.addListener(authListener);
     });
   }
-
-  // @override
-  // void dispose() {
-  //   final authProvider = Provider.of<AuthProvider>(context, listen: false);
-  //   authProvider.removeListener(authListener);
-  //   super.dispose();
-  // }
 
   @override
   Widget build(BuildContext context) {

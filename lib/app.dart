@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/routes/routes.dart';
+import 'package:ultrasound_clinic/themes/responsiveness.dart';
 import 'package:ultrasound_clinic/themes/themes.dart';
 
 class UltraSoundClinicApp extends StatelessWidget {
@@ -11,6 +12,7 @@ class UltraSoundClinicApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Responsiveness.init();
     return ChangeNotifierProvider(
       create: (_) => AuthProvider(),
       child: MaterialApp(
