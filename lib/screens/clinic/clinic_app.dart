@@ -8,7 +8,6 @@ class ClinicApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('ClinicApp build');
     return MaterialApp(
       theme: Themes.buildLightTheme(context),
       initialRoute: ClinicRoutes.initialClinicRoute,

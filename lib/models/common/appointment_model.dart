@@ -91,6 +91,19 @@ class UserAppointmentModel {
     );
   }
 
+  // Method to convert a JSON map to an UserAppointmentModel instance
+  factory UserAppointmentModel.fromTJson(Map<String, dynamic> json) {
+    return UserAppointmentModel(
+      patientName: json['patientName'],
+      mobileNumber: json['mobileNumber'],
+      date: (json['date'] as Timestamp).toDate().toLocal(),
+      requestDate: (json['requestDate'] as Timestamp).toDate().toLocal(),
+      uid: json['uid'],
+      refId: json['refId'],
+      clinicId: json['clinicId'],
+    );
+  }
+
   // Method to convert an UserAppointmentModel instance to a JSON map
   Map<String, dynamic> toJson() {
     return {

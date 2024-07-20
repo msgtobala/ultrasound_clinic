@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:ultrasound_clinic/resources/strings.dart';
+
 DateTime parseDateTime(String dateString, String timeString) {
   // Parse date from yyyy-mm-dd format string
   List<int> dateParts = dateString.split('-').map(int.parse).toList();
@@ -87,4 +89,14 @@ String generateFileName([String? identifier]) {
   String fileName = '${identifier ?? 'file'}_${timestamp}_$uniqueId';
 
   return fileName;
+}
+
+String formatDate(DateTime? date) {
+  if (date == null) {
+    return Strings.dateFormat;
+  }
+  String day = date.day.toString().padLeft(2, '0');
+  String month = date.month.toString().padLeft(2, '0');
+  String year = date.year.toString();
+  return '$day/$month/$year';
 }
