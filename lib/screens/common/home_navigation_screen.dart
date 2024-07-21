@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:provider/provider.dart';
 
 import 'package:ultrasound_clinic/constants/enums/role_enum.dart';
@@ -73,6 +73,19 @@ class _HomeNavigationMenuState extends State<HomeNavigationMenu> {
       appBar = _patientHeader[_selectedIndex];
     }
 
+    Widget content = role == UserRoleEnum.clinic.roleName
+        ? _clinicScreens[_selectedIndex]
+        : _patientScreens[_selectedIndex];
+
+    if (kIsWeb) {
+      content = Center(
+        child: Container(
+          constraints: const BoxConstraints(maxWidth: 600),
+          child: content,
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: appBar != null
           ? appBar as PreferredSizeWidget
@@ -80,9 +93,7 @@ class _HomeNavigationMenuState extends State<HomeNavigationMenu> {
               preferredSize: Size.zero,
               child: SizedBox(),
             ),
-      body: role == UserRoleEnum.clinic.roleName
-          ? _clinicScreens[_selectedIndex]
-          : _patientScreens[_selectedIndex],
+      body: content,
       bottomNavigationBar: CustomBottomNavigation(
         selectedIndex: _selectedIndex,
         onNavigationChanged: _onNavigationChanged,
