@@ -33,7 +33,7 @@ class PatientRoutes {
   }
 
   static String get initialPatientRoute {
-    return PatientRoutes.menu;
+    return PatientRoutes.clinicSelection;
   }
 
   static Route<dynamic> unknownRoute(RouteSettings settings) {

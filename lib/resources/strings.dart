@@ -161,4 +161,6 @@ class Strings {
   static const String doctorName = 'Doctor Name';
   static const String staffName = 'Staff Name';
   static const String dateFormat = 'DD/MM/YYYY';
+  static const String noUSGReports = 'No USG reports found';
+  static const String clinicCodeFetchFailed = 'Clinic code fetch failed';
 }

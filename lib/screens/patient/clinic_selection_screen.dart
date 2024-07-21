@@ -11,7 +11,7 @@ class ClinicSelectionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const BaseLayout(
       pageTitle: Strings.enterClinicCode,
-      pageDescription: '',
+      pageDescription: 'Enter you clinic code to continue',
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

@@ -22,7 +22,7 @@ class _PanoramaViewerContainerState extends State<PanoramaViewerContainer> {
 
   Future<void> fetchPanoramaImages() async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final clinicId = authProvider.currentUser!.clinics.first;
+    final clinicId = authProvider.selectedClinicCode;
 
     setState(() {
       _isLoading = true;

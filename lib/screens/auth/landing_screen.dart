@@ -95,7 +95,7 @@ class LandingScreen extends StatelessWidget {
     if (kIsWeb) {
       content = Center(
         child: Container(
-          constraints: BoxConstraints(maxWidth: 600),
+          constraints: const BoxConstraints(maxWidth: 600),
           child: content,
         ),
       );

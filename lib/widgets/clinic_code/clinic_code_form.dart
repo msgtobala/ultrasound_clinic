@@ -6,7 +6,14 @@ import 'package:ultrasound_clinic/widgets/common/custom_elevated_button.dart';
 import 'package:ultrasound_clinic/widgets/common/form_input.dart';
 
 class ClinicCodeForm extends StatefulWidget {
-  const ClinicCodeForm({super.key});
+  final bool isLoading;
+  final Function(String clinicCode) onClinicSelection;
+
+  const ClinicCodeForm({
+    super.key,
+    required this.isLoading,
+    required this.onClinicSelection,
+  });
 
   @override
   State<ClinicCodeForm> createState() => _ClinicCodeFormState();
@@ -14,6 +21,12 @@ class ClinicCodeForm extends StatefulWidget {
 
 class _ClinicCodeFormState extends State<ClinicCodeForm> {
   final _formKey = GlobalKey<FormState>();
+  String _clinicCode = '';
+
+  void onSubmit() {
+    _formKey.currentState?.save();
+    widget.onClinicSelection(_clinicCode);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +37,15 @@ class _ClinicCodeFormState extends State<ClinicCodeForm> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const FormInput(text: Strings.code),
+            FormInput(
+              text: Strings.code,
+              onSaved: (value) => {_clinicCode = value!},
+            ),
             const SizedBox(height: 30),
             CustomElevatedButton(
               text: Strings.submit,
               buttonSize: ButtonSize.large,
-              onPressed: () {},
+              onPressed: onSubmit,
             )
           ],
         ),

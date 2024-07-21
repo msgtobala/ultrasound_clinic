@@ -13,12 +13,14 @@ import 'package:ultrasound_clinic/models/auth/user_model.dart';
 import 'package:ultrasound_clinic/utils/error/parse_exception.dart';
 import 'package:ultrasound_clinic/utils/logger/logger.dart';
 import 'package:ultrasound_clinic/utils/shared_preference/shared_preference.dart';
+import 'package:ultrasound_clinic/widgets/common/get_clinic_id.dart';
 
 class AuthProvider with ChangeNotifier {
   User? _user;
   bool _isLoading = true;
   UserModel? _currentUser;
   bool _loggedInStatus = false;
+  String selectedClinicCode = '';
 
   final log = CustomLogger.getLogger('AuthProvider');
   final storageService = FirebaseStorageService();
@@ -78,8 +80,15 @@ class AuthProvider with ChangeNotifier {
     String role,
   ) async {
     try {
-      final credential = await FirebaseAuthService()
-          .signUpWithEmailAndPassword(userName, email, password, phone, role);
+      final clinicId = createClinicID();
+      final credential = await FirebaseAuthService().signUpWithEmailAndPassword(
+        userName,
+        email,
+        password,
+        phone,
+        role,
+        clinicId,
+      );
       return AuthModel.success(
         userName: userName,
         email: email,
@@ -206,6 +215,38 @@ class AuthProvider with ChangeNotifier {
     } catch (e) {
       log.e('Failed to sign out: $e');
       return false;
+    }
+  }
+
+  Future<bool> checkExistingClinicCode(String clinicCode) async {
+    if (currentUser!.clinics.isEmpty ||
+        !currentUser!.clinics.contains(clinicCode)) {
+      final response = await FirebaseAuthService().updateUserClinics(
+          currentUser!.uid, [clinicCode, ...currentUser!.clinics]);
+      final User? user = FirebaseAuthService().currentUser;
+
+      if (response && currentUser != null) {
+        selectedClinicCode = clinicCode;
+        _currentUser = UserModel(
+          uid: currentUser!.uid,
+          name: currentUser!.name,
+          email: currentUser!.email,
+          role: currentUser!.role,
+          phone: currentUser!.phone,
+          address: currentUser!.address,
+          state: currentUser!.state,
+          city: currentUser!.city,
+          clinics: [clinicCode, ...currentUser!.clinics],
+          profileUrl: user!.photoURL,
+        );
+        notifyListeners();
+        return true;
+      }
+      return false;
+    } else {
+      selectedClinicCode = clinicCode;
+      notifyListeners();
+      return true;
     }
   }
 }
