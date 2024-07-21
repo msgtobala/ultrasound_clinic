@@ -58,24 +58,26 @@ class FirebaseAuthService {
     String password,
     String phone,
     String role,
+    String clinicId,
   ) async {
     try {
       UserCredential userCredential = await _firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
+      final bool isClinic = role == UserRoleEnum.clinic.roleName ? true : false;
       await _firestore.collection('users').doc(userCredential.user!.uid).set({
         'uid': userCredential.user!.uid,
         'name': userName,
         'email': email,
         'role': role,
         'phone': phone,
-        'clinics': ['XVL560'],
+        'clinics': isClinic ? [clinicId] : [],
       });
       if (role == UserRoleEnum.clinic.roleName) {
-        await _firestore.collection('clinics').doc('XVL560').set({
-          'uid': 'XVL560',
+        await _firestore.collection('clinics').doc(clinicId).set({
+          'uid': clinicId,
           'email': email,
-          'clinicId': 'XVL560',
-          'clinicName': '',
+          'clinicId': clinicId,
+          'clinicName': userName,
           'images': [],
         });
       }
@@ -128,6 +130,19 @@ class FirebaseAuthService {
     } catch (e) {
       log.i('Error fetching user: $e');
       rethrow;
+    }
+  }
+
+  Future<bool> updateUserClinics(String uid, List<String> clinics) async {
+    try {
+      await _firestore.collection('users').doc(uid).update({
+        'clinics': clinics,
+      });
+      log.i('Clinics updated successfully for user $uid');
+      return true;
+    } catch (e) {
+      log.i('Error updating clinics for user $uid: $e');
+      return false;
     }
   }
 }

@@ -58,7 +58,9 @@ class _DoctorListContainerState extends State<DoctorListContainer>
   Future<void> _fetchDoctors() async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     _isEdit = authProvider.currentUser!.role == UserRoleEnum.clinic.roleName;
-    final clinicId = authProvider.currentUser!.clinics.first;
+    final clinicId = widget.isClinic
+        ? authProvider.currentUser!.clinics.first
+        : authProvider.selectedClinicCode;
     doctors = await _doctorService.getDoctors(clinicId);
     setState(() {
       _isLoading = false;

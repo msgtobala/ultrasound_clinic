@@ -50,7 +50,8 @@ class _AppointmentFormContainerState extends State<AppointmentFormContainer> {
 
   Future<void> addAppointment(Map<String, dynamic> appointment) async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final clinicId = authProvider.currentUser!.clinics.first;
+    // Since this is related to the patient, we will use selected clinic
+    final clinicId = authProvider.selectedClinicCode;
     final userId = authProvider.currentUser!.uid;
 
     setState(() {

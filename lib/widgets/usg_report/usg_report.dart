@@ -57,6 +57,15 @@ class _USGReportState extends State<USGReport> {
       );
     }
 
+    if (widget.usgs.isEmpty) {
+      return Center(
+        child: Text(
+          Strings.noUSGReports,
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
+      );
+    }
+
     return SingleChildScrollView(
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 16.vs, horizontal: 16.hs),

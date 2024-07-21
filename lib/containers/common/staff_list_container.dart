@@ -43,7 +43,9 @@ class _StaffListContainerState extends State<StaffListContainer>
 
   Future<void> _fetchStaffs() async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final clinicId = authProvider.currentUser!.clinics.first;
+    final clinicId = widget.isClinic
+        ? authProvider.currentUser!.clinics.first
+        : authProvider.selectedClinicCode;
     _isEdit = authProvider.currentUser!.role == UserRoleEnum.clinic.roleName;
     staffs = await _staffService.getStaffs(clinicId);
     setState(() {

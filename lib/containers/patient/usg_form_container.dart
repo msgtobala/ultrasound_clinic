@@ -48,7 +48,8 @@ class _USGFormContainerState extends State<USGFormContainer> {
 
   Future<void> addUSG(Map<String, dynamic> usg) async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final clinicId = authProvider.currentUser!.clinics.first;
+    // Since this is related to the patient, we will use selected clinic
+    final clinicId = authProvider.selectedClinicCode;
     final userId = authProvider.currentUser!.uid;
 
     setState(() {
