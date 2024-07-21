@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
 import 'package:ultrasound_clinic/resources/images.dart';
 import 'package:ultrasound_clinic/themes/fonts.dart';
@@ -22,54 +22,65 @@ class BaseLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              width: double.infinity,
-              height: 380.h,
-              child: Stack(
-                children: [
-                  Positioned.fill(
-                    child: Image.asset(
-                      Images.layoutBackground,
-                      width: double.infinity,
-                      fit: BoxFit.fill,
+    Widget content = SingleChildScrollView(
+      child: Column(
+        children: [
+          SizedBox(
+            width: double.infinity,
+            height: 380.h,
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: Image.asset(
+                    Images.layoutBackground,
+                    width: double.infinity,
+                    fit: BoxFit.fill,
+                  ),
+                ),
+                if (!(hideMeta ?? false))
+                  Positioned(
+                    top: 120.h,
+                    left: 20.w,
+                    right: 20.w,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          pageTitle,
+                          style: Theme.of(context).textTheme.headlineLarge,
+                        ),
+                        SizedBox(height: 7.h),
+                        Text(
+                          pageDescription,
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMediumStrongWhite,
+                        )
+                      ],
                     ),
                   ),
-                  if (!(hideMeta ?? false))
-                    Positioned(
-                      top: 120.h,
-                      left: 20.w,
-                      right: 20.w,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            pageTitle,
-                            style: Theme.of(context).textTheme.headlineLarge,
-                          ),
-                          SizedBox(height: 7.h),
-                          Text(
-                            pageDescription,
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMediumStrongWhite,
-                          )
-                        ],
-                      ),
-                    ),
-                ],
-              ),
+              ],
             ),
-            Transform.translate(
-              offset: offset ?? Offset(0, -40.h),
-              child: child,
-            ),
-          ],
-        ),
+          ),
+          Transform.translate(
+            offset: offset ?? Offset(0, -40.h),
+            child: child,
+          ),
+        ],
       ),
+    );
+
+    if (kIsWeb) {
+      content = Center(
+        child: Container(
+          constraints: const BoxConstraints(maxWidth: 600),
+          child: content,
+        ),
+      );
+    }
+
+    return Scaffold(
+      body: content,
     );
   }
 }

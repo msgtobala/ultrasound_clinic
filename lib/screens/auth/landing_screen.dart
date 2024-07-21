@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:ultrasound_clinic/resources/images.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
@@ -26,73 +27,82 @@ class LandingScreen extends StatelessWidget {
     final screenWidth = Responsiveness.screenWidth;
     final screenHeight = Responsiveness.screenHeight;
 
-    return Scaffold(
-      body: Center(
-        child: SizedBox(
-          width: screenWidth,
-          height: screenHeight,
-          child: Column(
-            children: [
-              SizedBox(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: 120.h),
-                      child: const SVGLoader(image: Images.logo),
-                    ),
-                    SizedBox(
-                      width: 297.w,
-                      height: 54.h,
-                      child: Text(
-                        Strings.landingQuote,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        top: 40,
-                        left: 35,
-                        right: 35,
-                        bottom: 22,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: CustomElevatedButton(
-                              text: Strings.signIn,
-                              onPressed: () => _navigateToLogin(context),
-                            ),
-                          ),
-                          SizedBox(width: 20.w),
-                          Expanded(
-                            flex: 1,
-                            child: CustomElevatedButton(
-                              text: Strings.register,
-                              onPressed: () => _navigateToSignup(context),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
+    Widget content = SizedBox(
+      width: screenWidth,
+      height: screenHeight,
+      child: Column(
+        children: [
+          SizedBox(
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 120.h),
+                  child: const SVGLoader(image: Images.logo),
                 ),
-              ),
-              Expanded(
-                child: SizedBox(
-                  width: screenWidth,
-                  child: const SVGLoader(
-                    image: Images.landingAvatar,
-                    fit: BoxFit.fill,
+                SizedBox(
+                  width: 297.w,
+                  height: 54.h,
+                  child: Text(
+                    Strings.landingQuote,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 40,
+                    left: 35,
+                    right: 35,
+                    bottom: 22,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: CustomElevatedButton(
+                          text: Strings.signIn,
+                          onPressed: () => _navigateToLogin(context),
+                        ),
+                      ),
+                      SizedBox(width: 20.w),
+                      Expanded(
+                        flex: 1,
+                        child: CustomElevatedButton(
+                          text: Strings.register,
+                          onPressed: () => _navigateToSignup(context),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
+          Expanded(
+            child: SizedBox(
+              width: screenWidth,
+              child: const SVGLoader(
+                image: Images.landingAvatar,
+                fit: BoxFit.fill,
+              ),
+            ),
+          ),
+        ],
       ),
+    );
+
+    if (kIsWeb) {
+      content = Center(
+        child: Container(
+          constraints: BoxConstraints(maxWidth: 600),
+          child: content,
+        ),
+      );
+    }
+
+    return Scaffold(
+      body: content,
     );
   }
 }
