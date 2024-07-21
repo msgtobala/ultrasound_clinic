@@ -83,7 +83,7 @@ class FirebaseAuthService {
       }
       return userCredential;
     } on FirebaseAuthException {
-      log.i('Error signing up: ');
+      log.e('Error signing up: ');
       throw Exception(Strings.invalidCredentials);
     } catch (e) {
       throw Exception(Strings.anErrorOccurred);
@@ -96,7 +96,7 @@ class FirebaseAuthService {
       await _firebaseAuth.signOut();
       return true;
     } catch (e) {
-      log.i('Error signing out: $e');
+      log.e('Error signing out: $e');
       return false;
     }
   }
@@ -112,7 +112,7 @@ class FirebaseAuthService {
         return 'patient'; // default role if no data found
       }
     } catch (e) {
-      log.i('Error fetching user role: $e');
+      log.e('Error fetching user role: $e');
       rethrow;
     }
   }
@@ -128,7 +128,7 @@ class FirebaseAuthService {
         return UserModel.empty();
       }
     } catch (e) {
-      log.i('Error fetching user: $e');
+      log.e('Error fetching user: $e');
       rethrow;
     }
   }
@@ -141,7 +141,18 @@ class FirebaseAuthService {
       log.i('Clinics updated successfully for user $uid');
       return true;
     } catch (e) {
-      log.i('Error updating clinics for user $uid: $e');
+      log.e('Error updating clinics for user $uid: $e');
+      return false;
+    }
+  }
+
+  // Forgot Password: Send Password Reset Email
+  Future<bool> sendPasswordResetEmail(String email) async {
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+      return true;
+    } catch (e) {
+      log.e("Error sending password reset email: $e");
       return false;
     }
   }

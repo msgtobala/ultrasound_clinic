@@ -1,31 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:ultrasound_clinic/constants/enums/button_size.dart';
 
+import 'package:ultrasound_clinic/constants/enums/button_size.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/widgets/common/custom_elevated_button.dart';
 import 'package:ultrasound_clinic/widgets/common/form_input.dart';
 
-class ClinicCodeForm extends StatefulWidget {
+class ForgetPasswordForm extends StatefulWidget {
   final bool isLoading;
-  final Function(String clinicCode) onClinicSelection;
+  final void Function(String email) onForgetPassword;
 
-  const ClinicCodeForm({
+  const ForgetPasswordForm({
     super.key,
     required this.isLoading,
-    required this.onClinicSelection,
+    required this.onForgetPassword,
   });
 
   @override
-  State<ClinicCodeForm> createState() => _ClinicCodeFormState();
+  State<ForgetPasswordForm> createState() => _ForgetPasswordFormState();
 }
 
-class _ClinicCodeFormState extends State<ClinicCodeForm> {
+class _ForgetPasswordFormState extends State<ForgetPasswordForm> {
   final _formKey = GlobalKey<FormState>();
-  String _clinicCode = '';
+  String _email = '';
 
   void onSubmit() {
-    _formKey.currentState?.save();
-    widget.onClinicSelection(_clinicCode);
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState?.save();
+      widget.onForgetPassword(_email);
+    }
+  }
+
+  String? validator(String? value) {
+    if (value == null || value.isEmpty) {
+      return Strings.invalidEmail;
+    }
+
+    return null;
   }
 
   @override
@@ -38,13 +48,16 @@ class _ClinicCodeFormState extends State<ClinicCodeForm> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             FormInput(
-              text: Strings.code,
-              onSaved: (value) => {_clinicCode = value!},
+              text: Strings.email,
+              keyboardType: TextInputType.emailAddress,
+              onSaved: (value) => {_email = value!},
+              validator: (value) => validator(value!),
             ),
             const SizedBox(height: 30),
             CustomElevatedButton(
               text: Strings.submit,
               buttonSize: ButtonSize.small,
+              isLoading: widget.isLoading,
               onPressed: onSubmit,
             )
           ],

@@ -163,4 +163,13 @@ class Strings {
   static const String dateFormat = 'DD/MM/YYYY';
   static const String noUSGReports = 'No USG reports found';
   static const String clinicCodeFetchFailed = 'Clinic code fetch failed';
+  static const String forgotPassword = 'Forgot Password';
+  static const String enterClinicCodeToContinue =
+      'Enter you clinic code to continue';
+  static const String enterEmailToResetPassword =
+      'Enter your email to reset password';
+  static const String passwordResetEmailSent =
+      'Password reset email sent successfully';
+  static const String anErrorOccurredPleaseTryAgainLater =
+      'An error occurred. Please try again later';
 }
