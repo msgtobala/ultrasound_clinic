@@ -27,7 +27,6 @@ class SignUpScreen extends StatelessWidget {
     return BaseLayout(
       pageTitle: Strings.signUp,
       pageDescription: Strings.enterSignUpDetails,
-      hideMeta: true,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
