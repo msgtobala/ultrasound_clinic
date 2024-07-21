@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:ultrasound_clinic/resources/strings.dart';
+import 'package:ultrasound_clinic/screens/auth/forget_password.dart';
 import 'package:ultrasound_clinic/themes/colors.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
 import 'package:ultrasound_clinic/widgets/common/custom_elevated_button.dart';
@@ -43,6 +44,13 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
     setState(() {
       isPasswordVisible = !isPasswordVisible;
     });
+  }
+
+  void onForgetPassword() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const ForgetPasswordScreen()),
+    );
   }
 
   @override
@@ -89,11 +97,11 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   GestureDetector(
+                    onTap: onForgetPassword,
                     child: Text(
                       Strings.forgetYourPassword,
                       style: Theme.of(context).textTheme.displayMedium,
                     ),
-                    onTap: () {},
                   )
                 ],
               ),

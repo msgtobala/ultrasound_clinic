@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ultrasound_clinic/models/common/medical_persons_model.dart';
 import 'package:ultrasound_clinic/resources/icons.dart' as icons;
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
+import 'package:ultrasound_clinic/widgets/common/custom_avatar.dart';
 import 'package:ultrasound_clinic/widgets/common/svg_loader.dart';
 
 class MedicalPersonListItem extends StatelessWidget {
@@ -21,9 +22,11 @@ class MedicalPersonListItem extends StatelessWidget {
     return ListTile(
       horizontalTitleGap: 20,
       contentPadding: EdgeInsets.zero,
-      leading: CircleAvatar(
-        backgroundImage: NetworkImage(person.imageUrl),
-        radius: 30,
+      leading: CustomAvatar(
+        imageUrl: person.imageUrl,
+        radius: 30.d,
+        isNetwork: true,
+        isContrast: true,
       ),
       title: Text(
         person.personName,

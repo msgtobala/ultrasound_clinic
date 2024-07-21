@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:ultrasound_clinic/config/auth/user_role.dart';
 import 'package:ultrasound_clinic/resources/regex.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
+import 'package:ultrasound_clinic/screens/common/terms_and_conditions.dart';
 import 'package:ultrasound_clinic/themes/colors.dart';
 import 'package:ultrasound_clinic/themes/fonts.dart';
 import 'package:ultrasound_clinic/widgets/common/custom_elevated_button.dart';
@@ -89,6 +90,13 @@ class _SignupFormWidgetState extends State<SignupFormWidget> {
         _isTermsAcceptedError = "Please read the terms and agree!";
       });
     }
+  }
+
+  void navigateToTermsAndConditions() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const TermsAndConditions()),
+    );
   }
 
   @override
@@ -237,7 +245,8 @@ class _SignupFormWidgetState extends State<SignupFormWidget> {
                         TextSpan(
                           text: Strings.termsAndConditions,
                           style: Theme.of(context).textTheme.bodyMediumPrimary,
-                          recognizer: TapGestureRecognizer()..onTap = () {},
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = navigateToTermsAndConditions,
                         )
                       ],
                     ),
