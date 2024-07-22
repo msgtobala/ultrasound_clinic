@@ -137,6 +137,8 @@ class Strings {
   static const String reportUploadFailed = 'Report upload failed';
   static const String errorLoggingOut = 'Error logging out';
   static const String changePassword = 'Change Password';
+  static const String passwordChangedSuccessfully =
+      'Password changed successfully';
   static const String myAppointments = 'My Appointments';
   static const String knowYourDoctor = 'Know Your Doctor';
   static const String staffList = 'Staff List';
@@ -168,8 +170,15 @@ class Strings {
       'Enter you clinic code to continue';
   static const String enterEmailToResetPassword =
       'Enter your email to reset password';
+  static const String enterEmailAndPasswordToChangePassword =
+      'Enter your email and new password to change password';
   static const String passwordResetEmailSent =
       'Password reset email sent successfully';
   static const String anErrorOccurredPleaseTryAgainLater =
       'An error occurred. Please try again later';
+  static const String oldPassword = 'Old Password';
+  static const String newPassword = 'New Password';
+  static const String confirmNewPassword = 'Confirm New Password';
+  static const String updatePassword = 'Update Password';
+  static const String passwordsDoNotMatch = 'Passwords do not match';
 }
