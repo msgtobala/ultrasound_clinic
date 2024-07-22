@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ultrasound_clinic/themes/colors.dart';
@@ -25,7 +26,7 @@ class CustomAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircleAvatar(
       backgroundImage: isNetwork
-          ? NetworkImage(imageUrl)
+          ? CachedNetworkImageProvider(imageUrl)
           : AssetImage(imageUrl) as ImageProvider,
       radius: radius?.d,
       backgroundColor: editMode == true
