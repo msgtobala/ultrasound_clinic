@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:ultrasound_clinic/core/services/firebase/firebase_storage_service.dart';
 import 'package:ultrasound_clinic/core/services/firebase/firestore_service.dart';
 import 'package:ultrasound_clinic/models/common/staff_model.dart';
@@ -51,6 +52,18 @@ class StaffService {
       log.e('Error creating staff: $e');
       return null;
     }
+  }
+
+  Stream<List<StaffModel>> getStaffsStream(String clinicId) {
+    return _firestore.fireStore
+        .collection('clinics')
+        .doc(clinicId)
+        .collection('staffs')
+        .snapshots()
+        .map((snapshot) => snapshot.docs
+            .map((doc) =>
+                StaffModel.fromJson(doc.data() as Map<String, dynamic>))
+            .toList());
   }
 
   Future<List<StaffModel>> getStaffs(String clinicId) async {

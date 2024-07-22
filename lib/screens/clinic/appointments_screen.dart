@@ -15,7 +15,7 @@ class AppointmentsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 30.vs, horizontal: 20.hs),
+      padding: EdgeInsets.symmetric(vertical: 30.vs, horizontal: 13.hs),
       child: Column(
         children: [
           const FormInput(
