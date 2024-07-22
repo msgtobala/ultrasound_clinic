@@ -51,6 +51,7 @@ class _PanoramaPreviewerScreenState extends State<PanoramaPreviewerScreen> {
       body: _clinicImages.isNotEmpty
           ? PanoramaPreViewer(
               imagePath: _clinicImages[_selectedIndex].imageURL,
+              sceneName: _clinicImages[_selectedIndex].sceneName,
               showCloseButton: true,
               onClose: () => onClose(context),
               onForward: onForward,
