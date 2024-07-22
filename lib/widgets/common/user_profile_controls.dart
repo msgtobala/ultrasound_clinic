@@ -20,12 +20,23 @@ class UserProfileControls extends StatelessWidget {
     final List<SettingsNavigationModel> settingsNavigation = isClinic
         ? constants.clinicNavigationSettings
         : constants.patientNavigationSettings;
+
     return Expanded(
-      child: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          ...settingsNavigation.map(
-            (setting) => ProfileMenuListItem(
+      child: ListView.builder(
+        padding: EdgeInsets.only(left: 16.hs, right: 20.hs, top: 16.vs),
+        itemCount: settingsNavigation.length + 1,
+        itemBuilder: (context, index) {
+          if (index == settingsNavigation.length) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SizedBox(height: 20.h),
+                const LogoutContainer(),
+              ],
+            );
+          } else {
+            final setting = settingsNavigation[index];
+            return ProfileMenuListItem(
               itemName: setting.iconName,
               leading: Image.asset(
                 setting.leading,
@@ -34,11 +45,9 @@ class UserProfileControls extends StatelessWidget {
               ),
               trailing: Image.asset(setting.trailing),
               onTap: () => navigateTo(setting.route, context),
-            ),
-          ),
-          SizedBox(height: 20.h),
-          const LogoutContainer(),
-        ],
+            );
+          }
+        },
       ),
     );
   }

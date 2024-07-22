@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:panorama_viewer/panorama_viewer.dart';
@@ -33,7 +34,13 @@ class _PanoramaPreViewerState extends State<PanoramaPreViewer> {
       alignment: Alignment.center,
       children: [
         PanoramaViewer(
-          child: Image.network(widget.imagePath),
+          onImageLoad: () {
+            print('Image loaded');
+          },
+          child: Image(
+            image: CachedNetworkImageProvider(widget.imagePath),
+            fit: BoxFit.cover,
+          ),
         ),
         if (widget.showCloseButton == true)
           Positioned(
