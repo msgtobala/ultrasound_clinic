@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:ultrasound_clinic/resources/strings.dart';
-import 'package:ultrasound_clinic/screens/auth/forget_password.dart';
+import 'package:ultrasound_clinic/screens/auth/forget_password_screen.dart';
 import 'package:ultrasound_clinic/themes/colors.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
 import 'package:ultrasound_clinic/widgets/common/custom_elevated_button.dart';

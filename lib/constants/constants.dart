@@ -70,7 +70,7 @@ final constantsMap = {
       iconName: Strings.changePassword,
       leading: icons.Icons.changePassword,
       trailing: icons.Icons.rightArrow,
-      route: '/manage-staff',
+      route: ClinicRoutes.changePassword,
     ),
     SettingsNavigationModel(
       iconName: Strings.termsAndConditions,
@@ -102,7 +102,7 @@ final constantsMap = {
       iconName: Strings.changePassword,
       leading: icons.Icons.changePassword,
       trailing: icons.Icons.rightArrow,
-      route: '/manage-staff',
+      route: PatientRoutes.changePassword,
     ),
     SettingsNavigationModel(
       iconName: Strings.termsAndConditions,

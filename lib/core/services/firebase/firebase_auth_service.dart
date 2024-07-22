@@ -146,7 +146,6 @@ class FirebaseAuthService {
     }
   }
 
-  // Forgot Password: Send Password Reset Email
   Future<bool> sendPasswordResetEmail(String email) async {
     try {
       await _firebaseAuth.sendPasswordResetEmail(email: email);
@@ -154,6 +153,30 @@ class FirebaseAuthService {
     } catch (e) {
       log.e("Error sending password reset email: $e");
       return false;
+    }
+  }
+
+  Future<User?> changeUserPassword(
+    String email,
+    String oldPassword,
+    String newPassword,
+  ) async {
+    try {
+      User? user = _firebaseAuth.currentUser;
+      if (user != null) {
+        AuthCredential credential =
+            EmailAuthProvider.credential(email: email, password: oldPassword);
+        UserCredential newUserCredential =
+            await user.reauthenticateWithCredential(credential);
+        await newUserCredential.user!.updatePassword(newPassword);
+        return newUserCredential.user;
+      } else {
+        log.e("No user is currently signed in.");
+        return null;
+      }
+    } catch (e) {
+      log.e("Error resetting password: $e");
+      return null;
     }
   }
 }

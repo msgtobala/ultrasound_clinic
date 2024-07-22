@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:ultrasound_clinic/screens/auth/change_password_screen.dart';
 import 'package:ultrasound_clinic/screens/clinic/add_staff_screen.dart';
 import 'package:ultrasound_clinic/screens/clinic/edit_doctor_screen.dart';
 import 'package:ultrasound_clinic/screens/clinic/edit_staff_screen.dart';
@@ -27,6 +28,7 @@ class ClinicRoutes {
   static const String doctorList = '/doctor-list';
   static const String staffList = '/staff-list';
   static const String termAndConditions = '/term-and-conditions';
+  static const String changePassword = '/change-password';
 
   static Map<String, WidgetBuilder> get buildClinicRoutes {
     return {
@@ -41,6 +43,7 @@ class ClinicRoutes {
       staffList: (context) => const StaffListScreen(),
       editDoctor: (context) => const EditDoctorScreen(),
       termAndConditions: (context) => const TermsAndConditions(),
+      changePassword: (context) => const ChangePasswordScreen(),
     };
   }
 

@@ -249,4 +249,28 @@ class AuthProvider with ChangeNotifier {
       return true;
     }
   }
+
+  Future<bool> changeUserPassword(
+    String email,
+    String oldPassword,
+    String newPassword,
+  ) async {
+    try {
+      final response = await FirebaseAuthService().changeUserPassword(
+        email,
+        oldPassword,
+        newPassword,
+      );
+      if (response != null) {
+        await response.reload();
+        final User? reloadedUser = FirebaseAuthService().currentUser;
+        _user = reloadedUser;
+        return true;
+      }
+      return false;
+    } catch (e) {
+      log.e('Failed to reset password: $e');
+      return false;
+    }
+  }
 }
