@@ -79,6 +79,7 @@ class _PanoramaViewerContainerState extends State<PanoramaViewerContainer> {
 
     return PanoramaPreViewer(
       imagePath: _panoramaImages[_selectedIndex].imageURL,
+      sceneName: _panoramaImages[_selectedIndex].sceneName,
       showCloseButton: false,
       onBackward: onBackward,
       onForward: onForward,
