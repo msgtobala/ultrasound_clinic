@@ -4,10 +4,25 @@ import 'package:flutter/material.dart';
 import 'package:panorama_viewer/panorama_viewer.dart';
 
 import 'package:ultrasound_clinic/resources/icons.dart' as icons;
+import 'package:ultrasound_clinic/themes/fonts.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
+import 'package:ultrasound_clinic/widgets/common/custom_chip.dart';
 import 'package:ultrasound_clinic/widgets/common/svg_loader.dart';
 
+double _getChipWidth(BuildContext context, String sceneName) {
+  final TextPainter textPainter = TextPainter(
+    text: TextSpan(
+      text: sceneName,
+      style: Theme.of(context).textTheme.bodySmallBlack,
+    ),
+    maxLines: 1,
+    textDirection: TextDirection.ltr,
+  )..layout(minWidth: 0, maxWidth: double.infinity);
+  return textPainter.size.width + 16; // Adding padding for the Chip
+}
+
 class PanoramaPreViewer extends StatefulWidget {
+  final String sceneName;
   final String imagePath;
   final bool? showCloseButton;
   final Function()? onClose;
@@ -16,6 +31,7 @@ class PanoramaPreViewer extends StatefulWidget {
 
   const PanoramaPreViewer({
     super.key,
+    required this.sceneName,
     required this.imagePath,
     this.showCloseButton,
     this.onClose,
@@ -57,6 +73,17 @@ class _PanoramaPreViewerState extends State<PanoramaPreViewer> {
               ),
             ),
           ),
+        Positioned(
+          top: MediaQuery.of(context).padding.top,
+          left: (MediaQuery.of(context).size.width -
+                  _getChipWidth(context, widget.sceneName)) /
+              2,
+          child: CustomChip(
+            label: widget.sceneName,
+            borderSide: BorderSide.none,
+            labelStyle: Theme.of(context).textTheme.bodySmallBlack,
+          ),
+        ),
         Positioned(
           bottom: kBottomNavigationBarHeight - 30.h,
           child: Container(
