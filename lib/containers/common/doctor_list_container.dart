@@ -45,6 +45,10 @@ class _DoctorListContainerState extends State<DoctorListContainer> {
           return const Center(child: CircularProgressIndicator());
         }
 
+        if (snapshot.hasError) {
+          return const Center(child: Text(Strings.errorLoadingDoctor));
+        }
+
         if (!snapshot.hasData || snapshot.data!.isEmpty) {
           return const Center(child: Text(Strings.noDoctorsFound));
         }

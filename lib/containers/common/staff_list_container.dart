@@ -60,12 +60,14 @@ class _StaffListContainerState extends State<StaffListContainer> {
           return const Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
-          return const Center(child: Text('Error loading staff list'));
+          return const Center(child: Text(Strings.errorLoadingStaff));
         }
-        final staffs = snapshot.data;
-        if (staffs == null || staffs.isEmpty) {
+        if (!snapshot.hasData || snapshot.data!.isEmpty) {
           return const Center(child: Text(Strings.noStaffsFound));
         }
+
+        final staffs = snapshot.data!;
+
         return Container(
           padding: EdgeInsets.symmetric(horizontal: 20.hs, vertical: 10.vs),
           child: Column(
