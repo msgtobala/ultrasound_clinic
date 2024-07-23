@@ -183,4 +183,5 @@ class Strings {
   static const String passwordsDoNotMatch = 'Passwords do not match';
   static const String errorLoadingStaff = 'Error loading staff list';
   static const String errorLoadingDoctor = 'Error loading doctor list';
+  static const String noPanoramaImagesFound = 'No panorama images found';
 }

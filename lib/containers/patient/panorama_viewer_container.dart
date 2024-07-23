@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+
 import 'package:provider/provider.dart';
 
 import 'package:ultrasound_clinic/core/services/panorama/panorama_services.dart';
 import 'package:ultrasound_clinic/models/common/panorama_image_model.dart';
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
+import 'package:ultrasound_clinic/resources/strings.dart';
+import 'package:ultrasound_clinic/themes/responsiveness.dart';
+import 'package:ultrasound_clinic/widgets/common/custom_shimmer/custom_card_shimmer.dart';
 import 'package:ultrasound_clinic/widgets/common/panorama_previewer.dart';
 
 class PanoramaViewerContainer extends StatefulWidget {
@@ -63,15 +67,16 @@ class _PanoramaViewerContainerState extends State<PanoramaViewerContainer> {
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
-      return const Center(
-        child: CircularProgressIndicator(),
+      return Container(
+        margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 60.h),
+        child: const CustomCardShimmer(),
       );
     }
 
     if (_panoramaImages.isEmpty) {
       return Center(
         child: Text(
-          'No images found',
+          Strings.noPanoramaImagesFound,
           style: Theme.of(context).textTheme.headlineSmall,
         ),
       );

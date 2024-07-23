@@ -9,6 +9,9 @@ import 'package:ultrasound_clinic/screens/auth/login_screen.dart';
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/screens/clinic/clinic_app.dart';
 import 'package:ultrasound_clinic/screens/patient/patient_app.dart';
+import 'package:ultrasound_clinic/themes/colors.dart';
+import 'package:ultrasound_clinic/themes/responsiveness.dart';
+import 'package:ultrasound_clinic/widgets/common/custom_loader/custom_loader.dart';
 import 'package:ultrasound_clinic/widgets/common/svg_loader.dart';
 
 class InitScreen extends StatefulWidget {
@@ -69,17 +72,17 @@ class _InitScreenState extends State<InitScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Center(
-            child: SVGLoader(
-              image: Images.logo,
-            ),
+          const Center(child: SVGLoader(image: Images.logo)),
+          SizedBox(height: 20.h),
+          SpinKitThreeBounce(
+            color: ThemeColors.primary,
+            duration: const Duration(milliseconds: 1500),
+            size: 50,
           ),
-          SizedBox(height: 20),
-          CircularProgressIndicator(),
         ],
       ),
     );

@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -137,98 +136,108 @@ class _MediaDialogState extends State<MediaDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20.d),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Align(
-              alignment: Alignment.topRight,
-              child: InkWell(
-                child: const SVGLoader(image: icons.Icons.closeRed),
-                onTap: () => closeModal(context),
-              ),
-            ),
-            SizedBox(height: 8.h),
-            Text(
-              widget.isEdit
-                  ? '${Strings.replace} ${widget.editScene} ${Strings.picture}'
-                  : Strings.uploadClinicPicture,
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            SizedBox(height: 32.h),
-            DropdownMenu(
-              inputDecorationTheme: InputDecorationTheme(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.d),
-                ),
-              ),
-              textStyle: widget.isEdit
-                  ? Theme.of(context).textTheme.displayMediumGray
-                  : Theme.of(context).textTheme.bodyMedium,
-              dropdownMenuEntries: widget.isEdit
-                  ? [
-                      DropdownMenuEntry(
-                          value: widget.editScene, label: widget.editScene)
-                    ]
-                  : extractSceneType(widget.clinicImages)
-                      .map(
-                        (scene) =>
-                            DropdownMenuEntry(value: scene, label: scene),
-                      )
-                      .toList(),
-              label: Text(
-                Strings.mediaType,
-                style: Theme.of(context).textTheme.displayMediumGray,
-              ),
-              onSelected: onDropDownSelected,
-              initialSelection: widget.isEdit ? widget.editScene : '',
-              enabled: widget.isEdit ? false : true,
-            ),
-            SizedBox(height: 20.h),
-            if (_image == null)
-              Column(
-                children: [
-                  CustomDashedInput(
-                    text: Strings.gallery,
-                    onTap: () => onMediaSelected(ImageSource.gallery),
+    return Center(
+      child: FractionallySizedBox(
+        widthFactor: 1,
+        child: Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.d),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: InkWell(
+                    child: const SVGLoader(image: icons.Icons.closeRed),
+                    onTap: () => closeModal(context),
                   ),
-                  SizedBox(height: 20.h),
-                  CustomDashedInput(
-                    text: Strings.camera,
-                    onTap: () => onMediaSelected(ImageSource.camera),
+                ),
+                SizedBox(height: 8.h),
+                Text(
+                  widget.isEdit
+                      ? '${Strings.replace} ${widget.editScene} ${Strings.picture}'
+                      : Strings.uploadClinicPicture,
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+                SizedBox(height: 32.h),
+                SizedBox(
+                  width: double.infinity,
+                  child: DropdownMenu(
+                    inputDecorationTheme: InputDecorationTheme(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.d),
+                      ),
+                    ),
+                    textStyle: widget.isEdit
+                        ? Theme.of(context).textTheme.displayMediumGray
+                        : Theme.of(context).textTheme.bodyMedium,
+                    dropdownMenuEntries: widget.isEdit
+                        ? [
+                            DropdownMenuEntry(
+                                value: widget.editScene,
+                                label: widget.editScene)
+                          ]
+                        : extractSceneType(widget.clinicImages)
+                            .map(
+                              (scene) =>
+                                  DropdownMenuEntry(value: scene, label: scene),
+                            )
+                            .toList(),
+                    label: Text(
+                      Strings.mediaType,
+                      style: Theme.of(context).textTheme.displayMediumGray,
+                    ),
+                    onSelected: onDropDownSelected,
+                    initialSelection: widget.isEdit ? widget.editScene : '',
+                    enabled: widget.isEdit ? false : true,
                   ),
-                ],
-              ),
-            if (_image != null) Image.file(File(_image!.path)),
-            SizedBox(height: 20.h),
-            if (!widget.isEdit)
-              SizedBox(
-                width: double.infinity,
-                child: CustomElevatedButton(
-                  text: Strings.save,
-                  onPressed:
-                      _image != null && _sceneName.isNotEmpty ? onSave : null,
-                  isLoading: _isUploading,
                 ),
-              ),
-            if (widget.isEdit)
-              SizedBox(
-                width: double.infinity,
-                child: CustomElevatedButton(
-                  text: Strings.edit,
-                  onPressed: widget.editScene.isNotEmpty && _image != null
-                      ? onEdit
-                      : null,
-                  isLoading: _isUploading,
-                ),
-              ),
-          ],
+                SizedBox(height: 20.h),
+                if (_image == null)
+                  Column(
+                    children: [
+                      CustomDashedInput(
+                        text: Strings.gallery,
+                        onTap: () => onMediaSelected(ImageSource.gallery),
+                      ),
+                      SizedBox(height: 20.h),
+                      CustomDashedInput(
+                        text: Strings.camera,
+                        onTap: () => onMediaSelected(ImageSource.camera),
+                      ),
+                    ],
+                  ),
+                if (_image != null) Image.file(File(_image!.path)),
+                SizedBox(height: 20.h),
+                if (!widget.isEdit)
+                  SizedBox(
+                    width: double.infinity,
+                    child: CustomElevatedButton(
+                      text: Strings.save,
+                      onPressed: _image != null && _sceneName.isNotEmpty
+                          ? onSave
+                          : null,
+                      isLoading: _isUploading,
+                    ),
+                  ),
+                if (widget.isEdit)
+                  SizedBox(
+                    width: double.infinity,
+                    child: CustomElevatedButton(
+                      text: Strings.edit,
+                      onPressed: widget.editScene.isNotEmpty && _image != null
+                          ? onEdit
+                          : null,
+                      isLoading: _isUploading,
+                    ),
+                  ),
+              ],
+            ),
+          ),
         ),
       ),
     );

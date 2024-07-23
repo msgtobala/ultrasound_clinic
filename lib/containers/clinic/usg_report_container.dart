@@ -27,24 +27,35 @@ class _USGReportContainerState extends State<USGReportContainer> {
   final FirebaseStorageService storageService = FirebaseStorageService();
   bool _isLoading = false;
   bool _isUploading = false;
+  String _currentUsgId = '';
   List<USGModel> _usgs = [];
 
-  Future<void> fetchUSG(String clinicId) async {
-    setState(() {
-      _isLoading = true;
-    });
+  Future<void> fetchUSG([bool? initialLoad]) async {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final clinicId = authProvider.currentUser!.clinics.first;
+
+    if (clinicId.isEmpty) {
+      return;
+    }
+
+    if (initialLoad == true) {
+      setState(() {
+        _isLoading = true;
+      });
+    }
 
     final usgsList = await usgService.getUSGs(clinicId);
     if (usgsList.isNotEmpty) {
       setState(() {
-        _isLoading = false;
         _usgs = usgsList;
       });
     }
 
-    setState(() {
-      _isLoading = false;
-    });
+    if (initialLoad == true) {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   void viewPrescription(String prescription) {
@@ -65,6 +76,7 @@ class _USGReportContainerState extends State<USGReportContainer> {
 
     setState(() {
       _isUploading = true;
+      _currentUsgId = usgId;
     });
 
     final fileName = generateFileName('report_$usgId');
@@ -86,6 +98,7 @@ class _USGReportContainerState extends State<USGReportContainer> {
       setState(() {
         _isUploading = false;
         _usgs = _usgs;
+        _currentUsgId = '';
       });
       showSnackbar(context, Strings.reportUploadedSuccessfully);
     } else {
@@ -97,7 +110,11 @@ class _USGReportContainerState extends State<USGReportContainer> {
   }
 
   void reportAction(
-      String report, String usgId, String userUsgId, String userId) {
+    String report,
+    String usgId,
+    String userUsgId,
+    String userId,
+  ) {
     if (report.isNotEmpty) {
       Navigator.of(context).pushNamed(
         ClinicRoutes.viewAssets,
@@ -119,23 +136,22 @@ class _USGReportContainerState extends State<USGReportContainer> {
 
   @override
   void initState() {
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final clinicId = authProvider.currentUser!.clinics.first;
     super.initState();
-
-    if (clinicId.isNotEmpty) {
-      fetchUSG(clinicId);
-    }
+    fetchUSG(true);
   }
 
   @override
   Widget build(BuildContext context) {
-    return USGReport(
-      isLoading: _isLoading,
-      isUploading: _isUploading,
-      usgs: _usgs,
-      reportAction: reportAction,
-      viewPrescription: viewPrescription,
+    return RefreshIndicator(
+      onRefresh: fetchUSG,
+      child: USGReport(
+        isLoading: _isLoading,
+        isUploading: _isUploading,
+        currentUsgId: _currentUsgId,
+        usgs: _usgs,
+        reportAction: reportAction,
+        viewPrescription: viewPrescription,
+      ),
     );
   }
 }

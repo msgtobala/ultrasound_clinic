@@ -10,6 +10,7 @@ import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/routes/clinic_routes.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
+import 'package:ultrasound_clinic/widgets/common/custom_shimmer/custom_card_shimmer.dart';
 import 'package:ultrasound_clinic/widgets/common/medical_person_list_item.dart';
 
 class StaffListContainer extends StatefulWidget {
@@ -57,13 +58,18 @@ class _StaffListContainerState extends State<StaffListContainer> {
       stream: _staffStream,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return const CustomCardShimmer();
         }
         if (snapshot.hasError) {
           return const Center(child: Text(Strings.errorLoadingStaff));
         }
         if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return const Center(child: Text(Strings.noStaffsFound));
+          return Center(
+            child: Text(
+              Strings.noStaffsFound,
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+          );
         }
 
         final staffs = snapshot.data!;

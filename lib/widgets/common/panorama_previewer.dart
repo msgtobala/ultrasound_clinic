@@ -50,9 +50,6 @@ class _PanoramaPreViewerState extends State<PanoramaPreViewer> {
       alignment: Alignment.center,
       children: [
         PanoramaViewer(
-          onImageLoad: () {
-            print('Image loaded');
-          },
           child: Image(
             image: CachedNetworkImageProvider(widget.imagePath),
             fit: BoxFit.cover,

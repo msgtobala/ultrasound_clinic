@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:ultrasound_clinic/constants/enums/button_size.dart';
+import 'package:ultrasound_clinic/themes/colors.dart';
 import 'package:ultrasound_clinic/themes/fonts.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
 import 'package:ultrasound_clinic/utils/widgets/get_elevated_button_padding.dart';
-import 'package:ultrasound_clinic/widgets/common/loading_circular_bar.dart';
+import 'package:ultrasound_clinic/widgets/common/custom_loader/custom_loader.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   const CustomElevatedButton({
@@ -34,7 +35,7 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       ),
       child: (isLoading != null && isLoading == true)
-          ? LoadingCircularBar(isButtonLoader: isLoading!)
+          ? SpinKitThreeBounce(color: ThemeColors.white, size: 27)
           : Text(
               text,
               style: buttonTextStyle ??
