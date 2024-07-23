@@ -181,4 +181,6 @@ class Strings {
   static const String confirmNewPassword = 'Confirm New Password';
   static const String updatePassword = 'Update Password';
   static const String passwordsDoNotMatch = 'Passwords do not match';
+  static const String errorLoadingStaff = 'Error loading staff list';
+  static const String errorLoadingDoctor = 'Error loading doctor list';
 }

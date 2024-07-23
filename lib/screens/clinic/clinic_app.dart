@@ -13,8 +13,6 @@ class ClinicApp extends StatelessWidget {
       initialRoute: ClinicRoutes.initialClinicRoute,
       routes: ClinicRoutes.buildClinicRoutes,
       onUnknownRoute: ClinicRoutes.unknownRoute,
-      navigatorKey: ClinicRoutes.clinicNavigatorKey,
-      navigatorObservers: [ClinicRoutes.routeObserver],
     );
   }
 }

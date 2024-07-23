@@ -60,14 +60,4 @@ class ClinicRoutes {
       settings: settings,
     );
   }
-
-  static GlobalKey<NavigatorState> _clinicNavigatorKey =
-      GlobalKey<NavigatorState>();
-
-  static GlobalKey<NavigatorState> get clinicNavigatorKey =>
-      _clinicNavigatorKey;
-
-  static void resetNavigatorKey() {
-    _clinicNavigatorKey = GlobalKey<NavigatorState>();
-  }
 }
