@@ -13,7 +13,7 @@ import 'package:ultrasound_clinic/models/auth/user_model.dart';
 import 'package:ultrasound_clinic/utils/error/parse_exception.dart';
 import 'package:ultrasound_clinic/utils/logger/logger.dart';
 import 'package:ultrasound_clinic/utils/shared_preference/shared_preference.dart';
-import 'package:ultrasound_clinic/widgets/common/get_clinic_id.dart';
+import 'package:ultrasound_clinic/utils/get_clinic_id.dart';
 
 class AuthProvider with ChangeNotifier {
   User? _user;

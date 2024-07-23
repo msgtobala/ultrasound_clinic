@@ -11,7 +11,7 @@ class CustomCardShimmer extends StatelessWidget {
   Widget build(BuildContext context) {
     return ShimmerPro.generated(
       light: ShimmerProLight.lighter,
-      height: MediaQuery.of(context).size.height * 0.15,
+      height: MediaQuery.of(context).size.height * 0.12,
       scaffoldBackgroundColor: ThemeColors.white,
       alignment: Alignment.topCenter,
       child: Padding(

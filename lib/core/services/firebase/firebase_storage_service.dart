@@ -22,12 +22,17 @@ class FirebaseStorageService {
   Future<String> uploadFile(File file, String path, String fileName) async {
     try {
       final ref = _storage.ref().child('$path/$fileName');
+      if (Platform.isIOS) {
+        final metadata = SettableMetadata(
+          contentType: 'image/jpeg',
+          customMetadata: {'picked-file-path': file.path},
+        );
+        final uploadTask = ref.putData(await file.readAsBytes(), metadata);
+        final snapshot = await uploadTask.whenComplete(() => null);
+        final downloadUrl = await snapshot.ref.getDownloadURL();
+        return downloadUrl;
+      }
       final uploadTask = ref.putFile(file);
-      uploadTask.snapshotEvents.listen((event) {
-        log.i(
-            'Bytes transferred: ${event.bytesTransferred} / ${event.totalBytes}');
-        log.i('Task state: ${event.state}');
-      });
       final snapshot = await uploadTask.whenComplete(() => null);
       final downloadUrl = await snapshot.ref.getDownloadURL();
       return downloadUrl;
