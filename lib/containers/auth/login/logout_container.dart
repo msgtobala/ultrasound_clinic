@@ -4,8 +4,6 @@ import 'package:provider/provider.dart';
 
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
-import 'package:ultrasound_clinic/routes/clinic_routes.dart';
-// import 'package:ultrasound_clinic/routes/clinic_routes.dart';
 import 'package:ultrasound_clinic/screens/auth/landing_screen.dart';
 import 'package:ultrasound_clinic/themes/colors.dart';
 import 'package:ultrasound_clinic/themes/fonts.dart';
@@ -19,7 +17,6 @@ class LogoutContainer extends StatelessWidget {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final response = await authProvider.signOut();
     if (response) {
-      ClinicRoutes.resetNavigatorKey();
       Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
           builder: (context) => const LandingScreen(),

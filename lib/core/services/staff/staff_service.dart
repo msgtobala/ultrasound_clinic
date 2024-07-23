@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:ultrasound_clinic/core/services/firebase/firebase_storage_service.dart';
 import 'package:ultrasound_clinic/core/services/firebase/firestore_service.dart';
 import 'package:ultrasound_clinic/models/common/staff_model.dart';
@@ -53,22 +54,15 @@ class StaffService {
     }
   }
 
-  Future<List<StaffModel>> getStaffs(String clinicId) async {
-    try {
-      QuerySnapshot querySnapshot = await _firestore.fireStore
-          .collection('clinics')
-          .doc(clinicId)
-          .collection('staffs')
-          .get();
-
-      List<StaffModel> staffs = querySnapshot.docs.map((doc) {
-        return StaffModel.fromJson(doc.data() as Map<String, dynamic>);
-      }).toList();
-      return staffs;
-    } catch (e) {
-      log.e('Error getting staffs: $e');
-      return [];
-    }
+  Stream<List<StaffModel>> getStaffsStream(String clinicId) {
+    return _firestore.fireStore
+        .collection('clinics')
+        .doc(clinicId)
+        .collection('staffs')
+        .snapshots()
+        .map((snapshot) => snapshot.docs
+            .map((doc) => StaffModel.fromJson(doc.data()))
+            .toList());
   }
 
   Future<bool> updateStaff(

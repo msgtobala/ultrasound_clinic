@@ -21,91 +21,72 @@ class DoctorListContainer extends StatefulWidget {
   State<DoctorListContainer> createState() => _DoctorListContainerState();
 }
 
-class _DoctorListContainerState extends State<DoctorListContainer>
-    with RouteAware {
-  bool _isLoading = true;
+class _DoctorListContainerState extends State<DoctorListContainer> {
   bool _isEdit = false;
   final DoctorService _doctorService = DoctorService();
-  List<DoctorModel>? doctors;
 
   @override
   void initState() {
     super.initState();
-    _fetchDoctors();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final route = ModalRoute.of(context);
-      if (route is PageRoute && widget.isClinic) {
-        ClinicRoutes.routeObserver.subscribe(this, route);
-      }
-    });
   }
 
   @override
-  void didPopNext() {
-    _fetchDoctors();
-    super.didPopNext();
-  }
-
-  @override
-  void dispose() {
-    if (widget.isClinic) {
-      ClinicRoutes.routeObserver.unsubscribe(this);
-    }
-    super.dispose();
-  }
-
-  Future<void> _fetchDoctors() async {
+  Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     _isEdit = authProvider.currentUser!.role == UserRoleEnum.clinic.roleName;
     final clinicId = widget.isClinic
         ? authProvider.currentUser!.clinics.first
         : authProvider.selectedClinicCode;
-    doctors = await _doctorService.getDoctors(clinicId);
-    setState(() {
-      _isLoading = false;
-    });
-  }
 
-  void navigateToEditScreen(String uid) {
-    final currentDoctor = doctors?.firstWhere((doctor) => doctor.uid == uid);
-    Navigator.of(context)
-        .pushNamed(ClinicRoutes.editDoctor, arguments: currentDoctor);
-  }
+    return StreamBuilder<List<DoctorModel>>(
+      stream: _doctorService.getDoctorsStream(clinicId),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
 
-  @override
-  Widget build(BuildContext context) {
-    if (_isLoading) {
-      return const Center(child: CircularProgressIndicator());
-    }
+        if (snapshot.hasError) {
+          return const Center(child: Text(Strings.errorLoadingDoctor));
+        }
 
-    if (doctors == null || doctors!.isEmpty) {
-      return const Center(child: Text(Strings.noDoctorsFound));
-    }
+        if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return const Center(child: Text(Strings.noDoctorsFound));
+        }
 
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20.hs, vertical: 10.vs),
-      child: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: doctors!.length,
-              itemBuilder: (context, index) {
-                return MedicalPersonListItem(
-                  isEdit: _isEdit,
-                  person: MedicalPersonsModel(
-                    uid: doctors![index].uid,
-                    personName: doctors![index].doctorName,
-                    degree: doctors![index].degree,
-                    imageUrl: doctors![index].imageUrl,
-                  ),
-                  navigateToEditScreen: navigateToEditScreen,
-                );
-              },
-            ),
+        final doctors = snapshot.data!;
+
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: 20.hs, vertical: 10.vs),
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: doctors.length,
+                  itemBuilder: (context, index) {
+                    return MedicalPersonListItem(
+                      isEdit: _isEdit,
+                      person: MedicalPersonsModel(
+                        uid: doctors[index].uid,
+                        personName: doctors[index].doctorName,
+                        degree: doctors[index].degree,
+                        imageUrl: doctors[index].imageUrl,
+                      ),
+                      navigateToEditScreen: (uid) {
+                        final currentDoctor =
+                            doctors.firstWhere((doctor) => doctor.uid == uid);
+                        Navigator.of(context).pushNamed(
+                          ClinicRoutes.editDoctor,
+                          arguments: currentDoctor,
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
