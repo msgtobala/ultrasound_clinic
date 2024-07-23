@@ -130,7 +130,7 @@ class _USGFormState extends State<USGForm> {
     if (isFormValid) {
       _formKey.currentState!.save();
       widget.addUSG({...formData, 'prescription': _image});
-      resetForm();
+      // resetForm();
     }
   }
 

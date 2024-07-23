@@ -5,6 +5,7 @@ import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/utils/date_time/date_time.dart';
 
 import 'package:ultrasound_clinic/widgets/appointments/appointment_card.dart';
+import 'package:ultrasound_clinic/widgets/common/custom_shimmer/custom_card_shimmer.dart';
 
 class UserAppointmentList extends StatelessWidget {
   final bool isLoading;
@@ -19,9 +20,7 @@ class UserAppointmentList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (isLoading) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
+      return const CustomCardShimmer();
     }
 
     if (userAppointments.isEmpty) {

@@ -10,6 +10,7 @@ import 'package:ultrasound_clinic/themes/responsiveness.dart';
 import 'package:ultrasound_clinic/widgets/common/custom_avatar.dart';
 import 'package:ultrasound_clinic/widgets/common/custom_elevated_button.dart';
 import 'package:ultrasound_clinic/widgets/common/custom_outlined_button.dart';
+import 'package:ultrasound_clinic/widgets/common/custom_shimmer/custom_card_shimmer.dart';
 
 class USGReport extends StatefulWidget {
   const USGReport({
@@ -52,9 +53,7 @@ class _USGReportState extends State<USGReport> {
   @override
   Widget build(BuildContext context) {
     if (widget.isLoading) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
+      return const CustomCardShimmer();
     }
 
     if (widget.usgs.isEmpty) {

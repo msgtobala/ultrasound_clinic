@@ -29,7 +29,7 @@ class USGService {
       String fileName = generateFileName();
       final prescriptionURL = await _firebaseStorage.uploadFile(
         usg['prescription'],
-        'users/$userId/prescriptions',
+        'users/$userId/prescriptions/',
         fileName,
       );
 
@@ -83,7 +83,7 @@ class USGService {
       );
       return usgId;
     } catch (e) {
-      log.e('Error creating USG: $e');
+      log.e(e.toString());
       return null;
     }
   }

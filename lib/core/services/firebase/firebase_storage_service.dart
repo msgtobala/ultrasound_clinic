@@ -23,6 +23,11 @@ class FirebaseStorageService {
     try {
       final ref = _storage.ref().child('$path/$fileName');
       final uploadTask = ref.putFile(file);
+      uploadTask.snapshotEvents.listen((event) {
+        log.i(
+            'Bytes transferred: ${event.bytesTransferred} / ${event.totalBytes}');
+        log.i('Task state: ${event.state}');
+      });
       final snapshot = await uploadTask.whenComplete(() => null);
       final downloadUrl = await snapshot.ref.getDownloadURL();
       return downloadUrl;
