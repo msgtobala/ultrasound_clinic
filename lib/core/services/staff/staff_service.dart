@@ -61,27 +61,8 @@ class StaffService {
         .collection('staffs')
         .snapshots()
         .map((snapshot) => snapshot.docs
-            .map((doc) =>
-                StaffModel.fromJson(doc.data() as Map<String, dynamic>))
+            .map((doc) => StaffModel.fromJson(doc.data()))
             .toList());
-  }
-
-  Future<List<StaffModel>> getStaffs(String clinicId) async {
-    try {
-      QuerySnapshot querySnapshot = await _firestore.fireStore
-          .collection('clinics')
-          .doc(clinicId)
-          .collection('staffs')
-          .get();
-
-      List<StaffModel> staffs = querySnapshot.docs.map((doc) {
-        return StaffModel.fromJson(doc.data() as Map<String, dynamic>);
-      }).toList();
-      return staffs;
-    } catch (e) {
-      log.e('Error getting staffs: $e');
-      return [];
-    }
   }
 
   Future<bool> updateStaff(

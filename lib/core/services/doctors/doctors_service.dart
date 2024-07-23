@@ -54,24 +54,6 @@ class DoctorService {
     }
   }
 
-  Future<List<DoctorModel>> getDoctors(String clinicId) async {
-    try {
-      QuerySnapshot querySnapshot = await _firestore.fireStore
-          .collection('clinics')
-          .doc(clinicId)
-          .collection('doctors')
-          .get();
-
-      List<DoctorModel> doctors = querySnapshot.docs.map((doc) {
-        return DoctorModel.fromJson(doc.data() as Map<String, dynamic>);
-      }).toList();
-      return doctors;
-    } catch (e) {
-      log.e('Error getting doctors: $e');
-      return [];
-    }
-  }
-
   Stream<List<DoctorModel>> getDoctorsStream(String clinicId) {
     return _firestore.fireStore
         .collection('clinics')
@@ -79,8 +61,7 @@ class DoctorService {
         .collection('doctors')
         .snapshots()
         .map((snapshot) => snapshot.docs
-            .map((doc) =>
-                DoctorModel.fromJson(doc.data() as Map<String, dynamic>))
+            .map((doc) => DoctorModel.fromJson(doc.data()))
             .toList());
   }
 
