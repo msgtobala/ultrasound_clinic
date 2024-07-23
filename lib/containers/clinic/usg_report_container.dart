@@ -30,22 +30,32 @@ class _USGReportContainerState extends State<USGReportContainer> {
   String _currentUsgId = '';
   List<USGModel> _usgs = [];
 
-  Future<void> fetchUSG(String clinicId) async {
-    setState(() {
-      _isLoading = true;
-    });
+  Future<void> fetchUSG([bool? initialLoad]) async {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final clinicId = authProvider.currentUser!.clinics.first;
+
+    if (clinicId.isEmpty) {
+      return;
+    }
+
+    if (initialLoad == true) {
+      setState(() {
+        _isLoading = true;
+      });
+    }
 
     final usgsList = await usgService.getUSGs(clinicId);
     if (usgsList.isNotEmpty) {
       setState(() {
-        _isLoading = false;
         _usgs = usgsList;
       });
     }
 
-    setState(() {
-      _isLoading = false;
-    });
+    if (initialLoad == true) {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   void viewPrescription(String prescription) {
@@ -126,24 +136,22 @@ class _USGReportContainerState extends State<USGReportContainer> {
 
   @override
   void initState() {
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final clinicId = authProvider.currentUser!.clinics.first;
     super.initState();
-
-    if (clinicId.isNotEmpty) {
-      fetchUSG(clinicId);
-    }
+    fetchUSG(true);
   }
 
   @override
   Widget build(BuildContext context) {
-    return USGReport(
-      isLoading: _isLoading,
-      isUploading: _isUploading,
-      currentUsgId: _currentUsgId,
-      usgs: _usgs,
-      reportAction: reportAction,
-      viewPrescription: viewPrescription,
+    return RefreshIndicator(
+      onRefresh: fetchUSG,
+      child: USGReport(
+        isLoading: _isLoading,
+        isUploading: _isUploading,
+        currentUsgId: _currentUsgId,
+        usgs: _usgs,
+        reportAction: reportAction,
+        viewPrescription: viewPrescription,
+      ),
     );
   }
 }
