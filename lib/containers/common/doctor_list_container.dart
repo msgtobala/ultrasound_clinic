@@ -10,6 +10,8 @@ import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/routes/clinic_routes.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
+import 'package:ultrasound_clinic/utils/snackbar/show_snackbar.dart';
+import 'package:ultrasound_clinic/widgets/common/custom_shimmer/custom_card_shimmer.dart';
 import 'package:ultrasound_clinic/widgets/common/medical_person_list_item.dart';
 
 class DoctorListContainer extends StatefulWidget {
@@ -30,6 +32,18 @@ class _DoctorListContainerState extends State<DoctorListContainer> {
     super.initState();
   }
 
+  void onDelete(String doctorId) async {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final clinicId = authProvider.currentUser!.clinics.first;
+
+    final response = await DoctorService().deleteDoctor(clinicId, doctorId);
+    if (response) {
+      showSnackbar(context, Strings.doctorDeletedSuccessfully);
+    } else {
+      showSnackbar(context, Strings.doctorDeletionFailed);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
@@ -42,7 +56,7 @@ class _DoctorListContainerState extends State<DoctorListContainer> {
       stream: _doctorService.getDoctorsStream(clinicId),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return const CustomCardShimmer();
         }
 
         if (snapshot.hasError) {
@@ -50,7 +64,12 @@ class _DoctorListContainerState extends State<DoctorListContainer> {
         }
 
         if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return const Center(child: Text(Strings.noDoctorsFound));
+          return Center(
+            child: Text(
+              Strings.noDoctorsFound,
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+          );
         }
 
         final doctors = snapshot.data!;
@@ -65,6 +84,7 @@ class _DoctorListContainerState extends State<DoctorListContainer> {
                   itemBuilder: (context, index) {
                     return MedicalPersonListItem(
                       isEdit: _isEdit,
+                      onDelete: onDelete,
                       person: MedicalPersonsModel(
                         uid: doctors[index].uid,
                         personName: doctors[index].doctorName,

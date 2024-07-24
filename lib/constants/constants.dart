@@ -87,6 +87,12 @@ final constantsMap = {
       route: PatientRoutes.myAppointments,
     ),
     SettingsNavigationModel(
+      iconName: Strings.myUSG,
+      leading: icons.Icons.manageAppointments,
+      trailing: icons.Icons.rightArrow,
+      route: PatientRoutes.myUSGs,
+    ),
+    SettingsNavigationModel(
       iconName: Strings.knowYourDoctor,
       leading: icons.Icons.manageDoctor,
       trailing: icons.Icons.rightArrow,

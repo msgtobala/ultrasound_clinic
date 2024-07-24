@@ -1,7 +1,5 @@
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:ultrasound_clinic/core/services/firebase/firebase_storage_service.dart';
 import 'package:ultrasound_clinic/core/services/firebase/firestore_service.dart';
 import 'package:ultrasound_clinic/models/common/doctor_model.dart';
@@ -90,6 +88,22 @@ class DoctorService {
       return true;
     } catch (e) {
       log.e('Failed to update doctor: $e');
+      return false;
+    }
+  }
+
+  Future<bool> deleteDoctor(String clinicId, String doctorId) async {
+    try {
+      await _firestore.fireStore
+          .collection('clinics')
+          .doc(clinicId)
+          .collection('doctors')
+          .doc(doctorId)
+          .delete();
+      log.i('Doctor deleted successfully');
+      return true;
+    } catch (e) {
+      log.e('Failed to delete doctor: $e');
       return false;
     }
   }

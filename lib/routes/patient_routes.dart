@@ -16,6 +16,7 @@ class PatientRoutes {
   static const String clinicSelection = '/clinic-selection';
   static const String menu = '/menu';
   static const String myAppointments = '/my-appointments';
+  static const String myUSGs = '/my-usgs';
   static const String doctorList = '/doctor-list';
   static const String staffList = '/staff-list';
   static const String termAndConditions = '/term-and-conditions';

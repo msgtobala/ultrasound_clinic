@@ -8,6 +8,7 @@ import 'package:ultrasound_clinic/models/common/panorama_image_model.dart';
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/routes/clinic_routes.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
+import 'package:ultrasound_clinic/widgets/common/custom_shimmer/custom_card_shimmer.dart';
 import 'package:ultrasound_clinic/widgets/panorama_media/media_dialog.dart';
 import 'package:ultrasound_clinic/widgets/panorama_media/panorama_media.dart';
 
@@ -99,14 +100,7 @@ class _PanoramaMediaContainerState extends State<PanoramaMediaContainer> {
   @override
   Widget build(BuildContext context) {
     if (_isFetching) {
-      return SizedBox(
-        width: double.infinity,
-        height: MediaQuery.of(context).size.height -
-            (kBottomNavigationBarHeight + 200.h),
-        child: const Center(
-          child: CircularProgressIndicator(),
-        ),
-      );
+      return const CustomCardShimmer();
     }
 
     return Column(

@@ -140,6 +140,7 @@ class Strings {
   static const String passwordChangedSuccessfully =
       'Password changed successfully';
   static const String myAppointments = 'My Appointments';
+  static const String myUSG = 'My USG';
   static const String knowYourDoctor = 'Know Your Doctor';
   static const String staffList = 'Staff List';
   static const String addDoctor = 'Add Doctor';
@@ -183,4 +184,8 @@ class Strings {
   static const String passwordsDoNotMatch = 'Passwords do not match';
   static const String errorLoadingStaff = 'Error loading staff list';
   static const String errorLoadingDoctor = 'Error loading doctor list';
+  static const String noPanoramaImagesFound = 'No panorama images found';
+  static const String doctorDeletedSuccessfully = 'Doctor deleted successfully';
+  static const String doctorDeletionFailed = 'Doctor deletion failed';
+  static const String reportYetUploaded = 'Report to be uploaded';
 }

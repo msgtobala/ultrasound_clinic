@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:panorama_viewer/panorama_viewer.dart';
 
 import 'package:ultrasound_clinic/resources/icons.dart' as icons;
+import 'package:ultrasound_clinic/themes/colors.dart';
 import 'package:ultrasound_clinic/themes/fonts.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
 import 'package:ultrasound_clinic/widgets/common/custom_chip.dart';
@@ -25,6 +26,7 @@ class PanoramaPreViewer extends StatefulWidget {
   final String sceneName;
   final String imagePath;
   final bool? showCloseButton;
+  final bool? isPreview;
   final Function()? onClose;
   final Function()? onForward;
   final Function()? onBackward;
@@ -34,6 +36,7 @@ class PanoramaPreViewer extends StatefulWidget {
     required this.sceneName,
     required this.imagePath,
     this.showCloseButton,
+    this.isPreview = false,
     this.onClose,
     this.onForward,
     this.onBackward,
@@ -44,15 +47,22 @@ class PanoramaPreViewer extends StatefulWidget {
 }
 
 class _PanoramaPreViewerState extends State<PanoramaPreViewer> {
+  bool _sensorControl = true;
+
+  void _toggleSensorControl() {
+    setState(() {
+      _sensorControl = !_sensorControl;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.center,
       children: [
         PanoramaViewer(
-          onImageLoad: () {
-            print('Image loaded');
-          },
+          sensorControl:
+              _sensorControl ? SensorControl.orientation : SensorControl.none,
           child: Image(
             image: CachedNetworkImageProvider(widget.imagePath),
             fit: BoxFit.cover,
@@ -74,7 +84,8 @@ class _PanoramaPreViewerState extends State<PanoramaPreViewer> {
             ),
           ),
         Positioned(
-          top: MediaQuery.of(context).padding.top,
+          top: MediaQuery.of(context).padding.top +
+              (widget.isPreview == true ? 45.h : 0),
           left: (MediaQuery.of(context).size.width -
                   _getChipWidth(context, widget.sceneName)) /
               2,
@@ -128,10 +139,13 @@ class _PanoramaPreViewerState extends State<PanoramaPreViewer> {
                     ),
                   ],
                 ),
-                SizedBox(
-                  width: 50.w,
-                  height: 30.h,
-                  child: const SVGLoader(image: icons.Icons.view360White),
+                InkWell(
+                  onTap: _toggleSensorControl,
+                  child: Icon(
+                    _sensorControl ? Icons.explore : Icons.explore_off,
+                    color: ThemeColors.white,
+                    size: 25.ics,
+                  ),
                 ),
               ],
             ),

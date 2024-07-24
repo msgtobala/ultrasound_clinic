@@ -28,7 +28,8 @@ class _ClinicSelectionContainerState extends State<ClinicSelectionContainer> {
     setState(() {
       _isLoading = true;
     });
-    final response = await authProvider.checkExistingClinicCode(clinicCode);
+    final response =
+        await authProvider.checkExistingClinicCode(clinicCode.trim());
     setState(() {
       _isLoading = false;
     });

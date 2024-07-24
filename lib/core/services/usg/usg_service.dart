@@ -29,7 +29,7 @@ class USGService {
       String fileName = generateFileName();
       final prescriptionURL = await _firebaseStorage.uploadFile(
         usg['prescription'],
-        'users/$userId/prescriptions',
+        'users/$userId/prescriptions/',
         fileName,
       );
 
@@ -83,7 +83,7 @@ class USGService {
       );
       return usgId;
     } catch (e) {
-      log.e('Error creating USG: $e');
+      log.e(e.toString());
       return null;
     }
   }
@@ -134,6 +134,26 @@ class USGService {
     } catch (e) {
       log.e('Failed to update report URL: $e');
       return false;
+    }
+  }
+
+  Future<List<UserUSGModel>> getUserUSGsByDate(
+      String userId, DateTime date) async {
+    try {
+      QuerySnapshot snapshot = await _firestore
+          .collection('users')
+          .doc(userId)
+          .collection('usgs')
+          .where('date', isEqualTo: date)
+          .get();
+
+      return snapshot.docs
+          .map((doc) =>
+              UserUSGModel.fromJson(doc.data() as Map<String, dynamic>))
+          .toList();
+    } catch (e) {
+      log.e('Failed to fetch user USGs: $e');
+      rethrow;
     }
   }
 }
