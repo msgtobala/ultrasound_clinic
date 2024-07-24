@@ -41,7 +41,7 @@ class _AppointmentFormState extends State<AppointmentForm> {
       type: 'text',
       label: Strings.mobileNumber,
       key: 'mobileNumber',
-      keyboardType: TextInputType.phone,
+      keyboardType: TextInputType.number,
     ),
     FormModel(
       type: 'date',

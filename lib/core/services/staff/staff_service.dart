@@ -93,4 +93,20 @@ class StaffService {
       return false;
     }
   }
+
+  Future<bool> deleteStaff(String clinicId, String staffId) async {
+    try {
+      await _firestore.fireStore
+          .collection('clinics')
+          .doc(clinicId)
+          .collection('staffs')
+          .doc(staffId)
+          .delete();
+      log.i('Doctor deleted successfully');
+      return true;
+    } catch (e) {
+      log.e('Failed to delete doctor: $e');
+      return false;
+    }
+  }
 }

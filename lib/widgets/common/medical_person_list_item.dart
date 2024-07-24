@@ -10,12 +10,15 @@ class MedicalPersonListItem extends StatelessWidget {
   final MedicalPersonsModel person;
   final Function(String) navigateToEditScreen;
   final bool isEdit;
+  final Function(String doctorId) onDelete;
 
-  const MedicalPersonListItem(
-      {super.key,
-      required this.person,
-      required this.navigateToEditScreen,
-      required this.isEdit});
+  const MedicalPersonListItem({
+    super.key,
+    required this.person,
+    required this.navigateToEditScreen,
+    required this.isEdit,
+    required this.onDelete,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -37,13 +40,28 @@ class MedicalPersonListItem extends StatelessWidget {
         style: Theme.of(context).textTheme.bodyMedium,
       ),
       trailing: isEdit
-          ? IconButton(
-              icon: SizedBox(
-                width: 24.w,
-                height: 24.h,
-                child: const SVGLoader(image: icons.Icons.edit),
-              ),
-              onPressed: () => navigateToEditScreen(person.uid),
+          ? Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                IconButton(
+                  icon: SizedBox(
+                    width: 24.w,
+                    height: 24.h,
+                    child: const SVGLoader(image: icons.Icons.edit),
+                  ),
+                  onPressed: () => navigateToEditScreen(person.uid),
+                ),
+                IconButton(
+                  icon: SizedBox(
+                    width: 20.w,
+                    height: 20.h,
+                    child: const SVGLoader(image: icons.Icons.delete),
+                  ),
+                  onPressed: () => onDelete(person.uid),
+                )
+              ],
             )
           : null,
     );

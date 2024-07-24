@@ -179,4 +179,15 @@ class FirebaseAuthService {
       return null;
     }
   }
+
+  Future<bool> doesClinicExist(String clinicId) async {
+    try {
+      DocumentSnapshot clinicDoc =
+          await _firestore.collection('clinics').doc(clinicId).get();
+      return clinicDoc.exists;
+    } catch (e) {
+      log.e('Error checking clinic existence: $e');
+      return false;
+    }
+  }
 }

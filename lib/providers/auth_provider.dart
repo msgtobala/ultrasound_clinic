@@ -221,8 +221,16 @@ class AuthProvider with ChangeNotifier {
   Future<bool> checkExistingClinicCode(String clinicCode) async {
     if (currentUser!.clinics.isEmpty ||
         !currentUser!.clinics.contains(clinicCode)) {
+      bool doesClinicExists =
+          await FirebaseAuthService().doesClinicExist(clinicCode);
+
+      if (!doesClinicExists) {
+        return false;
+      }
       final response = await FirebaseAuthService().updateUserClinics(
-          currentUser!.uid, [clinicCode, ...currentUser!.clinics]);
+        currentUser!.uid,
+        [clinicCode, ...currentUser!.clinics],
+      );
       final User? user = FirebaseAuthService().currentUser;
 
       if (response && currentUser != null) {

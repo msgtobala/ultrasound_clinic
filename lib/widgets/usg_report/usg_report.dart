@@ -88,9 +88,32 @@ class _USGReportState extends State<USGReport> {
                       usg.patientName,
                       style: Theme.of(context).textTheme.headlineSmallWhite,
                     ),
-                    subtitle: Text(
-                      usg.mobileNumber,
-                      style: Theme.of(context).textTheme.bodyMediumWhite,
+                    subtitle: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          usg.mobileNumber,
+                          style: Theme.of(context).textTheme.bodyMediumWhite,
+                        ),
+                        SizedBox(height: 8.h),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.info_outline_rounded,
+                              size: 18,
+                              color: ThemeColors.white,
+                            ),
+                            SizedBox(width: 6.w),
+                            Text(
+                              usg.report != ''
+                                  ? Strings.reportUploaded
+                                  : Strings.reportNotUploaded,
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                     leading: CustomAvatar(
                       imageUrl: usg.prescription,

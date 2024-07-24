@@ -32,6 +32,7 @@ class UserProfileControls extends StatelessWidget {
               children: [
                 SizedBox(height: 20.h),
                 const LogoutContainer(),
+                SizedBox(height: 20.h),
               ],
             );
           } else {
