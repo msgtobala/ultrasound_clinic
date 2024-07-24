@@ -136,4 +136,24 @@ class USGService {
       return false;
     }
   }
+
+  Future<List<UserUSGModel>> getUserUSGsByDate(
+      String userId, DateTime date) async {
+    try {
+      QuerySnapshot snapshot = await _firestore
+          .collection('users')
+          .doc(userId)
+          .collection('usgs')
+          .where('date', isEqualTo: date)
+          .get();
+
+      return snapshot.docs
+          .map((doc) =>
+              UserUSGModel.fromJson(doc.data() as Map<String, dynamic>))
+          .toList();
+    } catch (e) {
+      log.e('Failed to fetch user USGs: $e');
+      rethrow;
+    }
+  }
 }

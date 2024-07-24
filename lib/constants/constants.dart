@@ -88,7 +88,7 @@ final constantsMap = {
     ),
     SettingsNavigationModel(
       iconName: Strings.myUSG,
-      leading: icons.Icons.usg,
+      leading: icons.Icons.manageAppointments,
       trailing: icons.Icons.rightArrow,
       route: PatientRoutes.myUSGs,
     ),
