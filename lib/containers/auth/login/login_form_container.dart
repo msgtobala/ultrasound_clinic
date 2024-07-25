@@ -23,14 +23,20 @@ class LoginFormContainer extends StatefulWidget {
 class _LoginFormContainerState extends State<LoginFormContainer> {
   bool _isLoading = false;
 
-  Future<void> onSignIn(String userEmail, String userPassword) async {
+  Future<void> onSignIn(
+      String userEmail, String userPassword, bool isGoogle) async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
     setState(() {
       _isLoading = true;
     });
+    final AuthModel user;
+    if (isGoogle) {
+      user = await authProvider.signInWithGoogle();
+    } else {
+      user = await authProvider.signIn(userEmail, userPassword);
+    }
 
-    final AuthModel user = await authProvider.signIn(userEmail, userPassword);
     if (user.error) {
       if (context.mounted) {
         showSnackbar(context, user.message);
@@ -67,9 +73,11 @@ class _LoginFormContainerState extends State<LoginFormContainer> {
       if (context.mounted) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => user.role == UserRoleEnum.clinic.roleName
-                ? const ClinicApp()
-                : const PatientApp(),
+            builder: !isGoogle
+                ? (context) => user.role == UserRoleEnum.clinic.roleName
+                    ? const ClinicApp()
+                    : const PatientApp()
+                : (context) => const PatientApp(),
           ),
         );
       }

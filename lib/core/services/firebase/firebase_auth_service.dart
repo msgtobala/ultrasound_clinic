@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:ultrasound_clinic/constants/enums/role_enum.dart';
 import 'package:ultrasound_clinic/models/auth/user_model.dart';
@@ -12,6 +13,7 @@ class FirebaseAuthService {
   final FirebaseFirestore _firestore =
       FirebaseFirestore.instance; // Add this line
   final log = CustomLogger.getLogger('AuthService');
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   // Private constructor
   FirebaseAuthService._privateConstructor();
@@ -87,6 +89,29 @@ class FirebaseAuthService {
       throw Exception(Strings.invalidCredentials);
     } catch (e) {
       throw Exception(Strings.anErrorOccurred);
+    }
+  }
+
+  Future<UserCredential?> signInWithGoogle() async {
+    try {
+      await _googleSignIn.signOut();
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) {
+        return null; // The user canceled the sign-in
+      }
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      final UserCredential userCredential =
+          await _firebaseAuth.signInWithCredential(credential);
+      return userCredential;
+    } catch (e) {
+      throw Exception('Failed to sign in with Google: $e');
     }
   }
 

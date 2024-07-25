@@ -25,8 +25,14 @@ class SignupFormWidget extends StatefulWidget {
     required String role,
   }) onSignup;
   final bool? isLoading;
+  final void Function() onGoogleSignin;
 
-  const SignupFormWidget({super.key, required this.onSignup, this.isLoading});
+  const SignupFormWidget({
+    super.key,
+    required this.onSignup,
+    this.isLoading,
+    required this.onGoogleSignin,
+  });
 
   @override
   State<SignupFormWidget> createState() => _SignupFormWidgetState();
@@ -283,7 +289,10 @@ class _SignupFormWidgetState extends State<SignupFormWidget> {
                   const CustomDivider(
                       text: Strings.orRegisterWithSocialAccount),
                   SizedBox(height: 16.h),
-                  const SVGLoader(image: Images.google),
+                  InkWell(
+                    onTap: widget.onGoogleSignin,
+                    child: const SVGLoader(image: Images.google),
+                  ),
                   SizedBox(height: 59.h),
                 ],
               ),
