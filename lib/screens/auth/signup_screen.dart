@@ -31,11 +31,6 @@ class SignUpScreen extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           const SignFormContainer(),
-          SizedBox(height: 26.h),
-          const CustomDivider(text: Strings.orRegisterWithSocialAccount),
-          SizedBox(height: 16.h),
-          const SVGLoader(image: Images.google),
-          SizedBox(height: 59.h),
           RichText(
             text: TextSpan(
               children: [
