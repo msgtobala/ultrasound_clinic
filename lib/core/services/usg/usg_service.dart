@@ -52,7 +52,7 @@ class USGService {
         'prescription': prescriptionURL,
         'usgRefId': userUSGId,
         'receiptUrl': '',
-        'receiptId': '',
+        'receiptNumber': '',
       });
       UserUSGModel userUSGModel = UserUSGModel.fromJson({
         ...usg,
@@ -61,7 +61,7 @@ class USGService {
         'refId': usgId,
         'clinicId': clinicId,
         'receiptUrl': "",
-        'receiptId': "",
+        'receiptNumber': "",
       });
 
       await _firestore
