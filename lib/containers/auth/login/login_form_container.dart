@@ -73,11 +73,9 @@ class _LoginFormContainerState extends State<LoginFormContainer> {
       if (context.mounted) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: !isGoogle
-                ? (context) => user.role == UserRoleEnum.clinic.roleName
-                    ? const ClinicApp()
-                    : const PatientApp()
-                : (context) => const PatientApp(),
+            builder: (context) => user.role == UserRoleEnum.clinic.roleName
+                ? const ClinicApp()
+                : const PatientApp(),
           ),
         );
       }
