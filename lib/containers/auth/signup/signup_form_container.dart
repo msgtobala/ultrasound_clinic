@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:ultrasound_clinic/constants/constants.dart';
+import 'package:ultrasound_clinic/models/auth/auth_model.dart';
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/screens/auth/signup_successful_screen.dart';
+import 'package:ultrasound_clinic/screens/patient/patient_app.dart';
 import 'package:ultrasound_clinic/utils/shared_preference/shared_preference.dart';
 import 'package:ultrasound_clinic/utils/snackbar/show_snackbar.dart';
 import 'package:ultrasound_clinic/widgets/signup/signup_form_widget.dart';
@@ -70,8 +72,47 @@ class _SignFormContainerState extends State<SignFormContainer> {
     }
   }
 
+  Future<void> onGoogleSignIn() async {
+    setState(() {
+      _isLoading = true;
+    });
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final AuthModel user = await authProvider.signInWithGoogle();
+    setState(() {
+      _isLoading = false;
+    });
+    if (!user.error) {
+      final loggedInStatuses = await SharedPreferencesUtils().getMapPrefs(
+        constants.loggedInStatusFlag,
+      );
+      if (loggedInStatuses.value == null ||
+          loggedInStatuses.value[user.userId] == null ||
+          loggedInStatuses.value[user.userId] == false) {
+        final Map<String, dynamic> newLoggedStatus = {
+          if (loggedInStatuses.value != null) ...loggedInStatuses.value,
+          user.userId: true,
+        };
+        await SharedPreferencesUtils().addMapPrefs(
+          constants.loggedInStatusFlag,
+          newLoggedStatus,
+        );
+      }
+      if (context.mounted) {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => const PatientApp(),
+        ));
+      }
+    } else {
+      showSnackbar(context, user.message);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SignupFormWidget(isLoading: _isLoading, onSignup: onSignup);
+    return SignupFormWidget(
+      isLoading: _isLoading,
+      onSignup: onSignup,
+      onGoogleSignin: onGoogleSignIn,
+    );
   }
 }

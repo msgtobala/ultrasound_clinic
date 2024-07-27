@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:ultrasound_clinic/constants/constants.dart';
 import 'package:ultrasound_clinic/core/services/firebase/firebase_auth_service.dart';
@@ -24,7 +25,7 @@ class AuthProvider with ChangeNotifier {
 
   final log = CustomLogger.getLogger('AuthProvider');
   final storageService = FirebaseStorageService();
-
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
   User? get user => _user;
   bool get isLoading => _isLoading;
   UserModel? get currentUser => _currentUser;
@@ -202,9 +203,82 @@ class AuthProvider with ChangeNotifier {
     return false;
   }
 
+  Future<AuthModel> signInWithGoogle() async {
+    try {
+      final userCredential = await FirebaseAuthService().signInWithGoogle();
+      if (userCredential!.user != null) {
+        final user = userCredential.user!;
+
+        // Check if the user exists in Firestore
+        final userDoc =
+            FirebaseFirestore.instance.collection('users').doc(user.uid);
+        final userSnapshot = await userDoc.get();
+
+        if (!userSnapshot.exists) {
+          // User does not exist, create a new user document
+          await _createUserInFirestore(user);
+        }
+
+        final loggedUser = await FirebaseAuthService().getUser(user.uid);
+
+        _currentUser = UserModel(
+          uid: loggedUser.uid,
+          name: loggedUser.name,
+          email: loggedUser.email,
+          role: loggedUser.role,
+          phone: loggedUser.phone,
+          address: loggedUser.address,
+          clinics: loggedUser.clinics,
+          state: loggedUser.state,
+          city: loggedUser.city,
+          profileUrl: user.photoURL,
+        );
+        _user = user;
+        _loggedInStatus = true;
+        notifyListeners();
+
+        return AuthModel.success(
+          isEmailVerified: user.emailVerified,
+          userName: loggedUser.name,
+          email: loggedUser.email,
+          userId: user.uid,
+          phoneNumber: loggedUser.phone,
+          imageUrl: user.photoURL ?? '',
+          role: loggedUser.role,
+          credential: userCredential.credential,
+        );
+      } else {
+        return AuthModel.error(
+            message: 'An error occurred during Google Sign-In.');
+      }
+    } catch (e) {
+      log.e('Error signing in with Google: $e');
+      return AuthModel.error(message: parseErrorMessage(e.toString()));
+    }
+  }
+
+  Future<void> _createUserInFirestore(User user) async {
+    try {
+      final userRef =
+          FirebaseFirestore.instance.collection('users').doc(user.uid);
+      final userData = {
+        'uid': user.uid,
+        'name': user.displayName ?? '',
+        'email': user.email ?? '',
+        'role': 'patient',
+        'phone': user.phoneNumber ?? '',
+      };
+
+      await userRef.set(userData, SetOptions(merge: true));
+    } catch (e) {
+      log.e('Error creating user document: $e');
+    }
+  }
+
   Future<bool> signOut() async {
     try {
       final response = await FirebaseAuthService().signOut();
+      await _googleSignIn.signOut();
       if (response) {
         _user = null;
         _currentUser = null;

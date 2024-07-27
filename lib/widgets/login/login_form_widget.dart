@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:ultrasound_clinic/resources/images.dart';
 
 import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/screens/auth/forget_password_screen.dart';
 import 'package:ultrasound_clinic/themes/colors.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
+import 'package:ultrasound_clinic/widgets/common/custom_divider.dart';
 import 'package:ultrasound_clinic/widgets/common/custom_elevated_button.dart';
 import 'package:ultrasound_clinic/widgets/common/form_input.dart';
+import 'package:ultrasound_clinic/widgets/common/svg_loader.dart';
 
 class LoginFormWidget extends StatefulWidget {
   const LoginFormWidget({
@@ -14,10 +17,8 @@ class LoginFormWidget extends StatefulWidget {
     required this.onSignIn,
   });
 
-  final Future<void> Function(
-    String email,
-    String password,
-  ) onSignIn;
+  final Future<void> Function(String email, String password, bool isGoogle)
+      onSignIn;
   final bool isLoading;
 
   @override
@@ -33,11 +34,12 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
   void _handleSignIn() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState?.save();
-      widget.onSignIn(
-        _userEmail,
-        _userPassword,
-      );
+      widget.onSignIn(_userEmail, _userPassword, false);
     }
+  }
+
+  void _handleGoogleSignIn() {
+    widget.onSignIn(_userEmail, _userPassword, true);
   }
 
   void _revealPassword() {
@@ -113,6 +115,13 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                   onPressed: _handleSignIn,
                   isLoading: widget.isLoading,
                 ),
+              ),
+              SizedBox(height: 26.h),
+              const CustomDivider(text: Strings.orLoginWithSocialAccount),
+              SizedBox(height: 16.h),
+              InkWell(
+                onTap: _handleGoogleSignIn,
+                child: const SVGLoader(image: Images.google),
               ),
             ],
           ),

@@ -54,7 +54,7 @@ class HomeNavigationMenu extends StatefulWidget {
 }
 
 class _HomeNavigationMenuState extends State<HomeNavigationMenu> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 2;
 
   void _onNavigationChanged(int index) {
     setState(() {

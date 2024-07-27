@@ -3,13 +3,10 @@ import 'package:flutter/gestures.dart';
 
 import 'package:ultrasound_clinic/containers/auth/signup/signup_form_container.dart';
 import 'package:ultrasound_clinic/layout/base_layout.dart';
-import 'package:ultrasound_clinic/resources/images.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/screens/auth/login_screen.dart';
 import 'package:ultrasound_clinic/themes/fonts.dart';
-import 'package:ultrasound_clinic/widgets/common/custom_divider.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
-import 'package:ultrasound_clinic/widgets/common/svg_loader.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
@@ -31,11 +28,6 @@ class SignUpScreen extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           const SignFormContainer(),
-          SizedBox(height: 26.h),
-          const CustomDivider(text: Strings.orRegisterWithSocialAccount),
-          SizedBox(height: 16.h),
-          const SVGLoader(image: Images.google),
-          SizedBox(height: 59.h),
           RichText(
             text: TextSpan(
               children: [

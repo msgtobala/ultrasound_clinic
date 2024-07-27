@@ -2,13 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 
 import 'package:ultrasound_clinic/config/auth/user_role.dart';
+import 'package:ultrasound_clinic/constants/enums/role_enum.dart';
+import 'package:ultrasound_clinic/resources/images.dart';
 import 'package:ultrasound_clinic/resources/regex.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/screens/common/terms_and_conditions.dart';
 import 'package:ultrasound_clinic/themes/colors.dart';
 import 'package:ultrasound_clinic/themes/fonts.dart';
+import 'package:ultrasound_clinic/themes/responsiveness.dart';
+import 'package:ultrasound_clinic/widgets/common/custom_divider.dart';
 import 'package:ultrasound_clinic/widgets/common/custom_elevated_button.dart';
 import 'package:ultrasound_clinic/widgets/common/form_input.dart';
+import 'package:ultrasound_clinic/widgets/common/svg_loader.dart';
 
 class SignupFormWidget extends StatefulWidget {
   final void Function({
@@ -20,8 +25,14 @@ class SignupFormWidget extends StatefulWidget {
     required String role,
   }) onSignup;
   final bool? isLoading;
+  final void Function() onGoogleSignin;
 
-  const SignupFormWidget({super.key, required this.onSignup, this.isLoading});
+  const SignupFormWidget({
+    super.key,
+    required this.onSignup,
+    this.isLoading,
+    required this.onGoogleSignin,
+  });
 
   @override
   State<SignupFormWidget> createState() => _SignupFormWidgetState();
@@ -271,6 +282,20 @@ class _SignupFormWidgetState extends State<SignupFormWidget> {
                 isLoading: widget.isLoading,
               ),
             ),
+            if (_role != UserRoleEnum.clinic.roleName)
+              Column(
+                children: [
+                  SizedBox(height: 26.h),
+                  const CustomDivider(
+                      text: Strings.orRegisterWithSocialAccount),
+                  SizedBox(height: 16.h),
+                  InkWell(
+                    onTap: widget.onGoogleSignin,
+                    child: const SVGLoader(image: Images.google),
+                  ),
+                  SizedBox(height: 59.h),
+                ],
+              ),
           ],
         ),
       ),

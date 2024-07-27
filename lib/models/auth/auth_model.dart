@@ -12,7 +12,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthModel {
   final String userId;
   final String email;
-  final String password;
+  final String? password;
   final bool error;
   final String message;
   final bool isEmailVerified;
@@ -25,7 +25,7 @@ class AuthModel {
   const AuthModel({
     required this.userId,
     required this.email,
-    required this.password,
+    this.password,
     required this.error,
     required this.message,
     required this.isEmailVerified,
@@ -46,7 +46,7 @@ class AuthModel {
   AuthModel.success({
     required String userId,
     required String email,
-    required String password,
+    String? password,
     required bool isEmailVerified,
     required String userName,
     required String imageUrl,
