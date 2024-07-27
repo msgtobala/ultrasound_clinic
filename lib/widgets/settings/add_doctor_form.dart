@@ -155,101 +155,103 @@ class _AddDoctorFormState extends State<AddDoctorForm> {
       key: _formKey,
       child: Column(
         children: [
-          ...formInputs.map((input) {
-            if (input.type == 'text') {
-              return Column(
-                key: Key(input.label),
-                children: [
-                  FormInput(
-                    text: input.label,
-                    onSaved: (value) => _onSaved(input.key, value),
-                    validator: (value) => validator(input.key, value!),
-                  ),
-                  SizedBox(height: 20.h),
-                ],
-              );
-            }
+          ...formInputs.map(
+            (input) {
+              if (input.type == 'text') {
+                return Column(
+                  key: Key(input.label),
+                  children: [
+                    FormInput(
+                      text: input.label,
+                      onSaved: (value) => _onSaved(input.key, value),
+                      validator: (value) => validator(input.key, value!),
+                    ),
+                    SizedBox(height: 20.h),
+                  ],
+                );
+              }
 
-            if (input.type == 'dropdown') {
-              return Column(
-                key: Key(input.label),
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  DropdownMenu(
-                    controller: _degreeController,
-                    width: MediaQuery.of(context).size.width - 40.w,
-                    inputDecorationTheme: InputDecorationTheme(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.d),
+              if (input.type == 'dropdown') {
+                return Column(
+                  key: Key(input.label),
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    DropdownMenu(
+                      controller: _degreeController,
+                      width: MediaQuery.of(context).size.width - 40.w,
+                      inputDecorationTheme: InputDecorationTheme(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.d),
+                        ),
                       ),
+                      textStyle: Theme.of(context).textTheme.bodyMedium,
+                      dropdownMenuEntries: constants.doctorDegrees
+                          .map((degree) => degree)
+                          .toList(),
+                      label: Text(
+                        Strings.degree,
+                        style: Theme.of(context).textTheme.displayMediumGray,
+                      ),
+                      onSelected: onDropDownSelected,
                     ),
-                    textStyle: Theme.of(context).textTheme.bodyMedium,
-                    dropdownMenuEntries: constants.doctorDegrees
-                        .map((degree) => degree)
-                        .toList(),
-                    label: Text(
-                      Strings.degree,
-                      style: Theme.of(context).textTheme.displayMediumGray,
-                    ),
-                    onSelected: onDropDownSelected,
-                  ),
-                  if (!_isValidDegree)
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 9.h),
-                        Container(
-                          margin: EdgeInsets.only(left: 10.hs),
-                          child: Text(
-                            Strings.invalidDegree,
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.error,
-                              fontSize: 12.f,
+                    if (!_isValidDegree)
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 9.h),
+                          Container(
+                            margin: EdgeInsets.only(left: 10.hs),
+                            child: Text(
+                              Strings.invalidDegree,
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.error,
+                                fontSize: 12.f,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  SizedBox(height: 20.h),
-                ],
-              );
-            }
+                        ],
+                      ),
+                    SizedBox(height: 20.h),
+                  ],
+                );
+              }
 
-            if (input.type == 'upload') {
-              return Column(
-                key: Key(input.label),
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomDashedInput(
-                    text: _isUploadValid && _image != null
-                        ? Strings.sampleDoctor
-                        : input.label,
-                    onTap: _onProfileUpload,
-                  ),
-                  if (!_isUploadValid)
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 9.h),
-                        Container(
-                          margin: EdgeInsets.only(left: 10.hs),
-                          child: Text(
-                            Strings.invalidProfileImage,
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.error,
-                              fontSize: 12.f,
+              if (input.type == 'upload') {
+                return Column(
+                  key: Key(input.label),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomDashedInput(
+                      text: _isUploadValid && _image != null
+                          ? Strings.sampleDoctor
+                          : input.label,
+                      onTap: _onProfileUpload,
+                    ),
+                    if (!_isUploadValid)
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 9.h),
+                          Container(
+                            margin: EdgeInsets.only(left: 10.hs),
+                            child: Text(
+                              Strings.invalidProfileImage,
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.error,
+                                fontSize: 12.f,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  SizedBox(height: 20.h),
-                ],
-              );
-            }
-            return const SizedBox();
-          }),
+                        ],
+                      ),
+                    SizedBox(height: 20.h),
+                  ],
+                );
+              }
+              return const SizedBox();
+            },
+          ),
           SizedBox(
             width: double.infinity,
             child: CustomElevatedButton(

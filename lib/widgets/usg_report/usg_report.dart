@@ -21,6 +21,7 @@ class USGReport extends StatefulWidget {
     required this.usgs,
     required this.viewPrescription,
     required this.reportAction,
+    required this.acknowledgeAction,
   });
 
   final bool isLoading;
@@ -34,6 +35,7 @@ class USGReport extends StatefulWidget {
     String userUsgId,
     String userId,
   ) reportAction;
+  final Function(USGModel usg) acknowledgeAction;
 
   @override
   State<USGReport> createState() => _USGReportState();
@@ -109,7 +111,8 @@ class _USGReportState extends State<USGReport> {
                               usg.report != ''
                                   ? Strings.reportUploaded
                                   : Strings.reportNotUploaded,
-                              style: Theme.of(context).textTheme.bodySmall,
+                              style:
+                                  Theme.of(context).textTheme.displaySmallWhite,
                             ),
                           ],
                         ),
@@ -165,8 +168,8 @@ class _USGReportState extends State<USGReport> {
                         title: const Text(Strings.state),
                         subtitle: Text(usg.state),
                       ),
-                      ButtonBar(
-                        alignment: MainAxisAlignment.end,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           CustomElevatedButton(
                             text: Strings.viewPrescription,
@@ -175,6 +178,16 @@ class _USGReportState extends State<USGReport> {
                                 Theme.of(context).textTheme.bodyMediumWhite,
                             onPressed: () =>
                                 widget.viewPrescription(usg.prescription),
+                          ),
+                          CustomElevatedButton(
+                            text: usg.receiptUrl.isEmpty
+                                ? Strings.acknowledge
+                                : Strings.acknowledged,
+                            buttonTextStyle:
+                                Theme.of(context).textTheme.bodyMediumWhite,
+                            onPressed: () {
+                              widget.acknowledgeAction(usg);
+                            },
                           ),
                           CustomOutlinedButton(
                             text: usg.report.isNotEmpty

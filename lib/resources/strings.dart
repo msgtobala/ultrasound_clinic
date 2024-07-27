@@ -188,4 +188,13 @@ class Strings {
   static const String doctorDeletedSuccessfully = 'Doctor deleted successfully';
   static const String doctorDeletionFailed = 'Doctor deletion failed';
   static const String reportYetUploaded = 'Report to be uploaded';
+  static const String acknowledge = 'Acknowledge';
+  static const String acknowledged = 'Acknowledged';
+  static const String receiptUploadedSuccessfully =
+      'Receipt uploaded successfully';
+  static const String receiptUploadFailed = 'Receipt upload failed';
+  static const String receipt = 'Receipt';
+  static const String invalidReceiptImage = 'Invalid receipt image';
+  static const String uploadReceipt = 'Upload Receipt';
+  static const String receiptJpg = 'Receipt.jpg';
 }

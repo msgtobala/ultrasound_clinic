@@ -51,6 +51,7 @@ class USGService {
         'userId': userId,
         'prescription': prescriptionURL,
         'usgRefId': userUSGId,
+        'receiptUrl': '',
       });
       UserUSGModel userUSGModel = UserUSGModel.fromJson({
         ...usg,
@@ -58,6 +59,7 @@ class USGService {
         'prescription': prescriptionURL,
         'refId': usgId,
         'clinicId': clinicId,
+        'receiptUrl': ""
       });
 
       await _firestore
@@ -130,6 +132,31 @@ class USGService {
       await documentReference.update({'report': reportUrl});
       await userDocumentReference.update({'report': reportUrl});
       log.i('Report URL updated successfully');
+      return true;
+    } catch (e) {
+      log.e('Failed to update report URL: $e');
+      return false;
+    }
+  }
+
+  Future<bool> updateReceiptUrl(String clinicId, String usgId, String userId,
+      String userUsgId, String receiptUrl) async {
+    try {
+      DocumentReference documentReference = _firestore
+          .collection('clinics')
+          .doc(clinicId)
+          .collection('usg')
+          .doc(usgId);
+
+      DocumentReference userDocumentReference = _firestore
+          .collection('users')
+          .doc(userId)
+          .collection('userUSG')
+          .doc(userUsgId);
+
+      await documentReference.update({'receiptUrl': receiptUrl});
+      await userDocumentReference.update({'receiptUrl': receiptUrl});
+      log.i('Receipt URL updated successfully');
       return true;
     } catch (e) {
       log.e('Failed to update report URL: $e');

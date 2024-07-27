@@ -109,6 +109,54 @@ class _USGReportContainerState extends State<USGReportContainer> {
     }
   }
 
+  Future<bool> onSaveReceipt(
+    File file,
+    String usgId,
+    String userUsgId,
+    String userId,
+  ) async {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final clinicId = authProvider.currentUser!.clinics.first;
+
+    setState(() {
+      _currentUsgId = usgId;
+    });
+
+    final fileName = generateFileName('receipt_$usgId');
+    final receiptURL = await storageService.uploadFile(
+      file,
+      'clinics/$clinicId/receipts/',
+      fileName,
+    );
+    final response = await usgService.updateReceiptUrl(
+      clinicId,
+      usgId,
+      userId,
+      userUsgId,
+      receiptURL,
+    );
+    if (response) {
+      final updatedUSG = _usgs.firstWhere((usg) => usg.uid == usgId);
+      updatedUSG.receiptUrl = receiptURL;
+      setState(() {
+        _usgs = _usgs;
+        _currentUsgId = '';
+      });
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void acknowledgeAction(USGModel userUSGDetails) {
+    if (userUSGDetails.receiptUrl.isEmpty) {
+      Navigator.of(context).pushNamed(
+        ClinicRoutes.addAcknowledge,
+        arguments: {'userUSGDetails': userUSGDetails, 'onSave': onSaveReceipt},
+      );
+    }
+  }
+
   void reportAction(
     String report,
     String usgId,
@@ -151,6 +199,7 @@ class _USGReportContainerState extends State<USGReportContainer> {
         usgs: _usgs,
         reportAction: reportAction,
         viewPrescription: viewPrescription,
+        acknowledgeAction: acknowledgeAction,
       ),
     );
   }
