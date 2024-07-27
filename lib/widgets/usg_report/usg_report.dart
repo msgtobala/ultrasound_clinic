@@ -1,9 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:ultrasound_clinic/constants/enums/button_size.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/themes/colors.dart';
 import 'package:ultrasound_clinic/themes/fonts.dart';
+import 'package:ultrasound_clinic/utils/snackbar/show_snackbar.dart';
 import 'package:ultrasound_clinic/widgets/common/custom_accordion/custom_accordion.dart';
 import 'package:ultrasound_clinic/models/common/usg_model.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
@@ -21,6 +26,7 @@ class USGReport extends StatefulWidget {
     required this.usgs,
     required this.viewPrescription,
     required this.reportAction,
+    required this.acknowledgeAction,
   });
 
   final bool isLoading;
@@ -34,6 +40,7 @@ class USGReport extends StatefulWidget {
     String userUsgId,
     String userId,
   ) reportAction;
+  final Function(USGModel usg) acknowledgeAction;
 
   @override
   State<USGReport> createState() => _USGReportState();
@@ -41,6 +48,7 @@ class USGReport extends StatefulWidget {
 
 class _USGReportState extends State<USGReport> {
   int _selectedIndex = -1;
+  int _selectedShareIndex = -1;
 
   void toggleExpanded(int index) {
     setState(() {
@@ -50,6 +58,53 @@ class _USGReportState extends State<USGReport> {
         _selectedIndex = index;
       }
     });
+  }
+
+  void onShare(BuildContext context, String imageUrl, int index) async {
+    if (imageUrl.isEmpty) {
+      showSnackbar(context, Strings.noImageToShare);
+      return;
+    }
+
+    try {
+      // Get the download URL from Firebase Storage
+      setState(() {
+        _selectedShareIndex = index;
+      });
+      final ref = FirebaseStorage.instance.refFromURL(imageUrl);
+
+      // Create a temporary file
+      final tempDir = Directory.systemTemp;
+      final fileName =
+          'shared_image_${DateTime.now().millisecondsSinceEpoch}.jpg';
+      final filePath = '${tempDir.path}/$fileName';
+
+      // Download the file
+      final file = File(filePath);
+      await ref.writeToFile(file);
+      setState(() {
+        _selectedShareIndex = -1;
+      });
+      if (await file.exists()) {
+        // Share the file
+        final result = await Share.shareXFiles([XFile(filePath)]);
+
+        if (result.status == ShareResultStatus.success && context.mounted) {
+          showSnackbar(context, Strings.imageSharedSuccessfully);
+        }
+
+        // Delete the temporary file
+        await file.delete();
+      } else {
+        showSnackbar(context, Strings.failedToDownloadImage);
+      }
+    } catch (e) {
+      // Dismiss loading indicator if it's still showing
+      if (context.mounted) {
+        Navigator.of(context).pop();
+        showSnackbar(context, "Error sharing image");
+      }
+    }
   }
 
   @override
@@ -106,10 +161,13 @@ class _USGReportState extends State<USGReport> {
                             ),
                             SizedBox(width: 6.w),
                             Text(
-                              usg.report != ''
-                                  ? Strings.reportUploaded
-                                  : Strings.reportNotUploaded,
-                              style: Theme.of(context).textTheme.bodySmall,
+                              usg.receiptUrl.isEmpty
+                                  ? Strings.notAcknowledged
+                                  : (usg.report.isEmpty
+                                      ? Strings.reportNotUploaded
+                                      : Strings.reportUploaded),
+                              style:
+                                  Theme.of(context).textTheme.displaySmallWhite,
                             ),
                           ],
                         ),
@@ -165,36 +223,138 @@ class _USGReportState extends State<USGReport> {
                         title: const Text(Strings.state),
                         subtitle: Text(usg.state),
                       ),
-                      ButtonBar(
-                        alignment: MainAxisAlignment.end,
+                      SizedBox(height: 12.vs),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          CustomElevatedButton(
-                            text: Strings.viewPrescription,
-                            buttonSize: ButtonSize.extraSmall,
-                            buttonTextStyle:
-                                Theme.of(context).textTheme.bodyMediumWhite,
-                            onPressed: () =>
-                                widget.viewPrescription(usg.prescription),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SizedBox(
+                                width: 200.w,
+                                child: CustomElevatedButton(
+                                  text: Strings.viewPrescription,
+                                  buttonSize: ButtonSize.extraSmall,
+                                  buttonTextStyle: Theme.of(context)
+                                      .textTheme
+                                      .bodyMediumWhite,
+                                  onPressed: () =>
+                                      widget.viewPrescription(usg.prescription),
+                                ),
+                              ),
+                              _selectedShareIndex == 0
+                                  ? SizedBox(
+                                      width: 20.w,
+                                      height: 20.h,
+                                      child: const CircularProgressIndicator(
+                                        strokeWidth: 2.0,
+                                      ),
+                                    )
+                                  : InkWell(
+                                      onTap: () =>
+                                          onShare(context, usg.prescription, 0),
+                                      child: Icon(
+                                        Icons.share,
+                                        color: usg.prescription.isEmpty
+                                            ? ThemeColors.gray200
+                                            : ThemeColors.black,
+                                      ),
+                                    ),
+                            ],
                           ),
-                          CustomOutlinedButton(
-                            text: usg.report.isNotEmpty
-                                ? Strings.viewReport
-                                : Strings.uploadReport,
-                            isLoading: widget.isUploading &&
-                                widget.currentUsgId == usg.uid,
-                            borderColor: ThemeColors.primary,
-                            buttonSize: ButtonSize.extraSmall,
-                            buttonTextStyle:
-                                Theme.of(context).textTheme.bodyMediumPrimary,
-                            onPressed: () => widget.reportAction(
-                              usg.report,
-                              usg.uid,
-                              usg.usgRefId,
-                              usg.userId,
+                          SizedBox(height: 8.vs),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SizedBox(
+                                width: 200.w,
+                                child: CustomElevatedButton(
+                                  text: usg.receiptUrl.isEmpty
+                                      ? Strings.acknowledge
+                                      : Strings.acknowledged,
+                                  buttonTextStyle: Theme.of(context)
+                                      .textTheme
+                                      .bodyMediumWhite,
+                                  onPressed: () {
+                                    widget.acknowledgeAction(usg);
+                                  },
+                                ),
+                              ),
+                              _selectedShareIndex == 1
+                                  ? SizedBox(
+                                      width: 20.w,
+                                      height: 20.h,
+                                      child: const CircularProgressIndicator(
+                                        strokeWidth: 2.0,
+                                      ),
+                                    )
+                                  : InkWell(
+                                      onTap: () =>
+                                          onShare(context, usg.receiptUrl, 1),
+                                      child: Icon(
+                                        Icons.share,
+                                        color: usg.receiptUrl.isEmpty
+                                            ? ThemeColors.gray200
+                                            : ThemeColors.black,
+                                      ),
+                                    ),
+                            ],
+                          ),
+                          SizedBox(height: 8.vs),
+                          if (usg.receiptUrl.isNotEmpty)
+                            Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    SizedBox(
+                                      width: 200.w,
+                                      child: CustomOutlinedButton(
+                                        text: usg.report.isNotEmpty
+                                            ? Strings.viewReport
+                                            : Strings.uploadReport,
+                                        isLoading: widget.isUploading &&
+                                            widget.currentUsgId == usg.uid,
+                                        borderColor: ThemeColors.primary,
+                                        buttonSize: ButtonSize.extraSmall,
+                                        buttonTextStyle: Theme.of(context)
+                                            .textTheme
+                                            .bodyMediumPrimary,
+                                        onPressed: () => widget.reportAction(
+                                          usg.report,
+                                          usg.uid,
+                                          usg.usgRefId,
+                                          usg.userId,
+                                        ),
+                                      ),
+                                    ),
+                                    _selectedShareIndex == 2
+                                        ? SizedBox(
+                                            width: 20.w,
+                                            height: 20.h,
+                                            child:
+                                                const CircularProgressIndicator(
+                                              strokeWidth: 2.0,
+                                            ),
+                                          )
+                                        : InkWell(
+                                            onTap: () =>
+                                                onShare(context, usg.report, 2),
+                                            child: Icon(
+                                              Icons.share,
+                                              color: usg.report.isEmpty
+                                                  ? ThemeColors.gray200
+                                                  : ThemeColors.black,
+                                            ),
+                                          ),
+                                  ],
+                                ),
+                                SizedBox(height: 10.vs),
+                              ],
                             ),
-                          ),
                         ],
-                      ),
+                      )
                     ],
                   ),
                 ),

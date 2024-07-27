@@ -1,7 +1,5 @@
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:ultrasound_clinic/core/services/firebase/firebase_storage_service.dart';
 import 'package:ultrasound_clinic/core/services/firebase/firestore_service.dart';
 import 'package:ultrasound_clinic/models/common/staff_model.dart';

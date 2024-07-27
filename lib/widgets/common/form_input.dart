@@ -17,6 +17,8 @@ class FormInput extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.initialValue,
+    this.hintText,
+    this.enabled,
   });
 
   final String text;
@@ -31,6 +33,8 @@ class FormInput extends StatelessWidget {
   final Widget? suffixIcon;
   final void Function()? onTap;
   final String? initialValue;
+  final String? hintText;
+  final bool? enabled;
 
   @override
   Widget build(BuildContext context) {
@@ -42,20 +46,21 @@ class FormInput extends StatelessWidget {
       onSaved: onSaved,
       onChanged: onChanged,
       decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        prefixIcon: prefixIcon,
-        suffixIcon: suffixIcon,
-        label: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(text),
-        ),
-        labelStyle: Theme.of(context).textTheme.displayMediumGray,
-      ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          prefixIcon: prefixIcon,
+          suffixIcon: suffixIcon,
+          label: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(text),
+          ),
+          labelStyle: Theme.of(context).textTheme.displayMediumGray,
+          hintText: hintText),
       validator: validator,
       controller: controller,
       readOnly: readOnly ?? false,
+      enabled: enabled ?? true,
     );
   }
 }

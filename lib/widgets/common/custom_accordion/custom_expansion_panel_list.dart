@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 const double _kPanelHeaderCollapsedHeight = kMinInteractiveDimension;
-const EdgeInsets _kPanelHeaderExpandedDefaultPadding = EdgeInsets.symmetric(
-  vertical: 64.0 - _kPanelHeaderCollapsedHeight,
-);
+// const EdgeInsets _kPanelHeaderExpandedDefaultPadding = EdgeInsets.symmetric(
+//   vertical: 64.0 - _kPanelHeaderCollapsedHeight,
+// );
 
 class _SaltedKey<S, V> extends LocalKey {
   const _SaltedKey(this.salt, this.value);

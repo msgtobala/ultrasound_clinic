@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'package:ultrasound_clinic/models/common/appointment_model.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
