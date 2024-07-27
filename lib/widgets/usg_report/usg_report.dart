@@ -1,9 +1,14 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 
 import 'package:ultrasound_clinic/constants/enums/button_size.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/themes/colors.dart';
 import 'package:ultrasound_clinic/themes/fonts.dart';
+import 'package:ultrasound_clinic/utils/snackbar/show_snackbar.dart';
 import 'package:ultrasound_clinic/widgets/common/custom_accordion/custom_accordion.dart';
 import 'package:ultrasound_clinic/models/common/usg_model.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
@@ -52,6 +57,50 @@ class _USGReportState extends State<USGReport> {
         _selectedIndex = index;
       }
     });
+  }
+
+  void onShare(BuildContext context, String imageUrl) async {
+    if (imageUrl.isEmpty) {
+      showSnackbar(context, "No image to share");
+      return;
+    }
+
+    try {
+      // Get the download URL from Firebase Storage
+      final ref = FirebaseStorage.instance.refFromURL(imageUrl);
+
+      // Create a temporary file
+      final tempDir = Directory.systemTemp;
+      final fileName =
+          'shared_image_${DateTime.now().millisecondsSinceEpoch}.jpg';
+      final filePath = '${tempDir.path}/$fileName';
+
+      // Download the file
+      final file = File(filePath);
+      await ref.writeToFile(file);
+
+      if (await file.exists()) {
+        // Share the file
+        final result =
+            await Share.shareXFiles([XFile(filePath)], text: "Your Image");
+
+        if (result.status == ShareResultStatus.success && context.mounted) {
+          showSnackbar(context, Strings.clinicCodeShared);
+        }
+
+        // Delete the temporary file
+        await file.delete();
+      } else {
+        throw Exception("Failed to download image");
+      }
+    } catch (e) {
+      print("Error sharing image: $e");
+      // Dismiss loading indicator if it's still showing
+      if (context.mounted) {
+        Navigator.of(context).pop();
+        showSnackbar(context, "Error sharing image");
+      }
+    }
   }
 
   @override
@@ -171,43 +220,97 @@ class _USGReportState extends State<USGReport> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          CustomElevatedButton(
-                            text: Strings.viewPrescription,
-                            buttonSize: ButtonSize.extraSmall,
-                            buttonTextStyle:
-                                Theme.of(context).textTheme.bodyMediumWhite,
-                            onPressed: () =>
-                                widget.viewPrescription(usg.prescription),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              SizedBox(
+                                width: 200.w,
+                                child: CustomElevatedButton(
+                                  text: Strings.viewPrescription,
+                                  buttonSize: ButtonSize.extraSmall,
+                                  buttonTextStyle: Theme.of(context)
+                                      .textTheme
+                                      .bodyMediumWhite,
+                                  onPressed: () =>
+                                      widget.viewPrescription(usg.prescription),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () => onShare(context, usg.prescription),
+                                child: Icon(
+                                  Icons.share,
+                                  color: usg.prescription.isEmpty
+                                      ? ThemeColors.gray200
+                                      : ThemeColors.black,
+                                ),
+                              ),
+                            ],
                           ),
-                          CustomElevatedButton(
-                            text: usg.receiptUrl.isEmpty
-                                ? Strings.acknowledge
-                                : Strings.acknowledged,
-                            buttonTextStyle:
-                                Theme.of(context).textTheme.bodyMediumWhite,
-                            onPressed: () {
-                              widget.acknowledgeAction(usg);
-                            },
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              SizedBox(
+                                width: 200.w,
+                                child: CustomElevatedButton(
+                                  text: usg.receiptUrl.isEmpty
+                                      ? Strings.acknowledge
+                                      : Strings.acknowledged,
+                                  buttonTextStyle: Theme.of(context)
+                                      .textTheme
+                                      .bodyMediumWhite,
+                                  onPressed: () {
+                                    widget.acknowledgeAction(usg);
+                                  },
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () => onShare(context, usg.receiptUrl),
+                                child: Icon(
+                                  Icons.share,
+                                  color: usg.receiptUrl.isEmpty
+                                      ? ThemeColors.gray200
+                                      : ThemeColors.black,
+                                ),
+                              ),
+                            ],
                           ),
-                          CustomOutlinedButton(
-                            text: usg.report.isNotEmpty
-                                ? Strings.viewReport
-                                : Strings.uploadReport,
-                            isLoading: widget.isUploading &&
-                                widget.currentUsgId == usg.uid,
-                            borderColor: ThemeColors.primary,
-                            buttonSize: ButtonSize.extraSmall,
-                            buttonTextStyle:
-                                Theme.of(context).textTheme.bodyMediumPrimary,
-                            onPressed: () => widget.reportAction(
-                              usg.report,
-                              usg.uid,
-                              usg.usgRefId,
-                              usg.userId,
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              SizedBox(
+                                width: 200.w,
+                                child: CustomOutlinedButton(
+                                  text: usg.report.isNotEmpty
+                                      ? Strings.viewReport
+                                      : Strings.uploadReport,
+                                  isLoading: widget.isUploading &&
+                                      widget.currentUsgId == usg.uid,
+                                  borderColor: ThemeColors.primary,
+                                  buttonSize: ButtonSize.extraSmall,
+                                  buttonTextStyle: Theme.of(context)
+                                      .textTheme
+                                      .bodyMediumPrimary,
+                                  onPressed: () => widget.reportAction(
+                                    usg.report,
+                                    usg.uid,
+                                    usg.usgRefId,
+                                    usg.userId,
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () => onShare(context, usg.report),
+                                child: Icon(
+                                  Icons.share,
+                                  color: usg.report.isEmpty
+                                      ? ThemeColors.gray200
+                                      : ThemeColors.black,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
-                      ),
+                      )
                     ],
                   ),
                 ),
