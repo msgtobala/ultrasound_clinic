@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+
 import 'package:ultrasound_clinic/models/common/form_model.dart';
 import 'package:ultrasound_clinic/models/common/usg_model.dart';
-
 import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
 import 'package:ultrasound_clinic/utils/snackbar/show_snackbar.dart';
@@ -13,20 +13,23 @@ import 'package:ultrasound_clinic/widgets/common/custom_elevated_button.dart';
 import 'package:ultrasound_clinic/widgets/common/form_input.dart';
 import 'package:ultrasound_clinic/widgets/common/generic_media_dialog.dart';
 
-class AddAcknowlegdeScreen extends StatefulWidget {
-  const AddAcknowlegdeScreen({super.key});
+class AddAcknowledgeScreen extends StatefulWidget {
+  const AddAcknowledgeScreen({super.key});
 
   @override
-  State<AddAcknowlegdeScreen> createState() => _AddAcknowlegdeScreenState();
+  State<AddAcknowledgeScreen> createState() => _AddAcknowledgeScreenState();
 }
 
-class _AddAcknowlegdeScreenState extends State<AddAcknowlegdeScreen> {
+class _AddAcknowledgeScreenState extends State<AddAcknowledgeScreen> {
   final formKey = GlobalKey<FormState>();
   bool _isLoading = false;
   bool _isUploadValid = false;
   File? _image;
   late USGModel userUSGDetails;
-  late Future<bool> Function(File, String, String, String) onSaveReceipt;
+  late Future<bool> Function(File, String, String, String, String)
+      onSaveReceipt;
+  final TextEditingController _receiptNumberController =
+      TextEditingController();
   List<FormModel>? formInputs;
 
   @override
@@ -37,7 +40,12 @@ class _AddAcknowlegdeScreenState extends State<AddAcknowlegdeScreen> {
           ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
       userUSGDetails = arguments['userUSGDetails'] as USGModel;
       onSaveReceipt = arguments['onSave'] as Future<bool> Function(
-          File, String, String, String);
+        File,
+        String,
+        String,
+        String,
+        String,
+      );
 
       setState(() {
         formInputs = [
@@ -84,30 +92,36 @@ class _AddAcknowlegdeScreenState extends State<AddAcknowlegdeScreen> {
   }
 
   Future<void> onSubmit() async {
-    if (_image != null && _isUploadValid) {
-      setState(() {
-        _isLoading = true;
-      });
-
-      final isUploaded = await onSaveReceipt(
-        _image!,
-        userUSGDetails.uid,
-        userUSGDetails.usgRefId,
-        userUSGDetails.userId,
-      );
-
-      setState(() {
-        _isLoading = false;
-      });
-
-      if (isUploaded) {
-        Navigator.of(context).pop();
-        showSnackbar(context, Strings.receiptUploadedSuccessfully);
-      } else {
-        showSnackbar(context, Strings.receiptUploadFailed);
-      }
-    } else {
+    if (_receiptNumberController.text.isEmpty) {
+      showSnackbar(context, Strings.receiptNumberRequired);
+      return;
+    }
+    if (_image == null || !_isUploadValid) {
       showSnackbar(context, Strings.invalidReceiptImage);
+      return;
+    }
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    final isUploaded = await onSaveReceipt(
+      _image!,
+      userUSGDetails.uid,
+      userUSGDetails.usgRefId,
+      userUSGDetails.userId,
+      _receiptNumberController.text,
+    );
+
+    setState(() {
+      _isLoading = false;
+    });
+
+    if (isUploaded) {
+      Navigator.of(context).pop();
+      showSnackbar(context, Strings.receiptUploadedSuccessfully);
+    } else {
+      showSnackbar(context, Strings.receiptUploadFailed);
     }
   }
 
@@ -143,8 +157,7 @@ class _AddAcknowlegdeScreenState extends State<AddAcknowlegdeScreen> {
                               children: [
                                 FormInput(
                                   text: input.label,
-                                  hintText: input.label,
-                                  readOnly: true,
+                                  enabled: false,
                                 ),
                                 SizedBox(height: 20.h),
                               ],
@@ -168,8 +181,7 @@ class _AddAcknowlegdeScreenState extends State<AddAcknowlegdeScreen> {
                                               0.43,
                                           child: FormInput(
                                             text: nextInput.label,
-                                            hintText: nextInput.label,
-                                            readOnly: true,
+                                            enabled: false,
                                           ),
                                         ),
                                       );
@@ -183,6 +195,15 @@ class _AddAcknowlegdeScreenState extends State<AddAcknowlegdeScreen> {
                           return const SizedBox();
                         },
                       ),
+                      Column(
+                        children: [
+                          FormInput(
+                            controller: _receiptNumberController,
+                            text: Strings.receiptNumber,
+                          ),
+                          SizedBox(height: 20.h),
+                        ],
+                      )
                     ],
                   ),
                 ),

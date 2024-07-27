@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:ultrasound_clinic/screens/auth/change_password_screen.dart';
-import 'package:ultrasound_clinic/screens/clinic/add_acknowlegde_screen.dart';
+import 'package:ultrasound_clinic/screens/clinic/add_acknowledge_screen.dart';
 import 'package:ultrasound_clinic/screens/clinic/add_staff_screen.dart';
 import 'package:ultrasound_clinic/screens/clinic/edit_doctor_screen.dart';
 import 'package:ultrasound_clinic/screens/clinic/edit_staff_screen.dart';
@@ -46,7 +46,7 @@ class ClinicRoutes {
       editDoctor: (context) => const EditDoctorScreen(),
       termAndConditions: (context) => const TermsAndConditions(),
       changePassword: (context) => const ChangePasswordScreen(),
-      addAcknowledge: (context) => const AddAcknowlegdeScreen(),
+      addAcknowledge: (context) => const AddAcknowledgeScreen(),
     };
   }
 

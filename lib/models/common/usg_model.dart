@@ -11,6 +11,7 @@ class USGModel {
   String usgRefId;
   String userId;
   String receiptUrl;
+  String receiptId;
 
   USGModel({
     required this.uid,
@@ -25,6 +26,7 @@ class USGModel {
     required this.usgRefId,
     required this.userId,
     required this.receiptUrl,
+    required this.receiptId,
   });
 
   // Factory constructor to create an instance from a JSON map
@@ -41,7 +43,8 @@ class USGModel {
         report: json['report'] as String,
         usgRefId: json['usgRefId'] as String,
         userId: json['userId'] as String,
-        receiptUrl: json['receiptUrl'] as String);
+        receiptUrl: json['receiptUrl'] as String,
+        receiptId: json['receiptId'] as String);
   }
 
   // Method to convert an instance to a JSON map
@@ -59,6 +62,7 @@ class USGModel {
       'usgRefId': usgRefId,
       'userId': userId,
       'receiptUrl': receiptUrl,
+      'receiptId': receiptId,
     };
   }
 }
@@ -76,6 +80,7 @@ class UserUSGModel {
   String refId;
   String clinicId;
   String receiptUrl;
+  String receiptId;
 
   UserUSGModel({
     required this.uid,
@@ -90,6 +95,7 @@ class UserUSGModel {
     required this.refId,
     required this.clinicId,
     required this.receiptUrl,
+    required this.receiptId,
   });
 
   // Factory constructor to create an instance from a JSON map
@@ -107,6 +113,7 @@ class UserUSGModel {
       refId: json['refId'] as String,
       clinicId: json['clinicId'] as String,
       receiptUrl: json['receiptUrl'] as String,
+      receiptId: json['receiptId'] as String,
     );
   }
 
@@ -125,6 +132,7 @@ class UserUSGModel {
       'refId': refId,
       'clinicId': clinicId,
       'receiptUrl': receiptUrl,
+      'receiptId': receiptId,
     };
   }
 }

@@ -18,6 +18,7 @@ class FormInput extends StatelessWidget {
     this.suffixIcon,
     this.initialValue,
     this.hintText,
+    this.enabled,
   });
 
   final String text;
@@ -33,6 +34,7 @@ class FormInput extends StatelessWidget {
   final void Function()? onTap;
   final String? initialValue;
   final String? hintText;
+  final bool? enabled;
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +60,7 @@ class FormInput extends StatelessWidget {
       validator: validator,
       controller: controller,
       readOnly: readOnly ?? false,
+      enabled: enabled ?? true,
     );
   }
 }

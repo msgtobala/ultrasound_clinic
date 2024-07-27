@@ -4,10 +4,10 @@ import 'package:flutter/animation.dart';
 
 class DelayTween extends Tween<double> {
   DelayTween({
-    double? begin,
-    double? end,
+    super.begin,
+    super.end,
     required this.delay,
-  }) : super(begin: begin, end: end);
+  });
 
   final double delay;
 

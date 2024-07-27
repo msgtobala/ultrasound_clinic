@@ -52,6 +52,7 @@ class USGService {
         'prescription': prescriptionURL,
         'usgRefId': userUSGId,
         'receiptUrl': '',
+        'receiptId': '',
       });
       UserUSGModel userUSGModel = UserUSGModel.fromJson({
         ...usg,
@@ -59,7 +60,8 @@ class USGService {
         'prescription': prescriptionURL,
         'refId': usgId,
         'clinicId': clinicId,
-        'receiptUrl': ""
+        'receiptUrl': "",
+        'receiptId': "",
       });
 
       await _firestore
@@ -139,8 +141,14 @@ class USGService {
     }
   }
 
-  Future<bool> updateReceiptUrl(String clinicId, String usgId, String userId,
-      String userUsgId, String receiptUrl) async {
+  Future<bool> updateReceiptUrl(
+    String clinicId,
+    String usgId,
+    String userId,
+    String userUsgId,
+    String receiptUrl,
+    String receiptNumber,
+  ) async {
     try {
       DocumentReference documentReference = _firestore
           .collection('clinics')
@@ -154,8 +162,14 @@ class USGService {
           .collection('userUSG')
           .doc(userUsgId);
 
-      await documentReference.update({'receiptUrl': receiptUrl});
-      await userDocumentReference.update({'receiptUrl': receiptUrl});
+      await documentReference.update({
+        'receiptUrl': receiptUrl,
+        'receiptNumber': receiptNumber,
+      });
+      await userDocumentReference.update({
+        'receiptUrl': receiptUrl,
+        'receiptNumber': receiptNumber,
+      });
       log.i('Receipt URL updated successfully');
       return true;
     } catch (e) {

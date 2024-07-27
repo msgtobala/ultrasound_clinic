@@ -114,6 +114,7 @@ class _USGReportContainerState extends State<USGReportContainer> {
     String usgId,
     String userUsgId,
     String userId,
+    String receiptNumber,
   ) async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final clinicId = authProvider.currentUser!.clinics.first;
@@ -134,6 +135,7 @@ class _USGReportContainerState extends State<USGReportContainer> {
       userId,
       userUsgId,
       receiptURL,
+      receiptNumber,
     );
     if (response) {
       final updatedUSG = _usgs.firstWhere((usg) => usg.uid == usgId);
