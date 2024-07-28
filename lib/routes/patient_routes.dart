@@ -9,6 +9,7 @@ import 'package:ultrasound_clinic/screens/common/terms_and_conditions.dart';
 import 'package:ultrasound_clinic/screens/patient/clinic_selection_screen.dart';
 import 'package:ultrasound_clinic/screens/common/home_navigation_screen.dart';
 import 'package:ultrasound_clinic/screens/patient/my_appointments_screen.dart';
+import 'package:ultrasound_clinic/screens/patient/my_usg_screen.dart';
 
 class PatientRoutes {
   const PatientRoutes._();
@@ -33,6 +34,7 @@ class PatientRoutes {
       termAndConditions: (context) => const TermsAndConditions(),
       myAppointments: (context) => const MyAppointmentsScreen(),
       changePassword: (context) => const ChangePasswordScreen(),
+      myUSGs: (context) => const MyUsgScreen(),
     };
   }
 

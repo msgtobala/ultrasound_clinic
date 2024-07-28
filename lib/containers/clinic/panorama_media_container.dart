@@ -7,7 +7,6 @@ import 'package:ultrasound_clinic/core/services/panorama/panorama_services.dart'
 import 'package:ultrasound_clinic/models/common/panorama_image_model.dart';
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/routes/clinic_routes.dart';
-import 'package:ultrasound_clinic/themes/responsiveness.dart';
 import 'package:ultrasound_clinic/widgets/common/custom_shimmer/custom_card_shimmer.dart';
 import 'package:ultrasound_clinic/widgets/panorama_media/media_dialog.dart';
 import 'package:ultrasound_clinic/widgets/panorama_media/panorama_media.dart';
