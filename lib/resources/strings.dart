@@ -203,4 +203,6 @@ class Strings {
   static const String failedToDownloadImage = "Failed to download image";
   static const String imageSharedSuccessfully = "Image shared successfully";
   static const String noImageToShare = "No image to share";
+  static const String noReceiptUploaded = 'No receipt uploaded';
+  static const String noReportUploaded = 'No report uploaded';
 }

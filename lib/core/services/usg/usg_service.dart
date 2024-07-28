@@ -110,6 +110,24 @@ class USGService {
     }
   }
 
+  Future<List<UserUSGModel>> getUserUSGs(String userId) async {
+    try {
+      QuerySnapshot querySnapshot = await _firestore
+          .collection('users')
+          .doc(userId)
+          .collection('userUSG')
+          .get();
+      List<UserUSGModel> usgList = querySnapshot.docs
+          .map((doc) =>
+              UserUSGModel.fromJson(doc.data() as Map<String, dynamic>))
+          .toList();
+      return usgList;
+    } catch (e) {
+      log.e('Error getting USGs: $e');
+      return [];
+    }
+  }
+
   // Method to update the report URL
   Future<bool> updateReportUrl(
     String clinicId,
