@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:ultrasound_clinic/constants/constants.dart';
+import 'package:ultrasound_clinic/core/services/firebase/firebase_fcm.dart';
 import 'package:ultrasound_clinic/models/auth/auth_model.dart';
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/screens/auth/signup_successful_screen.dart';
@@ -85,6 +86,8 @@ class _SignFormContainerState extends State<SignFormContainer> {
       final loggedInStatuses = await SharedPreferencesUtils().getMapPrefs(
         constants.loggedInStatusFlag,
       );
+      final String userId = authProvider.currentUser!.uid;
+      FirebaseFcm().saveTokenToDatabase(userId);
       if (loggedInStatuses.value == null ||
           loggedInStatuses.value[user.userId] == null ||
           loggedInStatuses.value[user.userId] == false) {

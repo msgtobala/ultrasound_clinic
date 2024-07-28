@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'package:ultrasound_clinic/constants/constants.dart';
 import 'package:ultrasound_clinic/constants/enums/role_enum.dart';
+import 'package:ultrasound_clinic/core/services/firebase/firebase_fcm.dart';
 import 'package:ultrasound_clinic/models/auth/auth_model.dart';
 import 'package:ultrasound_clinic/providers/auth_provider.dart';
 import 'package:ultrasound_clinic/resources/strings.dart';
@@ -67,6 +68,8 @@ class _LoginFormContainerState extends State<LoginFormContainer> {
           newLoggedStatus,
         );
       }
+      final String userId = authProvider.currentUser!.uid;
+      FirebaseFcm().saveTokenToDatabase(userId);
       setState(() {
         _isLoading = false;
       });

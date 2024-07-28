@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:ultrasound_clinic/app.dart';
+import 'package:ultrasound_clinic/core/services/firebase/firebase_fcm.dart';
 import 'package:ultrasound_clinic/core/services/firebase/firebase_options.dart';
 
 void main() async {
@@ -15,5 +16,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await FirebaseFcm().initNotifications();
   runApp(const UltraSoundClinicApp());
 }
