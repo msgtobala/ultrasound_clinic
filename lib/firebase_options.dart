@@ -46,6 +46,16 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyB_I4GxtSiRLXJlqmW8nEHMiB1_SqXehLc',
+    appId: '1:400364342771:web:2356be00e6898ecd135686',
+    messagingSenderId: '400364342771',
+    projectId: 'ultrasonic-clinic',
+    authDomain: 'ultrasonic-clinic.firebaseapp.com',
+    storageBucket: 'ultrasonic-clinic.appspot.com',
+    measurementId: 'G-S9JH0W7100',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAd1AIJkDOZYK_XaOKfTCLhMMaaOoeOgMs',
     appId: '1:400364342771:android:95ebbfdcd2dfdea5135686',
@@ -60,20 +70,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '400364342771',
     projectId: 'ultrasonic-clinic',
     storageBucket: 'ultrasonic-clinic.appspot.com',
-    androidClientId:
-        '400364342771-3m908fk37243b36jf3n7angchjqr66uv.apps.googleusercontent.com',
-    iosClientId:
-        '400364342771-0np83viaee8bhg2cdki1i22t9q1ilb9h.apps.googleusercontent.com',
+    androidClientId: '400364342771-3m908fk37243b36jf3n7angchjqr66uv.apps.googleusercontent.com',
+    iosClientId: '400364342771-0np83viaee8bhg2cdki1i22t9q1ilb9h.apps.googleusercontent.com',
     iosBundleId: 'com.example.ultrasoundClinic',
   );
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyB_I4GxtSiRLXJlqmW8nEHMiB1_SqXehLc',
-    appId: '1:400364342771:web:2356be00e6898ecd135686',
-    messagingSenderId: '400364342771',
-    projectId: 'ultrasonic-clinic',
-    authDomain: 'ultrasonic-clinic.firebaseapp.com',
-    storageBucket: 'ultrasonic-clinic.appspot.com',
-    measurementId: 'G-S9JH0W7100',
-  );
 }
