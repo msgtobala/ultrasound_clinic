@@ -61,7 +61,7 @@ class _USGReportContainerState extends State<USGReportContainer> {
   void viewPrescription(String prescription) {
     Navigator.of(context).pushNamed(
       ClinicRoutes.viewAssets,
-      arguments: prescription,
+      arguments: {'imageURL': prescription, 'text': Strings.prescription},
     );
   }
 
@@ -156,6 +156,14 @@ class _USGReportContainerState extends State<USGReportContainer> {
         ClinicRoutes.addAcknowledge,
         arguments: {'userUSGDetails': userUSGDetails, 'onSave': onSaveReceipt},
       );
+    } else {
+      Navigator.of(context).pushNamed(
+        ClinicRoutes.viewAssets,
+        arguments: {
+          'imageURL': userUSGDetails.receiptUrl,
+          'text': Strings.receipt
+        },
+      );
     }
   }
 
@@ -168,7 +176,7 @@ class _USGReportContainerState extends State<USGReportContainer> {
     if (report.isNotEmpty) {
       Navigator.of(context).pushNamed(
         ClinicRoutes.viewAssets,
-        arguments: report,
+        arguments: {'imageURL': report, 'text': Strings.report},
       );
     } else {
       showDialog(

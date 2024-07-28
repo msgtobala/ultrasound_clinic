@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/widgets/common/custom_app_bar_text.dart';
 
 class ViewAssetsScreen extends StatelessWidget {
@@ -9,12 +8,14 @@ class ViewAssetsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String imageURL =
-        ModalRoute.of(context)!.settings.arguments as String;
+    final Map<String, String> arguments =
+        ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+    final String imageURL = arguments['imageURL']!;
+    final String text = arguments['text']!;
 
     return Scaffold(
-      appBar: const CustomAppBarText(
-        title: Strings.prescription,
+      appBar: CustomAppBarText(
+        title: text,
         showBackButton: true,
       ),
       body: Image.network(
