@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -277,6 +278,7 @@ class AuthProvider with ChangeNotifier {
 
   Future<bool> signOut() async {
     try {
+      await removeFcmToken(_currentUser!.uid);
       final response = await FirebaseAuthService().signOut();
       await _googleSignIn.signOut();
       if (response) {
@@ -290,6 +292,15 @@ class AuthProvider with ChangeNotifier {
       log.e('Failed to sign out: $e');
       return false;
     }
+  }
+
+  Future<void> removeFcmToken(String userId) async {
+    await FirebaseFirestore.instance.collection('users').doc(userId).update(
+      {
+        'fcmTokens': FieldValue.arrayRemove(
+            [await FirebaseMessaging.instance.getToken()])
+      },
+    );
   }
 
   Future<bool> checkExistingClinicCode(String clinicCode) async {

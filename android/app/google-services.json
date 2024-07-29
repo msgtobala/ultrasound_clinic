@@ -12,7 +12,28 @@
           "package_name": "com.ultrasonic.clinic"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "400364342771-3m908fk37243b36jf3n7angchjqr66uv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ultrasonic.clinic",
+            "certificate_hash": "93ead5061a63fb4bab467d008b88f3b3ecdbbfca"
+          }
+        },
+        {
+          "client_id": "400364342771-4oqb3hs5595pv68i0v9jifpf0en0c1vn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ultrasonic.clinic",
+            "certificate_hash": "6facfe531c41170dda3e3a7c817e125f0e561394"
+          }
+        },
+        {
+          "client_id": "400364342771-dvih9bt7t175mvesj968ujfdmm40ss1m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAd1AIJkDOZYK_XaOKfTCLhMMaaOoeOgMs"
@@ -20,7 +41,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "400364342771-dvih9bt7t175mvesj968ujfdmm40ss1m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "400364342771-0np83viaee8bhg2cdki1i22t9q1ilb9h.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.ultrasoundClinic"
+              }
+            }
+          ]
         }
       }
     }

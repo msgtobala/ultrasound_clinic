@@ -60,6 +60,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '400364342771',
     projectId: 'ultrasonic-clinic',
     storageBucket: 'ultrasonic-clinic.appspot.com',
+    androidClientId:
+        '400364342771-3m908fk37243b36jf3n7angchjqr66uv.apps.googleusercontent.com',
+    iosClientId:
+        '400364342771-0np83viaee8bhg2cdki1i22t9q1ilb9h.apps.googleusercontent.com',
     iosBundleId: 'com.example.ultrasoundClinic',
   );
 

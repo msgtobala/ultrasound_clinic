@@ -45,6 +45,7 @@ class _InitScreenState extends State<InitScreen> {
             authProvider.user!.emailVerified &&
             authProvider.loggedInStatus == true) {
           authProvider.removeListener(authListener);
+
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (context) =>
