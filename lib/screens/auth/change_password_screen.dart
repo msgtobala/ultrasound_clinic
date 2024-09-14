@@ -12,6 +12,7 @@ class ChangePasswordScreen extends StatelessWidget {
     return const BaseLayout(
       pageTitle: Strings.changePassword,
       pageDescription: Strings.enterEmailAndPasswordToChangePassword,
+      topPosition: 60,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

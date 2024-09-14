@@ -12,6 +12,7 @@ class BaseLayout extends StatelessWidget {
     required this.pageTitle,
     required this.pageDescription,
     this.offset = const Offset(0, -40),
+    this.topPosition,
   });
 
   final Widget child;
@@ -19,6 +20,7 @@ class BaseLayout extends StatelessWidget {
   final String pageDescription;
   final Offset? offset;
   final bool? hideMeta;
+  final double? topPosition;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class BaseLayout extends StatelessWidget {
                 ),
                 if (!(hideMeta ?? false))
                   Positioned(
-                    top: 120.h,
+                    top: topPosition ?? 120.h,
                     left: 20.w,
                     right: 20.w,
                     child: Column(
