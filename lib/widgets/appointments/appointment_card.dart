@@ -63,14 +63,14 @@ class AppointmentCard extends StatelessWidget {
                             ),
                           ],
                         ),
-                        IconButton(
-                          icon: SizedBox(
-                            width: 30.w,
-                            height: 30.h,
-                            child: const SVGLoader(image: icons.Icons.phone),
-                          ),
-                          onPressed: () {},
-                        ),
+                        // IconButton(
+                        //   icon: SizedBox(
+                        //     width: 30.w,
+                        //     height: 30.h,
+                        //     child: const SVGLoader(image: icons.Icons.phone),
+                        //   ),
+                        //   onPressed: () {},
+                        // ),
                       ],
                     ),
                     SizedBox(height: 16.h),

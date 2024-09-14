@@ -7,7 +7,7 @@ import 'package:ultrasound_clinic/resources/strings.dart';
 import 'package:ultrasound_clinic/themes/colors.dart';
 import 'package:ultrasound_clinic/themes/fonts.dart';
 import 'package:ultrasound_clinic/themes/responsiveness.dart';
-import 'package:ultrasound_clinic/widgets/common/form_input.dart';
+// import 'package:ultrasound_clinic/widgets/common/form_input.dart';
 
 class AppointmentsScreen extends StatelessWidget {
   const AppointmentsScreen({super.key});
@@ -18,10 +18,10 @@ class AppointmentsScreen extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 30.vs, horizontal: 13.hs),
       child: Column(
         children: [
-          const FormInput(
-            text: Strings.search,
-          ),
-          SizedBox(height: 20.h),
+          // const FormInput(
+          //   text: Strings.search,
+          // ),
+          // SizedBox(height: 20.h),
           Expanded(
             child: DefaultTabController(
               length: constants.appointmentTabs,
